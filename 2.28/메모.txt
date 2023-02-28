@@ -1,0 +1,33 @@
+와이어프레임 = 스케치 단계
+프로토타입 = 스케치를 시뮬레이션
+
+디비컷
+
+vscode 확장파일
+live server
+open in browser
+indent rainbow
+auto rename tag
+color picker
+html css support
+css peek
+prettier
+
+vscode 기본설정
+tap 공백 : 2
+word wrap
+zoom
+emmet : lang ko
+auto save : delay 500
+
+ehdtjd0906.dothome.co.kr
+
+파일질라로 무료 호스팅 가능
+
+GMA-FAD
+
+채용공고 많이 확인해서
+내가 취업하고 싶은 분야를 탐색
+어떤 언어를 해야하는지, 무엇이 필요한지 등
+포트폴리오의 방향성을 잡기 위함
+
