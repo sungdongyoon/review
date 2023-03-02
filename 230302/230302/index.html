@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <form action="">
+    <fieldset id="first">
+      <legend><strong>신청과목</strong></legend>
+      <div>
+        <p>이달에 신청할 과목을 선택하세요! (*1과목만 선택가능)</p>
+        <label for="a"><input type="radio" name="sub" id="a">회화</label>
+        <label for="b"><input type="radio" name="sub" id="b" checked>문법</label>
+        <label for="c"><input type="radio" name="sub" id="c">작문</label>
+      </div>
+    </fieldset>
+    <fieldset id="second">
+      <legend><strong>메일링</strong></legend>
+      <div>
+        <p>메일로 받고 싶은 뉴스 주제를 선택해 주세요! (*복수 선택가능)</p>
+        <label for="d"><input type="checkbox" name="sub" id="d">문법</label>
+        <label for="e"><input type="checkbox" name="sub" id="e">회화</label>
+        <label for="f"><input type="checkbox" name="sub" id="f" checked>작문</label>
+      </div>
+    </fieldset>
+    <div>
+      <p>학번 : <input type="text" value="201722016" /></p><br />
+      <p>이름 : <input type="text" autofocus /></p>
+    </div>
+  </form>
+</body>
+</html>

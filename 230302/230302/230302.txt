@@ -1,0 +1,34 @@
+inline 요소
+ex)
+inline inline inline
+한줄에 다 표시
+예시로 버튼을 가운데정렬하려면
+div로 묶어서 text-align:center
+
+
+block 요소
+ex)
+block
+block
+block
+한줄에 하나만
+
+table
+tr = 행 묶음
+th, td는 굵기차이(th가 진함)
+
+일반적 제목은
+figure로 테이블 감싸고
+위에 figurecaption 사용
+
+가운데 제목은 
+테이블 안에 caption 사용
+
+table 스타일 복습
+
+<img src="http://placehold.co/400x400" alt="">
+이미지가 안주어졌을때 여기에 이런 사진이 들어간다
+
+input과 label은 같이 써야한다
+
+fieldset, legend 로그인 창 만들때 유용
