@@ -1,0 +1,9 @@
+input[type=checkbox]:checked + div {
+  height: 0;
+}
+
+div {
+  height: 300px;
+  overflow: hidden;
+  transition-duration: 1s;
+}
