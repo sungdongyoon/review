@@ -1,0 +1,12 @@
+/* footer */
+#main_footer {
+  width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  box-sizing: border-box;
+  padding: 5px;
+  border: 1px solid black;
+
+  text-align: center;
+}

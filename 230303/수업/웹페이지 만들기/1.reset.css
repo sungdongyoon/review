@@ -1,0 +1,22 @@
+/* 초기값 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Dongle', sans-serif;
+  font-size: 35px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  border: 0;
+}
