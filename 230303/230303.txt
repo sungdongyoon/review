@@ -1,0 +1,41 @@
+$는 숫자를 의미
+
+구조선택자
+:nth-child() { 
+ ~~~~~~
+}
+
+
+
+전후문자선택자
+p::before {
+  content: counter(rint) ". ";
+}
+
+p::after {
+  content: "- "attr(data-page) " page";
+}
+
+반응문자선택자
+p::selection {
+  background-color: black;
+  color: white;
+}
+
+부정선택자
+input:not([type=password]) {
+  background-color: red;
+}
+
+*w3c markup validation service*
+웹페이지가 문제가 있을때 확인해보는 사이트 
+
+반응형 웹페이지 작업할땐 vw, vh 많이 사용
+
+content-box
+border-box
+다시 알아보기!
+
+웹페이지 만든거
+복습할때 aside 부분 크기 맞춰볼것 !
+학원에서 개발자도구로 성공
