@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/test-review.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="container">
+    <h1>프런트엔드 개발자 지원서</h1>
+    <p><mark><strong>HTML5, CSS3, Javascript</strong></mark>에 대한 기술적 이해와 경험이 있는 분을 찾습니다.</p>
+    <hr />
+    <form action="">
+      <h3>개인정보</h3>
+      <ul>
+        <li>
+          <label for="name" class="info">이 름 : </label>
+          <input type="text" id="name" placeholder="공백없이 입력하세요" autofocus />
+        </li>
+        <li>
+          <label for="number" class="info">연락처 : </label>
+          <input type="text" id="number" />
+        </li>
+      </ul>
+      <h3>지원분야</h3>
+      <ul>
+        <li>
+          <input type="radio" name="field" id="publishing" />
+          <label for="publishing">웹 퍼블리싱</label>
+        </li>
+        <li>
+          <input type="radio" name="field" id="application" />
+          <label for="application">웹 어플리케이션 개발</label>
+        </li>
+        <li>
+          <input type="radio" name="field" id="environment" />
+          <label for="environment">개발 환경 개선</label>
+        </li>
+      </ul>
+      <h3>지원동기</h3>
+      <ul>
+        <li>
+          <textarea name="" id="" cols="100" rows="18" placeholder="본사 지원 동기를 간략히 작성해주세요"></textarea>
+        </li>
+      </ul>
+      <div class="buttons">
+        <input type="submit" value="제출하기" />
+        <input type="reset" value="다시작성" />
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>

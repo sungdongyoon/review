@@ -1,0 +1,78 @@
+/* 초기값 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* 본문스타일 */
+#container {
+  width: 900px;
+  height: 900px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  
+  margin: 20px auto;
+  padding: 15px 40px;
+}
+
+form {
+  margin-left: 45px;
+}
+
+/* 메뉴 타이틀 스타일 */
+h1, p, hr {
+  text-align: center;
+  margin-top: 25px;
+}
+
+mark {
+  font-size: 1.2em;
+}
+
+/* 메뉴 본문 스타일 */
+h3 {
+  margin-top: 38px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+li {
+  padding-left: 50px;
+}
+
+label.info {
+  width: 62px;
+}
+
+label, input {
+  display: inline-block;
+  font-size: 18px;
+  margin-left: 8px;
+  margin-bottom: 14px;
+}
+
+/* 버튼 스타일 */
+.buttons {
+  text-align: center;
+}
+
+.buttons > input {
+  width: 180px;
+  height: 35px;
+  margin: 10px;
+  
+  border: 0;
+  box-shadow: 1px 1px 2px gainsboro;
+}

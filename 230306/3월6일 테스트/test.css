@@ -1,0 +1,63 @@
+* {
+  list-style-type: none;
+}
+
+body {
+  width: 900px;
+  height: 1000px;
+  border: 1px solid black;
+  margin: 20px auto;
+  padding: 30px;
+  
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+
+#header {
+  text-align: center;
+}
+
+
+/* information */
+#information {
+  margin: 50px;
+  margin-bottom: 70px;
+}
+
+
+#name {
+  margin-bottom: 13px;
+}
+
+/* part */
+
+#part {
+  margin: 50px;
+  margin-bottom: 70px;
+}
+
+#a, #b, #c {
+  margin: 10px;
+}
+
+/* motive */
+
+#motive  {
+  margin: 50px;
+}
+
+#memo {
+  margin-left: 30px;
+}
+
+/* buttons */
+#buttons {
+  text-align: center;
+}
+.button {
+  width: 150px;
+  padding: 10px;
+  margin : 0 10px;
+  border-style: none;
+}

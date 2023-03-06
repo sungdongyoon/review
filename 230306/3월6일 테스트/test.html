@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3월6일 테스트</title>
+  <link rel="stylesheet" href="test.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div id="header">
+      <h1>프런트엔드 개발자 지원서</h1>
+      <p><strong><mark>HTML5, CSS3, Javascript</mark></strong>에 대한 기술적 이해화 경험이 있는 분을 찾습니다.</p>
+    </div>
+  </header>
+  <hr />
+  <div id="content">
+    <div id="information">
+      <h3>개인정보</h3>
+      <div class="information_box">
+        <ul>
+          <li>
+            <label for="name">이 름 : </label>
+            <input type="text" id="name" placeholder="공백없이 입력하세요" autofocus />
+          </li>
+          <li>
+            <label for="number">연 락 처 : </label>
+            <input type="text" id="number" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="part">
+      <h3>지원분야</h3>
+      <ul>
+        <li>
+          <input type="radio" id="a" name="check">
+          <label for="a">웹 퍼블리싱</label>
+        </li>
+        <li>
+          <input type="radio" id="b" name="check">
+          <label for="b">웹 어플리케이션 개발</label>
+        </li>
+        <li>
+          <input type="radio" id="c" name="check">
+          <label for="c">개발 환경 개선</label>
+        </li>
+      </ul>
+    </div>
+    <div id="motive">
+      <h3>지원동기</h3>
+      <form method="get">
+        <textarea name="memo" id="memo" cols="100" rows="20" placeholder="본사 지원 동기를 간략히 작성해주세요"></textarea>
+      </form>
+    </div>
+    <div id="buttons">
+      <button class="button">제출하기</button>
+      <button class="button">다시작성</button>
+    </div>
+  </div>
+</body>
+</html>
