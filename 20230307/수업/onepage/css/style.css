@@ -1,0 +1,73 @@
+@import url(/reset.code/reset.css);
+
+/* navigation */
+nav {
+  background: #f8f2d4;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+  position: fixed;
+}
+
+a.nav_btn {
+  display: inline-block;
+  width: 20%;
+  height: 50px;
+  line-height: 50px;
+}
+
+nav a:link, nav a:visited {
+  color: #000;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* Section_environment */
+section {
+  width: 100%;
+  height: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section > h2 {
+  text-align: center;
+  line-height: 1300px;
+
+  font-size: 4em;
+  color: #fff;
+  text-shadow: 1px 2px 1px #000;
+
+  text-transform: uppercase;
+}
+
+/* Section_img */
+
+section.page1 {
+  background: url('../img/eu.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+section.page2 {
+  background: url('../img/us.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+section.page3 {
+  background: url('../img/ch.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+section.page4 {
+  background: url('../img/jp.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

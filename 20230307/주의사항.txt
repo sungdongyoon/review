@@ -1,0 +1,49 @@
+코딩할때 하지 말아야할 버릇 or 주의할점
+
+1. 타이틀 변경
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+2. 콜론과 속성값 띄어쓰기 꼭 해아함
+
+h1 {
+  color: brown;
+}
+
+
+3. 한줄을 넘어가지 않는 경우를 제외하고는
+   부모요소와 들여쓰기는 꼭 해야함(완전 FM대로라면)
+
+
+4. 들여쓰기는 무조건 해야함
+
+<div>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere unde obcaecati odio vero? Architecto ratione, optio minus maior</p>
+</div>
+
+
+5. 주석처리도 영문이 원칙
+
+
+6. b태그와 strong태그는 보여지는 부분은 같지만
+   몸이 불편한 사람들을 위해 스크린 리더기로 읽을 경우에
+   b태그는 강조x strong태그는 강조o
+   때문에 strong태그를 사용
+
+
+7. 기본 속성보다 임의로 지정하는 속성을 사용할 경우
+   임의로 지정하는 속성을 앞에 써야함
+
+<img class="" src="" alt="">
+
+
+8. 줄코딩은 최악의 습관, 절대 x
+
+h1 { color: red; width: 100px; height: 100px;}
