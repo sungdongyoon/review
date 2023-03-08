@@ -1,0 +1,27 @@
+/* Detail list */
+#detail_list {
+  overflow: hidden;
+  position: absolute;
+  top: 205px;
+
+  background-color: #000;
+  width: 980px;
+  height: 320px;
+  float: left;
+  text-align: center;
+}
+#detail_list ul {
+  float: left;
+  width: 180px;
+  padding-left: 14px;
+}
+#detail_list li {
+  color: #fff;
+  height: 15px;
+  margin-top: 9px;
+  padding: 3px 5px;
+}
+#detail_list .header {
+  color: #48c5ff;
+  font-weight: bold;
+}

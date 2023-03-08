@@ -1,0 +1,17 @@
+/* Content */
+.product_img {
+  position: absolute;
+  top: 520px;
+}
+#product_article {
+  position: absolute;
+  top: 925px;
+}
+#product_aside {
+  position: absolute;
+  top: 925px;
+  right: 0px;
+}
+#product_aside img {
+  width: 170px;
+}

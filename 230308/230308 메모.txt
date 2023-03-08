@@ -1,0 +1,22 @@
+쿠팡 홈페이지 충분히 혼자 할만하니까
+복습때 잘하자
+
+css transition
+
+cupic bezier - css 효과
+
+animation효과를 줄때는 
+@keyframes 를 꼭 사용
+
+transition = 변형
+transform = 변환
+차이점 공부
+
+우리가 흔히 알고있는 좌표계는 데카르트 좌표계
+화면 좌표계는
+(0,0)이 왼쪽 하단이 아니라 왼쪽 상단에서 시작
+즉 아래로가면 양수, 위로가면 음수
+
+transform은 여러 요소를 쓸때 순서에따라 결과가 달라진다
+
+https://gs.statcounter.com = 지표 확인?

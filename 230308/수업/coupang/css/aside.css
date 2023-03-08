@@ -1,0 +1,14 @@
+/* Aside */
+body {
+  position: relative;
+}
+#global_aside {
+  position: relative;
+  left: 990px;
+  top: 75px;
+  width: 90px;
+}
+#global_aside a {
+  display: block;
+  margin-bottom: 10px;
+}

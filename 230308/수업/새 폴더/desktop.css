@@ -1,0 +1,26 @@
+/* Screen Width 0 ~ 767px */
+@media screen and (max-width:767px) and (orientation: portrait) {
+  html {
+    background-color: red;
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+/* Screen Width 768 ~ 959px */
+@media screen and (min-width:768px) and (max-width:959px) and (orientation: landscape) {
+  html {
+    background-color: green;
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+/* Screen Width 960px ~ */
+@media screen and (min-width:960px) {
+  html {
+    background-color: blue;
+    color: #fff;
+    font-weight: bold;
+  }
+}
