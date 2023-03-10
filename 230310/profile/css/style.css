@@ -1,0 +1,198 @@
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+
+/* Main Bg */
+
+section {
+  background-color: #ffff;
+  width: 340px;
+
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+
+
+  margin: 50px auto;
+  padding: 30px;
+}
+
+/* Menu */
+.menu {
+  overflow: hidden;
+  width: 100%;
+}
+.menu a:nth-child(1) {
+  float: left;
+}
+.menu a:nth-child(2) {
+  float: right;
+}
+.menu a {
+  color: #666;
+  font-size: 20px;
+}
+
+/* Profile */
+.profile {
+  width: 100%;
+  text-align: center;
+}
+.profile img {
+  width: 200px;
+  border-radius: 50%;
+
+  margin-bottom: 20px;
+}
+
+/* Profile > Fonts */
+.profile h1 {
+  color: #555;
+  margin-bottom: 5px;
+
+  font-weight: bold;
+  font-size: 22px;
+}
+.profile h2 {
+  color: #bbb;
+  margin-bottom: 30px;
+
+  font-weight: normal;
+  font-size: 12px;
+}
+
+/* Profile > Button */
+.btnview {
+  display: block;
+  border-radius: 16px;
+
+  font-weight: bold;
+  font-size: 15px;
+  color: #fff;
+  line-height: 32px;
+
+  width: 180px;
+  margin: 0 auto;
+}
+
+/* Info */
+.contact {
+  margin: 20px 0;
+}
+.contact li {
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.contact li:last-child {
+  border-bottom: none;
+}
+li i {
+  width: 25%;
+  margin-left: 10px;
+  color: #555;
+
+  text-align: center;
+  font-size: 15px;
+  text-shadow: 2px 2px 2px #ddd;
+}
+li span {
+  color: #555;
+  font-weight: normal;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* Footer */
+.others {
+  width: 100%;
+  text-align: center;
+}
+.others a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 10px;
+  opacity: 0.4;
+  filter: saturate(0.7);
+}
+.others a.on {
+  opacity: 1;
+  filter: saturate(1);
+}
+.others a:nth-of-type(1) {
+  background-color: #01d7f3;
+  box-shadow: 5px 5px 10px rgba(74, 255, 255, 0.7);
+}
+.others a:nth-of-type(2) {
+  background-color: #55f5cd;
+  box-shadow: 5px 5px 10px rgba(85, 245, 178, 0.7);
+}
+.others a:nth-of-type(3) {
+  background-color: #ff80df;
+  box-shadow: 5px 5px 10px rgba(255, 128, 223, 0.7);
+}
+.others a:nth-of-type(4) {
+  background-color: #a794fd;
+  box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
+}
+
+/* Member Style */
+
+/* ===== Member1 ===== */
+.member1 {
+  background-color: #d4f0fd;
+}
+.member1 .profile img {
+  box-shadow: 5px 15px 30px rgba(173, 216, 230, 0.8);
+}
+.member1 .btnview {
+  background: linear-gradient(45deg, #4affff, #35e0f7);
+  box-shadow: 5px 10px 20px rgba(0, 225, 225, 0.4);
+}
+
+/* ===== Member2 ===== */
+.member2 {
+  background-color: rgba(54, 235, 174, 0.3);
+}
+.member2 .profile img {
+  box-shadow: 5px 15px 30px rgba(131, 214, 173, 0.8);
+}
+.member2 .btnview {
+  background: linear-gradient(45deg, #b4e7b8, #15f379);
+  box-shadow: 5px 10px 20px rgba(98, 240, 169, 0.685);
+}
+
+/* ===== Member3 ===== */
+.member3 {
+  background-color: #dab9da;
+}
+.member3 .profile img {
+  box-shadow: 5px 15px 30px rgba(228, 180, 230, 0.8);
+}
+.member3 .btnview {
+  background: linear-gradient(45deg, #ddb8e2, #e677d7);
+  box-shadow: 5px 10px 20px rgba(235, 10, 223, 0.4);
+}
+
+/* ===== Member4 ===== */
+.member4 {
+  background-color: #ac64f0;
+}
+.member4 .profile img {
+  box-shadow: 5px 15px 30px rgba(186, 83, 245, 0.8);
+}
+.member4 .btnview {
+  background: linear-gradient(45deg, #d2b8e7, #b74cf5);
+  box-shadow: 5px 10px 20px rgba(154, 65, 238, 0.4);
+}
