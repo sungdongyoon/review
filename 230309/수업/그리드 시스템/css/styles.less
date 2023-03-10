@@ -1,0 +1,35 @@
+//변수
+@ColumnWidth: 60px;
+@GutterWidth: 20px;
+
+//믹스인
+.span(@column) {
+  width: (@ColumnWidth * @column) + (@GutterWidth * (@column - 1));
+}
+
+//스타일사용
+.container {
+  width: 960px;
+  margin: 0 auto;
+}
+.row {
+  overflow: hidden;
+}
+.span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 {
+  margin-left: 10px;
+  margin-right: 10px;
+  float: left;
+}
+
+.span_1{ .span(1); }
+.span_1{ .span(2); }
+.span_1{ .span(3); }
+.span_1{ .span(4); }
+.span_1{ .span(5); }
+.span_1{ .span(6); }
+.span_1{ .span(7); }
+.span_1{ .span(8); }
+.span_1{ .span(9); }
+.span_1{ .span(10); }
+.span_1{ .span(11); }
+.span_1{ .span(12); }

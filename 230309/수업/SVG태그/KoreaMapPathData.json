@@ -1,0 +1,111 @@
+[{
+  "version": "1.0",
+  "image": {
+    "name": "/home/videosdownloader/public_html/image/public/uploadt/Administrative_divisions_map_of_South_Korea.svg.png",
+    "baseName": "Administrative_divisions_map_of_South_Korea.svg.png",
+    "format": "PNG",
+    "formatDescription": "PNG",
+    "mimeType": "image/png",
+    "class": "DirectClass",
+    "geometry": {
+      "width": 512,
+      "height": 720,
+      "x": 0,
+      "y": 0
+    },
+    "units": "Undefined",
+    "type": "GrayscaleAlpha",
+    "baseType": "Undefined",
+    "endianness": "Undefined",
+    "colorspace": "Gray",
+    "depth": 8,
+    "baseDepth": 8,
+    "channelDepth": {
+      "alpha": 8,
+      "gray": 1
+    },
+    "pixels": 737280,
+    "channelStatistics": {
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "mean": 139.547,
+        "median": 0,
+        "standardDeviation": 32245.3,
+        "kurtosis": -1.94736,
+        "skewness": -0.197433,
+        "entropy": 0.218059
+      },
+      "gray": {
+        "min": 0,
+        "max": 255,
+        "mean": 105.889,
+        "median": 0,
+        "standardDeviation": 24356.9,
+        "kurtosis": -1.88099,
+        "skewness": -0.187391,
+        "entropy": 0.301194
+      }
+    },
+    "alpha": "#00000000",
+    "renderingIntent": "Undefined",
+    "gamma": 0.45455,
+    "chromaticity": {
+      "redPrimary": {
+        "x": 0.64,
+        "y": 0.33
+      },
+      "greenPrimary": {
+        "x": 0.3,
+        "y": 0.6
+      },
+      "bluePrimary": {
+        "x": 0.15,
+        "y": 0.06
+      },
+      "whitePrimary": {
+        "x": 0.3127,
+        "y": 0.329
+      }
+    },
+    "matteColor": "#BDBDBD",
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#DFDFDF",
+    "transparentColor": "#00000000",
+    "interlace": "None",
+    "intensity": "Undefined",
+    "compose": "Over",
+    "pageGeometry": {
+      "width": 512,
+      "height": 720,
+      "x": 0,
+      "y": 0
+    },
+    "dispose": "Undefined",
+    "iterations": 0,
+    "compression": "Zip",
+    "orientation": "Undefined",
+    "properties": {
+      "date:create": "2023-03-08T23:31:37+00:00",
+      "date:modify": "2023-03-08T23:31:37+00:00",
+      "png:bKGD": "chunk was found (see Background color, above)",
+      "png:cHRM": "chunk was found (see Chromaticity, above)",
+      "png:gAMA": "gamma=0.45455 (See Gamma, above)",
+      "png:IHDR.bit-depth-orig": "8",
+      "png:IHDR.bit_depth": "8",
+      "png:IHDR.color-type-orig": "4",
+      "png:IHDR.color_type": "4 (GrayAlpha)",
+      "png:IHDR.interlace_method": "0 (Not interlaced)",
+      "png:IHDR.width,height": "512, 720",
+      "png:text": "2 tEXt/zTXt/iTXt chunks were found",
+      "signature": "1d3399501f33a2fcda21a77ae73cfa3bc7f160bbb69e8d739ec68d898ecffba8"
+    },
+    "tainted": false,
+    "filesize": "96823B",
+    "numberPixels": "368640",
+    "pixelsPerSecond": "13.0781MB",
+    "userTime": "0.020u",
+    "elapsedTime": "0:01.028",
+    "version": "ImageMagick 7.0.10-58 Q16 x86_64 2021-01-14 https://imagemagick.org"
+  }
+}]

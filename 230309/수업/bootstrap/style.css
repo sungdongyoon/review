@@ -1,0 +1,14 @@
+body {
+  padding-top: 70px;
+}
+
+.box {
+  padding-top: 20px;
+}
+.card-header {
+  background-color: beige;
+  font-weight: bold;
+}
+.card a {
+  color: black;
+}

@@ -1,0 +1,222 @@
+@import url(/수업/reset.code/reset.css);
+
+/* Main */
+html {
+  height: 100%;
+  overflow: hidden;
+
+  background: url('/수업/1/img/Background.png');
+  background-size: cover;
+}
+body {
+  background: url('../img/Center_Background.png');
+  width: 960px;
+  height: 550px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -480px;
+  margin-top: -275px;
+}
+
+/* Navigation */
+#container {
+  height: 500px;
+}
+#main_navigation ul {
+  overflow: hidden;
+}
+#main_navigation li {
+  float: left
+}
+
+/* ===== Sprite Img ===== */
+#main_navigation > ul > li > a {
+  display: block;
+  width: 240px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  
+  background: url('/수업/1/img/Navigation_Button.png');
+  text-indent: -9999px;
+}
+
+/* ===== Mouse : Hover before ===== */
+#main_navigation li:nth-child(1) > a {
+  background-position: 0 0;
+}
+#main_navigation li:nth-child(2) > a {
+  background-position: 0 -100px;
+}
+#main_navigation li:nth-child(3) > a {
+  background-position: 0 -200px;
+}
+#main_navigation li:nth-child(4) > a {
+  background-position: 0 -300px;
+}
+
+/* ===== Mouse : Hover ===== */
+#main_navigation li:nth-child(1) > a:hover {
+  background-position: 0 -50px;
+}
+#main_navigation li:nth-child(2) > a:hover {
+  background-position: 0 -150px;
+}
+#main_navigation li:nth-child(3) > a:hover {
+  background-position: 0 -250px;
+}
+#main_navigation li:nth-child(4) > a:hover {
+  background-position: 0 -350px;
+}
+
+/* Title */
+#title {
+  position: absolute;
+  left: 0;
+  top: -48px;
+
+  width: 240px;
+  height: 48px;
+  overflow: hidden;
+}
+#title h1 {
+  position: absolute;
+  left: 0;
+  top: 48px;
+
+  width: 240px;
+  height: 48px;
+  background: url('../img/Title_Images.png');
+  text-indent: -9999px;
+
+  transition-duration: 1s;
+}
+#title h1.active {
+  top: 0;
+}
+#title h1:nth-child(1) {
+  background-position: 0 0;
+}
+#title h1:nth-child(2) {
+  background-position: 0 -48px;
+}
+#title h1:nth-child(3) {
+  background-position: 0 -96px;
+}
+
+/* Container */
+#container {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+  margin-left: -40px;
+  
+  height: 500px;
+  overflow: hidden;
+}
+div[data-name] {
+  position: absolute;
+  left: 40px;
+  top: 550px;
+
+  width: 960px;
+  height: 500px;
+  transition-duration: 2s;
+}
+div[data-name].active {
+  top: 0;
+}
+
+/* Main img */
+div[data-name=main] img {
+  position: absolute;
+  left: -50px;
+  bottom: 0;
+}
+div[data-name=information] img {
+  position: absolute;
+  left: 20px;
+  top: 20;
+}
+div[data-name=information] div {
+  position: absolute;
+  left: 450px;
+  top: 30px;
+  width: 480px;
+}
+div[data-name=multimedia] {
+  padding: 10px;
+}
+
+/* Character Button*/
+div[data-name=character] > a {
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  text-indent: -9999px;
+  background: url('../img/Arrow_Images.png');
+}
+div[data-name=character] > a:nth-child(1) {
+  background-position: 0 0;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -20px;
+}
+div[data-name=character] > a:nth-child(2) {
+  background-position: 0 -40px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -20px;
+}
+a {
+  z-index: 9999;
+}
+
+/* Article Img */
+div[data-name=character] > article {
+  width: 960px;
+  height: 500px;
+
+  position: absolute;
+  left: 0;
+  top: 500px;
+  transition: 2s;
+}
+div[data-name=character] > article.show {
+  top: 0;
+}
+
+/* Article Img > Sub Contents */
+article {
+  position: relative;
+}
+article > h1 {
+  position: absolute;
+  left: 90px;
+  top: 40px;
+  font-size: 30px;
+}
+article > img:nth-of-type(1) {
+  position: absolute;
+  left: 200px;
+  top: 50px;
+}
+article > img:nth-of-type(2) {
+  position: absolute;
+  left: 100px;
+  top: 120px;
+  box-shadow: 0 5px 10px 10px;
+  border-radius: 10px;
+}
+article > p {
+  position: absolute;
+  left: 450px;
+  top: 110px;
+
+  width: 500px;
+}
