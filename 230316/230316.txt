@@ -1,0 +1,17 @@
+외부에서 js 를 끌어올 경우
+fetching , executing 때문에 js파일 작동 x
+defer, async ??
+
+fetching, executing, deferm async 4가지 이해하기
+
+js파일 두개이상을 넣어야 할 때는 defer 속성을 사용
+
+
+display: flex
+에서는 margin, padding 쓸수없음
+대신 gap 사용
+
+
+오늘은 
+3월14일에 시작한 모바일 웹페이지 signin, signup, category 웹페이지 완성(1,2,3,7 완성)
+3월15일에 시작한  플렉스 사이트 완성
