@@ -1,0 +1,20 @@
+jquery eq함수
+
+cdn js - 외부데이터를 가져와서 사용해야 할 경우 참고하면 좋은 사이트
+
+onclick 이벤트 or setTimeout 함수
+
+포트폴리오 제출할때 모바일 목업을 직접 씌워야함
+
+파비콘
+flaticon
+ico converter
+
+페이지스크롤이펙트 플러그인
+스크롤하면 효과
+
+responsive 페이지 미완성
+isotope 페이지 미완성
+둘다 내일 진행
+
+모바일 웹 페이지 목업 확인

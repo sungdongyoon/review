@@ -1,0 +1,40 @@
+@media (max-width: 768px) {
+  .cd-section {
+    height: auto;
+  }
+  .cd-section > div {
+    height: auto;
+  }
+  header {
+    transition: 0.5s;
+    z-index: 100;
+  }
+  header.active {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  .menu {
+    display: block;
+  }
+  .slogan {
+    display: none;
+  }
+  .gnb {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: -270px;
+    width: 250px;
+    height: 100vh;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .gnb.active {
+    right: 0;
+  }
+  .menu {
+    color: #000;
+    text-align: right;
+    padding-right: 20px;
+    font-size: 20px;
+  }
+}
