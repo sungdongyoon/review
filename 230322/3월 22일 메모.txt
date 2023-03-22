@@ -1,0 +1,10 @@
+jquery.scrollto.min.js.cdn
+
+responsive 페이지
+plan, awards, location, contact 웹 페이지 완성
+
+home, plan 웹 페이지 미완성
+
+모바일도 미완성
+
+plan 이어서

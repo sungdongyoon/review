@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap");
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+/* Background */
+body {
+  background-color: #efefef;
+}
+
+/* Header */
+header {
+  background: linear-gradient(45deg, aqua, royalblue);
+  width: 400px;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+header h1 {
+  font-family: "Orbitron", sans-serif;
+  color: #fff;
+  letter-spacing: 1px;
+
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-150%);
+}
+header h1::before {
+  content: "Front Developer";
+  font-family: "Orbitron", sans-serif;
+  display: block;
+  letter-spacing: 2px;
+  font-size: 16px;
+
+  position: absolute;
+  left: 0;
+  top: 80px;
+  opacity: 0.8;
+}
+header h1::after {
+  content: "";
+  display: block;
+  width: 150px;
+  height: 2px;
+  background-color: #fff;
+  margin-top: 20px;
+}
+header ul {
+  position: absolute;
+  bottom: 100px;
+  left: 33px;
+}
+header li {
+  float: left;
+  margin-left: 10px;
+}
+header a {
+  color: #fff;
+  font-size: 20px;
+}
+header span {
+  display: inline-block;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+/* Main */
+main {
+  margin-left: 400px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+main section {
+  width: 100%;
+}
+main section::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+main article {
+  width: 20%;
+  float: left;
+  box-sizing: border-box;
+  padding: 12px;
+}
+main article div {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  padding: 14px;
+}
+main img {
+  width: 100%;
+}
+main div h2 {
+  margin-top: 15px;
+  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 5px;
+}
+main div p {
+  font-family: "Orbitron", sans-serif;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+@media screen and (max-with: 1600px) {
+  header {
+    width: 350px;
+  }
+  main {
+    margin-left: 350px;
+  }
+  main article {
+    width: 25%;
+  }
+}
+@media screen and (max-with: 1200px) {
+  header ul {
+    left: 10%;
+  }
+  main article {
+    width: 33%;
+  }
+}
+@media screen and (max-with: 900px) {
+  header ul {
+    display: none;
+  }
+  main article {
+    width: 100%;
+  }
+}
