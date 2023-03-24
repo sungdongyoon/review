@@ -1,0 +1,22 @@
+Display 속성
+
+1) 인라인 속성
+- span, a, em, b, br, label 등
+- width / height 지정 불가능
+- 한 줄에 여러개 배치 가능
+- 기본 너비값 => 컨텐츠 요소 너비값
+- 상.하 마진값은 갖지 못함
+
+2) 블록 속성
+- div, ul, ol, li, h, hr, nav, header, footer, section, article 등
+- width / height 지정 가능
+- 한 줄에 여러개 배치 불가능
+- 기본 너비값 => 100%
+- 상.하.좌.우 마진값 가질 수 있음
+
+3) 인라인블록 속성
+- img, input, button, i 등
+- width / height 지정 가능
+- 한 줄에 여러개 배치 가능
+- 상.하.좌.우 마진값 가질 수 있음
+- 기본 너비값 => 컨텐츠 요소 너비값
