@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  height: var(--height-toolbar);
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.header_homelink {
+  display: inline-block;
+  padding: 0 24px;
+  height: var(--height-toolbar);
+  line-height: var(--height-toolbar);
+}
+.header_logo {
+  height: 48px;
+  vertical-align: middle;
+}
+.header_nav-item {
+  display: inline-block;
+  position: relative;
+}
+.header_nav-item a {
+  padding: 0 0.8em;
+  width: 100vw;
+}

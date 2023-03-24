@@ -1,0 +1,49 @@
+/* CSS */
+@import url("/css/1-intro.css");
+@import url("/css/2-header.css");
+@import url("/css/3-main.css");
+@import url("/css/4-about.css");
+@import url("/css/5-html.css");
+@import url("/css/6-curriculum.css");
+@import url("/css/7-contact.css");
+@import url("/css/8-footer.css");
+
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
+
+/* ===== Variable CSS ===== */
+:root {
+  --font-code: "Nanum Gothic", sans-serif;
+
+  --color-main: #ff4200;
+  --color-sub: #00a200;
+  --color-dark: #2f4858;
+  --color-emph: #f10f5f;
+  --color-text: #281812;
+  --color-lighter: #dc9c86;
+  --color-light-bd: #ffe6d6;
+  --color-light-bg: #fff5ed;
+
+  --font-size-title: 44px;
+  --font-size-subtitle: 32px;
+  --font-size-tag: 26px;
+  --font-size-larger: 20px;
+  --font-size-text: 18px;
+
+  --height-toolbar: 72px;
+}
+
+/* ===== Reset CSS ===== */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
