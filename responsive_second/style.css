@@ -47,3 +47,18 @@ li {
 a {
   text-decoration: none;
 }
+
+/* Common CSS */
+.section {
+  padding: 64px 16px;
+  text-align: center;
+}
+.section_tag {
+  color: var(--color-sub);
+  font-size: var(--font-size-tag);
+}
+.section_title {
+  color: var(--color-text);
+  font-weight: bold;
+  font-weight: var(--font-size-title);
+}

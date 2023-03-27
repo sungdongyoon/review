@@ -1,0 +1,58 @@
+.about {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 48px;
+}
+.about_card {
+  padding: 48px;
+  text-align: center;
+  background-color: var(--color-dark);
+  color: #fff;
+  border-radius: 12px;
+  position: relative;
+  width: 320px;
+  transition: 0.35s;
+  cursor: pointer;
+}
+.about_icon {
+  width: 120px;
+  opacity: 0.25;
+  transition: 0.35s;
+}
+.about_title {
+  margin-top: 0.6em;
+  font-size: var(--font-size-larger);
+}
+.about_title._1 {
+  color: #ffb974;
+}
+.about_title._2 {
+  color: #6bb0f3;
+}
+.about_title._3 {
+  color: #ffbdce;
+}
+.about_text {
+  margin-top: 0.8em;
+  font-size: var(--font-size-text);
+}
+.about_card:hover {
+  transform: scale(1.04);
+}
+.about_card:hover .about_icon {
+  opacity: 1;
+}
+.about:hover .about_card:not(:hover) {
+  transform: scale(0.9);
+}
+.about:hover .about_card:not(:hover)::after {
+  content: "";
+  backdrop-filter: blur(2px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 12px;
+}
