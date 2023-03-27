@@ -1,0 +1,7 @@
+.container
+	.main_header
+		.main_header_logo
+		.main_header_right_btn
+			(a > i) * 4
+	.main_title
+		span * 2

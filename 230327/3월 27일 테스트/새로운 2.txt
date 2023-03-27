@@ -1,0 +1,40 @@
+.container
+	.all_wrap
+		.main_page_inner
+			.main_header
+				.main_header_logo
+				.main_header_right_btn
+					(a > i) * 4
+			.main_title
+				span * 2
+		.main_info_inner
+			.main_info
+				.main_info_content
+					.info_content_title
+						h1
+						p
+					.info_content_introduce
+						p * 2
+				.main_info_blank
+			.main_photo
+				.main_photo_text
+					h3
+				.main_photo_img
+					img
+		.project_inner
+			.project_one
+				.project_one_left
+					img
+					a > p
+				.project_one_right 
+					h1
+					p
+			.project_two
+				.project_two_left
+					h1
+					p
+				.project_two_right
+					img
+					a > p
+			.project_slick
+				img	
