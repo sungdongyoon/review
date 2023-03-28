@@ -1,0 +1,16 @@
+body {
+  text-align: center;
+}
+.btn {
+  background-color: #007bff;
+  color: #fff;
+  border: transparent;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 50px;
+}
+.show {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 20px 30px;
+}
