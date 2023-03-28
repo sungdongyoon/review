@@ -1,0 +1,49 @@
+@media (max-width: 768px) {
+  /* Show Hide Section */
+  /* #intro,
+  #header, */
+  /* #about, */
+  #html,
+  #css,
+  #curriculum,
+  #contact,
+  #footer {
+    display: none;
+  }
+
+  /* Intro */
+  .intro {
+    width: 100%;
+    height: auto;
+  }
+  .intro_dark {
+    position: static;
+  }
+  .intro_type {
+    font-size: 1.5em;
+    margin: 100px auto;
+  }
+
+  /* Header */
+  .header {
+    height: 50px;
+  }
+  .header_logo {
+    height: auto;
+  }
+  .header_nav-item {
+    font-size: 0.5em;
+    height: 50px;
+  }
+  .header_nav-item:hover::after {
+    height: 2px;
+  }
+  .header_nav-item a {
+    height: auto;
+    line-height: 50px;
+  }
+  /* About */
+  .about {
+    margin-top: 0;
+  }
+}

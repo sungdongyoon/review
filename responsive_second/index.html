@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- Intro -->
-    <section class="intro">
+    <section class="intro" id="intro">
       <div class="intro_dark">
         <div class="intro_type">
           <div><span>😎</span>코딩이</div>
@@ -20,7 +20,7 @@
       <div class="intro_title--flip"></div>
     </section>
     <!-- Header & Navigation -->
-    <header class="header">
+    <header class="header" id="header">
       <h1>
         <a class="header_homelink" href="#">
           <img class="header_logo" src="/images_material/unity.svg" alt="" />
@@ -120,7 +120,7 @@
           <strong class="section_tag"> css </strong>
           <h1 class="section_title">꾸미는 CSS</h1>
         </header>
-        <article class="html-css _html">
+        <article class="html-css _css">
           <figure class="html-css_thumb">
             <img
               class="html-css_logo"
@@ -148,6 +148,102 @@
           </div>
         </article>
       </section>
+      <!-- Curriculum Section -->
+      <section id="curriculum" class="section">
+        <header class="section_header">
+          <strong class="section_tag"> curriculum </strong>
+          <h1 class="section_title">커리큘럼</h1>
+        </header>
+        <div class="curriculum">
+          <ol class="curriculum_list">
+            <li><span>강의소개</span></li>
+            <li><span>HTML 기초</span></li>
+            <li><span>CSS 기초</span></li>
+            <li><span>HTML 심화</span></li>
+            <li><span>CSS 심화</span></li>
+            <li><span>파이널 프로젝트</span></li>
+            <div class="curriculum_progress"></div>
+          </ol>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <header class="section_header">
+          <strong class="section_tag"> Contact </strong>
+          <h1 class="section_title">문의하기</h1>
+        </header>
+        <div class="contact">
+          <div class="contact_tab">
+            <input type="radio" name="contact" id="ct_1" checked />
+            <label class="tab_1" for="ct_1"></label>
+            <input type="radio" name="contact" id="ct_2" />
+            <label class="tab_2" for="ct_2"></label>
+            <div class="contact_slides">
+              <div class="contact_slide-con">
+                <div class="contact_slide">
+                  <address>
+                    <table class="contact_contacts">
+                      <caption>
+                        연락처 목록
+                      </caption>
+                      <tr>
+                        <th>유튜브</th>
+                        <td>
+                          <a href="https://www.youtube.com" target="_blank">
+                            <img src="/images_material/youtube.svg" alt="" />
+                            채널 바로가기
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>웹사이트</th>
+                        <td>
+                          <a href="https://www.naver.com" target="_blank"
+                            >https://www.naver.com</a
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>이메일</th>
+                        <td>
+                          <a href="mailto:ehdtjd0960@naver.com"
+                            >ehdtjd0906@naver.com</a
+                          >
+                        </td>
+                      </tr>
+                    </table>
+                  </address>
+                </div>
+                <div class="contact_slide">
+                  <form action="#" method="get">
+                    <div class="contact_leave">
+                      <textarea
+                        name="message"
+                        placeholder="메세지를 입력하세요."
+                        required
+                      ></textarea>
+                      <div>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="메일주소를 입력하세요."
+                          required
+                        />
+                        <button type="submit">남기기</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
+    <!-- Footer -->
+    <footer id="footer">
+      <h1>Copyright</h1>
+      <p>2023 GMALAB - All rights reserved</p>
+    </footer>
   </body>
 </html>
