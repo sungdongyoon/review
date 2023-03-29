@@ -5,11 +5,11 @@
   /* #about, */
   /* #html, */
   /* #css, */
-  #curriculum,
-  #contact,
-  #footer {
+  /* #curriculum, */
+  /* #contact, */
+  /* #footer {
     display: none;
-  }
+  } */
 
   /* Intro */
   .intro {
@@ -67,5 +67,91 @@
   /* CSS */
   #css {
     grid-column: 1 / -1;
+  }
+  /* Curriculum */
+  #curriculum h1 {
+    font-size: 1.8em;
+  }
+  .curriculum {
+    margin: 0 auto;
+  }
+  .curriculum_list {
+    font-size: 0.7em;
+  }
+  .curriculum_list li {
+    width: 50px;
+    height: 50px;
+  }
+  .curriculum_list li::before {
+    width: 15px;
+    height: 15px;
+  }
+  .curriculum_list li span {
+    left: -20px;
+  }
+  .curriculum_progress {
+    top: 8px;
+    width: 250px;
+  }
+  .curriculum_list li:nth-child(2):hover ~ .curriculum_progress::after {
+    width: 50px;
+  }
+  .curriculum_list li:nth-child(3):hover ~ .curriculum_progress::after {
+    width: 100px;
+  }
+  .curriculum_list li:nth-child(4):hover ~ .curriculum_progress::after {
+    width: 150px;
+  }
+  .curriculum_list li:nth-child(5):hover ~ .curriculum_progress::after {
+    width: 200px;
+  }
+  .curriculum_list li:nth-child(6):hover ~ .curriculum_progress::after {
+    width: 250px;
+  }
+
+  /* Contact */
+  #ct_1 {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px 12px 0 0;
+  }
+  #ct_1::after {
+    font-size: 0.7em;
+    margin: 7px;
+  }
+  #ct_2 {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px;
+  }
+  #ct_2::after {
+    font-size: 0.7em;
+  }
+  .contact_contacts caption {
+    font-size: 0.8em;
+  }
+  .contact_contacts th {
+    font-size: 0.5em;
+  }
+  .contact_contacts a {
+    font-size: 0.5em;
+  }
+  .contact_leave textarea,
+  .contact_leave input[type="email"] {
+    width: 125px;
+    font-size: 0.7em;
+  }
+  .contact_leave textarea::placeholder,
+  .contact_leave input[type="email"]::placeholder {
+    font-size: 0.7em;
+  }
+  .contact_leave button {
+    width: 150px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 0.8em;
+    border-radius: 3px;
+  }
+  /* Footer */
+  footer {
+    font-size: 0.7em;
   }
 }
