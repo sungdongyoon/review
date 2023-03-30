@@ -1,0 +1,45 @@
+산술연산자
+대입연산자
+증감연산자
+비교연산자
+논리연산자
+
++ 삼항조건연산자
+
+교재실습문제 복습
+
+if문
+for문
+while문
+do while문
+switch문
+
+=============================
+함수를 갖고있는 변수 = 참조변수
+
+let tv = new Object();				==>함수설정방법
+tv.color = "white";
+tv.price = 30000;
+tv.info = function () {
+  document.write("tv 색상 : " + tv.color, "<br/>");
+  document.write("tv 가격 : " + tv.price, "<br/>");
+};
+
+let car = {					==>속성설정방법
+  color: "black",
+  price: 5000000,
+  info: function () {
+    document.write("car 색상: " + car.color, "<br/>");
+    document.write("car 가격: " + car.price, "<br/>");
+  },
+};
+
+document.write("<h1>TV 객체 메서드 호출</h1>");
+tv.info();
+document.write("<h1>CAR 객체 메서드 호출</h1>");
+car.info();
+
+================================
+
+this객체 : this는 감싸고 있는 변수를 가르킨다
+참조변수명이 바뀔 가능성이 있을때 this객체 사용
