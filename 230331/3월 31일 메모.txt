@@ -1,0 +1,191 @@
+날짜 객체 생성방법
+let 참조변수(today) = new Date;
+
+
+문자열 객체 생성방법 (*중요)
+let 참조변수 = new String("문자형 데이터");
+let t1 = new String("hello");
+
+
+=========================================
+
+let t = "Hello Thank you good luck to you";
+
+document.write(t.charAt(16), "<br/>"); // 16번째
+document.write(t.indexOf("you"), "<br/>"); //you는 몇번째에서 시작하는가
+document.write(t.indexOf("you", 16), "<br/>"); //
+document.write(t.lastIndexOf("you"), "<br/>"); //
+document.write(t.lastIndexOf("you", 25), "<br/>");
+document.write(t.match("luck"), "<br/>");
+document.write(t.search("you"), "<br/>");
+document.write(t.substr(21, 4), "<br/>"); //21번째부터 4개
+document.write(t.substring(6, 12), "<br/>"); //6번째부터 12번째 이전까지 (slides와 비슷)
+document.write(t.replace("you", "me"), "<br/>"); //첫번째 you를 me로 변경
+document.write(t.toLocaleLowerCase(), "<br/>"); //모든 문자열을 소문자로 변경
+document.write(t.toUpperCase(), "<br/>"); //모든 문자열을 대문자로 변경
+document.write(t.length, "<br/>"); // 문자열 개수
+
+let s = t.split(" "); //s라는 객체에 7개의 묶음이 들어감
+document.write(s[0], "<br/>");
+document.write(s[1], "<br/>");
+document.write(s[2], "<br/>");
+document.write(s[3], "<br/>");
+
+let str = "A";
+let k = str.charCodeAt(0); //"A의 코드를 가져와라"
+document.write(k, "<br/>");
+document.write(String.fromCharCode(65), "<br/>"); //65번 코드를 문자로 바꿔라
+
+=========================================
+
+let userName = prompt("당신의 영문 이름은?", "");
+let upperName = userName.toUpperCase();
+document.write(upperName, "<br/>");
+
+let userNumber = prompt("당신의 연락처는?", "");
+let result = userNumber.substring(0, userNumber.length - 4) + "****";
+document.write(result, "<br/>");
+
+=========================================
+
+문자열 객체 활용
+> 사용자로부터 이메일 수신
+> 사용자의 이메일 정상적인지, 아닌지
+
+let userEmail = prompt("당신의 이메일 주소는?", "");
+let arrUrl = [".co.kr", ".com", ".net", ".or.kr", ".go.kr"];
+
+let check1 = false;
+let check2 = false;
+
+// @이 정상적 위치에 존재하면 check1은 true
+if (userEmail.indexOf("@") > 0) {
+  check1 = true;
+}
+
+//
+for (let i = 0; i < arrUrl.length; i++) {
+  if (userEmail.indexOf(arrUrl[i] > 0)) {
+    check2 = true;
+  }
+}
+
+if (check1 && check2) {
+  document.write(userEmail);
+} else {
+  alert("이메일 형식이 잘못되었습니다");
+}
+
+=========================================
+팝업 html 생성
+
+window.open(
+  "/index_1.html",
+  "popup",
+  "width=300",
+  "height=500, left=50, top=10"
+);
+
+index.html에 js를 이렇게 생성하면
+연결된 팝업 html이 뜨게 된다
+
+=========================================
+
+alert()
+prompt()
+confirm()
+
+setInterval() : 일정시간 코드 반복실행하는 메서드
+clearInterval() : setInterval 제거하는 메서드
+
+setTimeout() : 일정시간 후에 코드를 실행하고 종료하는 메서드
+clearTimeout() : setTimeout 제거하는 메서드
+
+
+=========================================
+(**html 증가정지, 감소정지 버튼 생성)
+
+let addNum = 0;
+let subNum = 1000;
+
+//3초에 1씩 증가
+let auto_1 = setInterval(function () {
+  addNum++;
+  console.log("addNum: " + addNum);
+}, 100);
+
+//3초에 1씩 감소
+let auto_2 = setInterval(function () {
+  subNum--;
+  console.log("subNum: " + subNum);
+}, 100);
+
+=========================================
+
+*객체 => 속성 / 기능
+**객체 기능 : 메서드
+***특정키워드 다음에( )가 붙게되면 함수라고 부른다
+
+변수	: let num = 1;
+참조변수	: let num = new Date( );       뉴데이트라는 객체를 포함하고 있는 변수를 참조변수라고 한다
+매개변수	: function( ) {
+	let sum = a+b;
+	return sum;
+	}			function 괄호안에 들어가는 변수를 매개변수라고 한다
+
+
+전역변수 (Global Variables)
+=어디서든 사용 가능
+
+지역변수 (Local Variables)
+=지역 안에서만 사용 가능
+
+=========================================
+디지털 시계(html 00:00:00 생성)
+
+const hour = document.querySelector(".hour");
+const min = document.querySelector(".min");
+const sec = document.querySelector(".sec");
+
+function clock() {
+  const now = new Date();
+
+  hour.innerText = now.getHours() + "시";
+  min.innerText = now.getMinutes() + "분";
+  sec.innerText = now.getSeconds() + "초";
+}
+
+setInterval(clock, 1000);
+
+=========================================
+
+let info = navigator.userAgent.toLowerCase();
+let osImg = null;
+
+if (info.indexOf("windows") >= 0) {
+  osImg = "windows.png";
+} else if (info.indexOf("macintosh") >= 0) {
+  osImg = "machintosh.png";
+} else if (info.indexOf("iphone") >= 0) {
+  osImg = "iphone.png";
+} else if (info.indexOf("android") >= 0) {
+  osImg = "android.png";
+}
+
+document.write('<img src="/img/' + osImg + '">', "<br/>");
+let scr = screen;
+let sc_w = scr.width;
+let sc_h = scr.height;
+
+document.write("모니터 해상도 너비: " + sc_w + "px", "<br/>");
+document.write("모니터 해상도 높이: " + sc_h + "px", "<br/>");
+
+=========================================
+
+
+
+
+
+
+
+
