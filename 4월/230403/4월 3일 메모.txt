@@ -1,0 +1,315 @@
+~5.4까지 포트폴리 만들어서 발표
+
+사람인, 잡코리아 등에서 가고싶은곳 3~5곳 정하기
+
+
+핀터레스트나 구글을 메인으로 영문검색
+국내보단 해외 자료를 보는게 좋음
+1. 핀터레스트
+2. 구글
+3. 디비컷, 굿디자인웹, 어워즈
+
+나의 아이덴티티와 작업물은 무조건 포함
+
+제출방법
+1. 깃허브
+2. 웹호스팅
+
+=============================================================
+일반함수와 익명함수의 차이점 : 선언문과 호출문이 바뀌면 나타나지 않는다 ( = 호이스팅)
+일반함수는 어디에 있던 사용 사용 가능
+
+함수 괄호안에 들어가는 값 :
+매개변수 = parameter
+인자값 = 인수
+
+함수실행문 값에 인수를 넣어주면 매개변수로 가서 함수를 실행해준다
+=============================================================
+배경색 바꾸기
+<body id="theBody">
+    <button onclick="changeColor()">배경색 바꾸기</button>
+  </body>
+
+
+let color = ["white", "yellow", "aqua", "purple"];
+
+let i = 0;
+function changeColor() {
+  i++;
+  if (i >= color.length) {
+    i = 0;
+  }
+  let bodyTag = document.getElementById("theBody");
+  bodyTag.style.backgroundColor = color[i];
+}
+
+
+랜덤 배경색 바꾸기
+
+<body id="theBody">
+    <button onclick="chColor()">배경색상 바꾸기</button>
+  </body>
+
+function chColor() {
+  let arrColor = ["aqua", "green", "purple", "yellow", "orange"];
+  let arrNum = Math.floor(Math.random() * arrColor.length);
+  let bodyTag = document.getElementById("theBody");
+  bodyTag.style.backgroundColor = arrColor[arrNum];
+}
+
+=============================================================
+함수 괄호안에 들어가는 값 :
+매개변수 = parameter
+인자값 = 인수
+
+함수실행문 값에 인수를 넣어주면 매개변수로 가서 함수를 실행해준다
+
+
+function addNum(a, b) {               ======>(a, b) : 매개변수
+  let sum = a + b;
+  document.write(sum);
+}
+addNum(3, 7);
+
+=============================================================
+
+let num1 = parseInt(prompt("첫번째 숫자"));
+let num2 = parseInt(prompt("두번째 숫자"));
+addNum(num1, num2);
+
+function addNum(a, b) {
+  let sum = a + b;
+  document.write(sum, "<br/");
+}
+
+
+parseInt = 값을 정수로 변환
+=============================================================
+
+function sum() {
+  let sum = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  document.write(sum);
+}
+
+sum(10, 20, 30);
+
+=============================================================
+return : 
+함수문 안에서 return이 실행된다면, 반복문 break문과 동일하게 코드를 강제로 종료
+
+함수문 밖(정의문)에서 return이 실행된다면, 함수를 호출했을 때의 결과값을 반환
+
+let num1 = parseInt(prompt("첫번째 숫자는?", "0"));
+let num2 = parseInt(prompt("두번째 숫자는?", "0"));
+let result = addNum(num1, num2);
+alert("두 수를 더한 값은 " + result + "입니다");
+
+function addNum(a, b) {
+  // let sum = a + b;
+  // return sum;         변수를 정해주고 리턴하는것과 바로 리턴하는것은 같다
+  return a + b;
+}
+=============================================================
+
+function testAvg(e) {
+  let sum = 0;
+  for (let i = 0; i < e.length; i++) {
+    sum += parseInt(prompt(e[i] + "점수는?", "0"));
+  }
+  let avg = sum / e.length;
+  return avg;
+}
+
+let arrSubject = ["국어", "수학"];
+let result = testAvg(arrSubject);
+
+document.write(`평균 점수는 ${result} 입니다.`);
+
+=============================================================
+이미지 넘기기(?)
+
+<body>
+    <div id="galleryZone">
+      <p>
+        <img src="/imgfile/pic_1.jpg" alt="" id="photo" />
+      </p>
+      <p>
+        <button onclick="gallery(0)">이전</button>
+        <button onclick="gallery(1)">다음</button>
+      </p>
+    </div>
+  </body>
+
+let num = 1;
+function gallery(event) {
+  if (event) {
+    if (num == 9) return;
+    num++;
+  } else {
+    if (num == 1) return;
+    num--;
+  }
+  let imgTag = document.getElementById("photo");
+  imgTag.setAttribute("src", "/imgfile/pic_" + num + ".jpg");
+}
+=============================================================
+재귀함수 = 함수 정의문 안에 작성한 코드로 본인 함수를 다시 호출하는것
+
+스코프 = 범위
+=============================================================
+let myVar = 100;
+test();					=======> 전역변수
+
+function test() {
+  let myVar = 50;				=======> 지역변수
+}
+
+document.write("myVar is " + myVar);		=======>myVar is 100"
+
+전역변수와 지역변수가 있으면 전역변수가 이기지만
+지역변수에 let과같은 변수를 지정해주는 키워드가 없으면 지역변수가 이긴다
+어지간하면 지역변수와 전역변수를 같이 사용하지 않는것이 좋다
+
+=============================================================
+변수
+참조변수
+매개변수
+전역변수
+지역변수
+블록변수 = 블록 '{ }' 안에서만 유효
+=============================================================
+즉시실행함수
+함수명이 같을때 사용
+
+(function () {
+  let num = 100;
+  function menu() {
+    num += 100;
+    alert(num);
+  }
+
+  menu();
+})();
+
+function menu() {
+  alert(num);
+}
+=============================================================
+js로 텍스트 숨기기, 사진 테두리(click, hover)
+<body>
+    <div id="item">
+      <img src="/imgfile/아이유.jpg" alt="" id="cover" />
+      <button
+        class="over"
+        id="open"
+        onmouseover="alert('아이유 이번신곡 히트')"
+        onclick="showDetail()"
+      >
+        아이유 인터뷰 내용
+      </button>
+      <div id="desc" class="detail">
+        <h4>아이유</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima ipsa
+          iusto impedit qui unde est ad ex! Repellendus, alias, voluptatibus ex
+          quos, dolorem architecto quibusdam nostrum similique accusamus
+          aspernatur ipsum.
+        </p>
+        <button id="close" onclick="hideDetail()">인터뷰 내용 닫기</button>
+      </div>
+    </div>
+  </body>
+
+function showDetail() {
+  document.querySelector("#desc").style.display = "block";
+  document.querySelector("#open").style.display = "none";
+}
+
+function hideDetail() {
+  document.querySelector("#desc").style.display = "none";
+  document.querySelector("#open").style.display = "block";
+}
+
+let coverImage = document.querySelector("#cover");
+coverImage.onclick = function () {
+  alert("아이유 선행 박수받다");
+};
+
+coverImage.onmouseover = function () {
+  coverImage.style.border = "50px blue solid";
+};
+coverImage.onmouseout = function () {
+  coverImage.style.border = "none";
+};
+
+=============================================================
+자바스크립트 객체 종류
+> 내장객체
+> BOM
+> DOM
+=============================================================
+
+평균 몸무게
+
+function checkWeight(name, height, weight) {
+  this.userName = name;
+  this.userHeight = height;
+  this.userWeight = weight;
+  this.minWeight;
+  this.maxWeight;
+
+  checkWeight.prototype.getInfo = function () {
+    let str = "";
+    str += "이름: " + this.userName + ", ";
+    str += "키: " + this.userHeight + ", ";
+    str += "몸무게: " + this.userWeight + "<br/>";
+    return str;
+  };
+  checkWeight.prototype.getResult = function () {
+    this.minWeight = (this.userHeight - 100) * 0.9 - 5;
+    this.maxWeight = (this.userHeight - 100) * 0.9 + 5;
+
+    if (
+      this.userWeight >= this.minWeight &&
+      this.userWeight <= this.maxWeight
+    ) {
+      return "정상 몸무게입니다";
+    } else if (this.userWeight <= this.minWeight) {
+      return "정상 몸무게보다 미달입니다";
+    } else {
+      return "정상 몸무게보다 초과입니다";
+    }
+  };
+}
+
+let jang = new checkWeight("장보리", 168, 62);
+let park = new checkWeight("박달재", 180, 88);
+
+document.write(jang.getInfo());
+document.write(jang.getResult(), "<br/><br/>");
+
+document.write(park.getInfo());
+document.write(park.getResult(), "<br/><br/>");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
