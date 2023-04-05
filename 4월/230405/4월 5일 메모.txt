@@ -1,0 +1,316 @@
+모달 만들기
+1. html
+> 첫번째 페이지로 나올 요소를 먼저 정의
+> 모달 페이지로 나올 요소를 그다음 정의
+
+2. css
+> 첫번째 페이지에 대한 스타일링
+> 모달 페이지로 나올 요소에 스타일링(*display:none;)
+
+3. js
+> 각각의 요소를 변수값에 할당
+> 첫번째 페이지에 이벤트가 작동했을 때, 나올 페이지
+> 두번째 페이지에서 이벤트가 작동했을 때, 나올 페이지
+
+
+--------------------html----------------------
+
+<body>
+    <button class="open"></button>
+    <div class="container">
+      <div class="modal">
+        <h2>The Avengers</h2>
+        <p>
+          <img class="imgBtn" src="/img/scale.jpg" alt="" />
+        </p>
+        <button class="close">X</button>
+      </div>
+    </div>
+  </body>
+
+--------------------css----------------------
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  width: 200px;
+  border: none;
+  cursor: pointer;
+}
+button.open {
+  background: url("/img/logo.png") no-repeat;
+  background-size: 100%;
+  height: 200px;
+}
+button.close {
+  background-color: transparent;
+  position: absolute;
+  top: 90px;
+  right: 50px;
+  width: 40px;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 90%;
+  row-gap: 15px;
+  padding: 30px;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.2);
+}
+img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+--------------------js----------------------
+
+const openButton = document.querySelector(".open");
+const container = document.querySelector(".container");
+const closeButton = document.querySelector(".close");
+const imgBtn = document.querySelector(".imgBtn");
+
+openButton.addEventListener("click", () => {
+  container.style.display = "flex";
+  openButton.style.display = "none";
+});
+
+closeButton.addEventListener("click", () => {
+  container.style.display = "none";
+  openButton.style.display = "flex";
+});
+
+imgBtn.addEventListener("click", () => {
+  container.style.display = "none";
+  openButton.style.display = "flex";
+});
+
+========================================================
+
+--------------------html----------------------
+<body>
+    <div class="container">
+      <button class="main_btn">
+        <img src="/img/고양이사료.png" alt="" />
+      </button>
+    </div>
+    <div class="modal">
+      <button class="modal_btn">❌</button>
+    </div>
+  </body>
+--------------------css----------------------
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(0, 0, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 10px 10px rgba(0, 0, 255, 0.2);
+
+  margin: 0 auto;
+  margin-top: 300px;
+  position: relative;
+  display: none;
+}
+.main_btn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  font-size: 3em;
+}
+
+.modal {
+  width: 500px;
+  height: 500px;
+  border-radius: 30px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 300px;
+  position: relative;
+
+  background: url("/img/고양이.jpg");
+}
+.modal_btn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+--------------------js----------------------
+const container = document.querySelector(".container");
+const mainBtn = document.querySelector(".main_btn");
+const modal = document.querySelector(".modal");
+const modalBtn = document.querySelector(".modal_btn");
+
+mainBtn.addEventListener("click", () => {
+  container.style.display = "none";
+  modal.style.display = "block";
+});
+
+modalBtn.addEventListener("click", () => {
+  container.style.display = "block";
+  modal.style.display = "none";
+});
+
+========================================================
+DOM = 문서객체모델 (*중요*)
+- html > body 태그 작성된 모든 요소 => 노드
+
+insertBefore(매개변수1, 매개변수2)
+= 매개변수1을 매개변수2 앞에다가 끼워넣는다
+
+========================================================
+참가신청
+--------------------html----------------------
+<body>
+    <div id="container">
+      <h1>참가 신청</h1>
+      <form>
+        <input type="text" id="userName" placeholder="이름" />
+        <button onclick="newRegister();return false">신청</button>
+      </form>
+      <hr />
+      <div id="nameList"></div>
+    </div>
+  </body>
+--------------------css----------------------
+#container {
+  width: 500px;
+  margin: 20px auto;
+}
+h1 {
+  font-size: 2.5em;
+  text-align: center;
+}
+form {
+  margin-top: 50px;
+}
+input {
+  width: 350px;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 20px;
+  outline: none;
+}
+button {
+  width: 100px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 20px;
+}
+hr {
+  visibility: hidden;
+}
+#nameList > p {
+  font-size: 20px;
+  text-indent: 50px;
+  line-height: 1.5;
+}
+.del {
+  float: right;
+  margin-right: 90px;
+  /* border: 2px solid red;
+  width: 100px; */
+  text-align: center;
+}
+.del:hover {
+  color: #222;
+  cursor: pointer;
+}
+
+--------------------js----------------------
+function newRegister() {
+  let newP = document.createElement("p");
+  let userName = document.querySelector("#userName");
+  let newText = document.createTextNode(userName.value);
+  newP.appendChild(newText);
+
+  let delBttn = document.createElement("span");
+  let delText = document.createTextNode("X");
+  delBttn.setAttribute("class", "del");
+  delBttn.appendChild(delText);
+  newP.appendChild(delBttn);
+
+  let nameList = document.querySelector("#nameList");
+  nameList.insertBefore(newP, nameList.childNodes[0]);
+  userName.value = "";
+
+  let removeBttns = document.querySelectorAll(".del");
+
+  for (let i = 0; i < removeBttns.length; i++) {
+    removeBttns[i].addEventListener("click", function () {
+      if (this.parentNode)
+        this.parentNode.parentNode.removeChild(this.parentNode);
+    });
+  }
+}
+
+
+
+
+
+========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
