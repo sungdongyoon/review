@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- BX Slider -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"
+    />
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"
+    ></script>
+
+    <!-- jQuery -->
+    <script src="/jquery-3.6.4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script defer src="/jQuery/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/jQuery/jquery-ui.css" />
+    <link rel="stylesheet" href="/jQuery/jquery-ui.theme.css" />
+
+    <script
+      defer
+      src="https://kit.fontawesome.com/1792b891d9.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/script.js"></script>
+    <title>자유주제</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="spring">
+          <img src="/img/벚꽃.jpg" alt="" class="flower" />
+          <span>Spring</span>
+        </div>
+        <div class="fall">
+          <img src="/img/단풍.jpg" alt="" class="flower" />
+          <span>Fall</span>
+        </div>
+      </div>
+      <div class="modal_spring">
+        <div class="slider">
+          <div><img src="/img/봄1.jpg" alt="" /></div>
+          <div><img src="/img/봄2.jpg" alt="" /></div>
+          <div><img src="/img/봄3.jpg" alt="" /></div>
+        </div>
+        <div class="drag">
+          <div class="flower_img" id="draggable" class="ui-widget-content">
+            <img src="/img/꽃1.jpg" alt="" />
+          </div>
+          <div class="flower_img" id="draggable2" class="ui-widget-content">
+            <img src="/img/꽃2.jpg" alt="" />
+          </div>
+        </div>
+        <a class="close_spring">❌</a>
+      </div>
+    </div>
+  </body>
+</html>

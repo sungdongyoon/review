@@ -1,0 +1,90 @@
+/* content */
+.content {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 200px;
+  padding: 50px;
+  /* box-shadow: 0 0 20px rgba(0, 128, 0, 0.5);
+  border-radius: 20px; */
+}
+
+/* spring */
+.spring {
+  width: 50%;
+  height: 50%;
+  box-shadow: 0 0 10px rgb(230, 172, 212);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}
+.spring span {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: pink;
+}
+.flower {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* modal_spring */
+.modal_spring {
+  display: none;
+  width: 700px;
+  height: 700px;
+  margin: 0 auto;
+  margin-top: 200px;
+  box-shadow: 0 0 20px rgb(230, 172, 212);
+  border-radius: 20px;
+  position: relative;
+}
+.modal_spring .close_spring {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: block;
+}
+.modal_spring .slider img {
+  width: 600px;
+  height: 400px;
+  background-size: cover;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+.flower_img {
+  width: 100px;
+  height: 100px;
+}
+.flower_img img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* Fall */
+.fall {
+  width: 50%;
+  height: 50%;
+  box-shadow: 0 0 10px rgb(182, 86, 8);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}
+.fall span {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: rgb(182, 86, 8);
+}
+.flower {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
