@@ -1,0 +1,575 @@
+콘텐츠 탐색 선택자
+contains, contents, has, not, end
+
+$(function () {
+  $("#inner_1 p:contains(내용1)").css({  //매개변수 텍스트를 선택
+    "background-color": "#ff0",
+  });
+  $("#inner_1 p:has(strong)").css({  //태그요소를 갖고있는 것을 선택
+    "background-color": "#0ff",
+  });
+  $("#outer_wrap").contents().css({     // 선택자에서 가장 가까운 하위요소
+
+    border: "1px dashed #00f",
+  });
+
+  $("#inner_2 p").not(":first").css({
+    "background-color": "#0f0", //변수를 제외한 나머지 선택
+  });
+  $("#inner_2 p").eq(2).end().css({   //필터링되기 전 단계 모두
+    color: "#f00",
+  });
+});
+------------------------------------------------------
+find() : 선택한 하위 요소 중에서 find() 필터링한 요소만 선택
+filter() : 선택한 요소 중에서 filter()로 필터링한 요소만 선택
+
+<body>
+    <div id="outer_wrap">
+      <h1>콘텐츠 탐색 선택자</h1>
+      <section id="inner_1">
+        <h2>find(), filter()</h2>
+        <p class="txt1">내용</p>
+        <p class="txt2">내용</p>
+      </section>
+      <section id="inner_2">
+        <h2>filter(function)</h2>
+        <p>index 0</p>
+        <p>index 1</p>
+        <p>index 2</p>
+        <p>index 3</p>
+      </section>
+    </div>
+  </body>
+
+$(function () {
+  //선택한 선택자의 하위 요소
+  $("#inner_1").find(".txt1").css({
+    "background-color": "#ff0",
+  });
+
+  //선택한 선택자
+  $("#inner_1 p").filter(".txt2").css({
+    "background-color": "#0ff",
+  });
+
+  $("#inner_2 p")
+    .filter(function (idx, obj) {
+      console.log(idx);
+      return idx % 2 == 0;
+    })
+    .css({
+      "background-color": "#0f0",
+    });
+});
+--------------------------------------------------------------
+$(function() {
+  //is는 display나 input의 상태를 확인하는데 사용, 트리거역을 한다
+  let result_1 = $("#inner_1 p")
+  .eq(0).is(":visible");
+  console.log(result_1)
+
+  let result_2 = $("#inner_1 p")
+  .eq(1).is(":visible");
+  console.log(result_2);
+
+  let result_3 = $("#chk1").is("checked");
+  console.log("#resul_3")
+})
+----------------------------------------------------------------------------
+객체 조작 메서드
+
+<body>
+    <h1>
+      <strong>객체 조작 및 생성</strong>
+      <section id="sec_1">
+        <h2>이미지 속성</h2>
+        <p>
+          <img src="/img/math_img_1.jpg" alt="가위" border="2">
+        </p>
+      </section>
+    </h1>
+  </body>
+
+
+$(function() {
+  //img의 속성값을 불러왔다
+  let srcVal = $("#sec_1 img").attr("src");
+  console.log(srcVal);
+
+  //srVal의 속성값을 1.jpg에서 2.jpg로 변경해서 사진이 바뀌었다. 
+  //alt도 바위로 변경
+  //removeAttr로 border도 삭제
+  $("#sec_1 img").attr({
+    "width":200,
+    "src":srcVal.replace("1.jpg", "2.jpg"),
+    "alt":"바위"
+  })
+  .removeAttr("border");
+})
+
+----------------------------------------------------------------------------------
+
+<body>
+    <p id="p1">내용1</p>
+    <p id="p2" class="red">내용2</p>
+    <p id="p3">내용3</p>
+    <p id="p4" class="green">내용4</p>
+    <p id="p5" class="yellow">내용5</p>
+    <p id="p6">내용6</p>
+  </body>
+
+$(function() {
+  $("#p1").addClass("aqua");                    //p1에 aqua클래스 추가
+  $("#p2").removeClass("red");                  //p2에 red클래스 제거
+  $("#p3").toggleClass("green");                //p3에 green클래스 추가 - toggle은 값이 없으면 추가
+  $("#p4").toggleClass("green");                //p4에 green클래스 제거 - toggle은 값이 있으면 삭제
+  $("#p6").text($("#p5").hasClass("yellow"));   //p6에 p5의 값을 가져왔는데 그 값에 yellow 클래스가 있으면 true
+})
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+$(function() {
+  //val()안에 인자값이 없으면 불러온다는 뜻
+  let result_1 = $("#user_name").val();
+  console.log(result_1);
+
+  //#user_id의 값이 javascript로 변경된다는 뜻
+  //.prop("defaultValue")때문에 원본값이 콘솔에 입력된다
+  //웹에 보여지는 값은 javascript로 변경
+  $("#user_id").val("javascript");
+  
+  let result_2 = $("#user_id").prop("defaultValue");
+  console.log(result_2);
+})
+----------------------------------------------------------------------------------
+<body>
+    <h1>객체 조작 및 생성</h1>
+    <form action="#" id="form_1">
+      <p>
+        <input type="checkbox" name="chk1" id="chk1">
+        <label for="chk1">chk1</label>
+        <input type="checkbox" name="chk2" id="chk2" checked>
+        <label for="chk2">chk2</label>
+        <input type="checkbox" name="chk3" id="chk3" >
+        <label for="chk3">chk3</label>
+      </p>
+      <p>
+        <select name="se_1" id="se_1">
+          <option value="opt1">option1</option>
+          <option value="opt2">option2</option>
+          <option value="opt3" selected>option3</option>
+        </select>
+      </p>
+    </form>
+  </body>
+
+$(function() {
+  let result_1 = $("#chk1").prop("checked");
+  console.log(result_1);
+
+  let result_2 = $("#chk2").prop("checked");
+  console.log(result_2);
+
+  //prop으로 속성값 변경
+  let result_3 = $("#chk3").prop("checked", true);
+
+  //현재 selected된것의 인덱스값
+  let result_4 = $("#se_1").prop("selectedIndex");
+  console.log(result_4)
+})
+
+----------------------------------------------------------------------------------
+<body>
+    <div id="box_wrap">
+      <p class="box">박스</p>
+    </div>
+    <p class="txt_1">절대 top 위치값: <span></span></p>
+    <p class="txt_2">상대 top 위치값: <span></span></p>
+  </body>
+
+$(function() {
+  //offset : document 기준으로 절대좌표
+  //position : 상대적 기준으로 좌표
+  let $txt1 = $(".txt_1 span"),
+      $txt2 = $(".txt_2 span"),
+      $box = $(".box");
+
+  let off_t = $box.offset().top;
+  $txt1.text(off_t);
+
+  let pos_t = $box.position().top;
+  $txt2.text(pos_t);
+})
+
+
+----------------------------------------------------------------------------------
+<div id="wrap">
+      <h1>위치 메서드</h1>
+    </div>
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  line-height: 1;
+}
+#wrap {
+  height: 5000px;
+  padding-top: 2000px;
+}
+h1 {
+  border: 2px solid red;
+}
+
+
+$(function() {
+  //topNum에 h1의 top부터의 절대값을 지정
+  //scrollTop은 화면을 새로 띄웠을때 인자값 만큼 띄워서 보여줘라
+  let topNum = $("h1").offset().top;
+  $(window).scrollTop(topNum);
+  //sct에 저 값을 지정
+  //console로 그 값을 나타냄
+  let sct = $(window).scrollTop();
+  console.log(sct);
+})
+
+
+----------------------------------------------------------------------------------
+<body>
+    <div id="wrap">
+      <p>내용1</p>
+      <p>내용2</p>
+      <p>내용3</p>
+    </div>
+  </body>
+
+$(function() {
+  //wrap안의 세번째 p 뒤에 after 추가
+  $("#wrap p:eq(2)").after("<p>Afer</p>");
+  //insert는 선택자와 요소의 위치 바꿔서 사용, insert가 있는것과 없는것의 기능은 같다
+  $("<p>insertAfter</p>").insertAfter("#wrap p:eq(1)");
+
+  //wrap안의 두번째 p 앞에 before 추가
+  $("#wrap p:eq(1)").before("<p>Before</p>");
+  $("<p>insertBefore</p>").insertBefore("#wrap p:eq(0)");
+})
+
+----------------------------------------------------------------------------------
+body>
+    <ul id="listZone">
+      <li>리스트</li>
+    </ul>
+  </body>
+
+$(function() {
+  //선택자의 뒤에 값을 넣는다
+  $("#listZone").append("<li>append</li>");
+  //append와 appendTo의 기능은 같다
+  $("<li>append</li>").appendTo("#listZone");
+
+  //선택자의 앞에 값을 넣는다
+  $("#listZone").prepend("<li>prepend</li>");
+})
+
+
+
+----------------------------------------------------------------------------------
+
+<body>
+    <div class="box1">
+      <p>내용1</p>
+      <p>내용2</p>
+    </div>
+    <div class="box2">
+      <p>내용3</p>
+      <p>내용4</p>
+    </div>
+    <div class="box3">
+      <p>내용5</p>
+      <p>내용6</p>
+    </div>
+  </body>
+
+$(function() {
+  //box1의 자식요소들 복사
+  let copyObj = $(".box1").children().clone();
+
+  //box2 삭제 - remove : 선택한 요소 삭제
+  $(".box2").remove();
+
+  //box3 삭제 - empty : 하위 요소 모두 삭제
+  $(".box3").empty();
+
+  //box3에 copyObj 추가, empty는 안의 요소를 비워놓은것이라 추가 가능
+  $(".box3").append(copyObj);
+})
+
+----------------------------------------------------------------------------------
+<body>
+    <section class="box1">
+      <h2>제목1</h2>
+      <div>내용1</div>
+      <div>내용2</div>
+    </section>
+    <section class="box2">
+      <h2>제목2</h2>
+      <div>내용3</div>
+      <div>내용4</div>
+    </section>
+  </body>
+
+
+$(function() {
+  //h2의 내용을 replace method로 교체
+  $("h2").replaceWith("<h3>replace method</h3>");
+  //모든 div를 <p>Change</p>로 교체
+  $("<p>Change</p>").replaceAll("div");
+})
+
+
+
+----------------------------------------------------------------------------------
+<body>
+    <h1 id="tit_1">
+      <strong>객체 조작 및 생성</strong>
+    </h1>
+    <p class="ct1">내용1</p>
+    <p class="ct1">내용2</p>
+    <p class="ct2">내용3</p>
+    <p class="ct2">내용4</p>
+    <ul>
+      <li>내용3</li>
+      <li>내용4</li>
+    </ul>
+</body>
+
+
+$(function() {
+  //unwrap을 줘서 strong의 부모요소 h1을 삭제
+  $("strong").unwrap();
+
+  //각각 ct1의 부모요소로 div 추가
+  $(".ct1").wrap("<div />");
+
+  //모든 ct2의 부모요소로 div 추가 (한번에 넣는다)
+  $(".ct2").wrapAll("<div />")
+  
+  //각각 li태그를 h3로 감쌌다
+  $("li").wrapInner("<h3 />")
+})
+
+
+----------------------------------------------------------------------------------
+<body>
+    <div class="wrap_1">
+      <p>텍스트1</p>
+      <p class="active">내용2</p>
+      <p><a href="#">네이버</a></p>
+      <p>
+        <input type="text" value="hello">
+      </p>
+    </div>
+    <div class="wrap_2">
+      <p>내용5</p>
+      <p>내용6</p>
+    </div>
+    <div class="wrap_3">
+      <div>
+        <p>내용7</p>
+        <p>내용8</p>
+      </div>
+    </div>
+  </body>
+
+
+$(function() {
+  //wrap_1의 첫번째 p태그의 내용을 내용1로 변경
+  $(".wrap_1 p:first").text("내용1");
+
+  //wrap_1 p의 active클래스 삭제, on클래스 추가
+  $(".wrap_1 p.active").removeClass()
+  .addClass("on");
+
+  //wrap_1의 세번째 p태그의 속성 중 href를 네이버로 변경
+  $(".wrap_1 p:eq(2) a").attr("href", "https://www.naver.com");
+
+  //wrap_1의 네번째 p태그의 인풋 값을 korea로 변경
+  $(".wrap_1 p:eq(3) input").val("korea");
+
+  //wrap_2의 첫번째 p태그 뒤에 After(추가) 추가
+  $(".wrap_2 p:first").after("<p>After(추가)</p>");
+
+  //wrap_2의 첫번째 p태그 앞에 Before(추가) 추가
+  $(".wrap_2 p:first").before("<p>Before(추가)</p>");
+
+  //wrap_3의 
+  $(".wrap_3").unwrap().wrapInner("<strong />");
+})
+
+======================================================
+
+<body>
+    <button id="btn1">버튼</button>
+  </body>
+
+
+
+$(function() {
+  $("#btn1").on("mouseover focus", function() {
+    console.log("welcome");
+  });
+});
+
+$(function() {
+  $("#btn1").on({
+    "mouseover focus":function(){
+      console.log("hi");
+    }
+  });
+});
+
+$(function() {
+  $("#btn1").on({
+    "mouseover":function() {
+      console.log("hello");
+    },
+    "focus":function() {
+      console.log("good");
+    }
+  });
+});
+
+
+======================================
+<body>
+    <p>
+      <button class="btn1">버튼1</button>
+    </p>
+    <p>내용1</p>
+    <p>
+      <button class="btn2">버튼2</button>
+    </p>
+    <p>내용2</p>
+  </body>
+
+$(function() {
+  //btn1 클릭 시 btn1의 부모의 다음에 있는 요소에 css추가
+  $(".btn1").click(function() {
+    $(".btn1").parent().next().css({
+      "color":"#f00",
+    });
+  });
+
+  //btn2 클릭 시 btn2의 부모의 다음에 있는 요소에 css 추가
+  $(".btn2").on({
+    "mouseover focus":function() {
+      $(".btn2").parent().next().css({
+        "color":"#0f0",
+      });
+    },
+    "mouseout blur":function() {
+      $(".btn2").parent().next().css({
+        "color":"#000",
+      });
+    }
+  });
+});
+
+==============================
+<body>
+    <p>
+      <img src="http://place-hold.it/300x300" alt="" class="img1">
+    </p>
+  </body>
+
+$(function() {
+  //document에 존재하는 데이터를 가지고 올 수 있는 메서드
+  $(document).ready(function() {
+    let h1 = $(".img1").height();
+    console.log("ready: ", h1);
+  });
+
+  //document가 아닌 외부소스를 로딩할 때 사용할 수 있는 메서드
+  $(window).load(function() {
+    let h2 = $(".img1").height();
+    console.log("load: ", h2);
+  });
+})
+
+
+============================================================
+<body>
+    <p><a href="https://www.naver.com" class="btn1">버튼1</a></p>
+    <p class="txt1">내용1</p>
+    <p><a href="https://www.naver.com" class="btn2">버튼2</a></p>
+    <p class="txt2">내용2</p>
+    <p><button class="btn3">버튼3</button></p>
+    <p class="txt3">내용3</p>
+  </body>
+
+
+$(function() {
+  $(".btn1").on("click", function(e) {
+    e.preventDefault();
+    $(".txt1").css({
+      "background-color": "#ff0",
+    });
+  });
+  $(".btn2").on("click", function(e) {
+    $(".txt2").css({
+      "background-color": "#0ff",
+    });
+  });
+  $(".btn3").on("dblclick", function() {
+    $(".txt3").css({
+      "background-color": "#0f0",
+    });
+  });
+});
+============================================================
+
+<body>
+    <p>
+      <button class="btn1">Mouse Over/Mouse Out</button>
+    </p>
+    <p class="txt1">내용1</p>
+    <p>
+      <button class="btn2">Hover</button>
+    </p>
+    <p class="txt2">내용2</p>
+  </body>
+
+$(function() {
+  $(".btn1").on({
+    "mouseover": function() {
+      $(".txt1").css({
+        "background-color": "yellow",
+      });
+    },
+    "mouseout": function() {
+      $(".txt1").css({
+        "background": "none",
+      });
+    }
+  });
+  
+  $(".btn2").hover(function() {
+    $(".txt2").css({
+      "background-color": "aqua"
+    });
+  }, function(){
+    $(".txt2").css({
+      "background": "none"
+    });
+  });
+});
+
+
+
+
+
+
+
