@@ -1,0 +1,765 @@
+for문 / of 문
+
+-----------------------------------------------------------------------------------
+mousemove 이벤트
+
+<body>
+  <h1>mousemove</h1>
+  <p>
+    X : <span class="posX">0</span> px
+  </p>
+  <p>
+    Y : <span class="posY">0</span> px
+  </p>
+</body>
+
+$(function() {
+  $(document).on("mousemove", function(e) {
+    $(".posX").text(e.pageX);
+    $(".posY").text(e.pageY);
+  })
+})
+
+-----------------------------------------------------------------------------------
+scroll 이벤트
+
+<body>
+  <div id="wrap">
+    <p>scrollTop : <span class="top">0</span> px</p>
+    <p>scrollLeft : <span class="left">0</span> px</p>
+  </div>
+</body>
+
+body {
+  height: 10000px;
+  width: 5000px;
+}
+#wrap {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+$(function() {
+  $(window).on("scroll", function() {
+    let sc_top = $(this).scrollTop();
+    let sc_left = $(this).scrollLeft();
+
+    $(".top").text(sc_top);
+    $(".left").text(sc_left);
+  })
+})
+-----------------------------------------------------------------------------------
+focus 이벤트
+
+body>
+  <h1>focus / blur</h1>
+  <form action="">
+    <p>
+      <label for="user_id_1">ID</label>
+      <input type="text" name="user_id_1" id="user_id_1">
+    </p>
+    <p>
+      <label for="user_pw_1">PW</label>
+      <input type="password" name="user_pw_1" id="user_pw_1">
+    </p>
+  </form>
+  <h1>focusin / focusout</h1>
+  <form action="" id="frm_2">
+    <p>
+      <label for="user_id_2">ID</label>
+      <input type="text" name="user_id_2" id="user_id_2">
+    </p>
+    <p>
+      <label for="user_pw_1">PW</label>
+      <input type="password" name="user_pw_2" id="user_pw_2">
+    </p>
+  </form>
+</body>
+
+$(function() {
+  //#user_id_1, #user_pw_1에 동시에 focus 이벤트로 배경색 추가
+  $("#user_id_1, #user_pw_1").on("focus", function() {
+    $(this).css({
+      "background-color":"pink"
+    });
+  });
+  //#user_id_1, #user_pw_1에 동시에 blur 이벤트로 배경색 추가
+  $("#user_id_1, #user_pw_1").on("blur", function() {
+    $(this).css({
+      "background-color": "#fff"
+    });
+  });
+  //focusin/out
+  $("#frm_2").on("focusin", function() {
+    $(this).css({
+      "background-color":"pink"
+    })
+  })
+  $("#frm_2").on("focusout", function() {
+    $(this).css({
+      "background-color":"#fff"
+    })
+  })
+});
+
+-----------------------------------------------------------------------------------
+
+<body>
+  <p><button id="btn1">버튼1</button></p>
+  <p><button id="btn2">버튼2</button></p>
+  <p class="txt"></p>
+</body>
+
+$(function() {
+  //mouse이벤트만 사용해서 마우스만 가능, 키보드x
+  $("#btn1")
+  .data({"text":"javascript"})
+  .on({
+    "mouseover":overFnc,
+    "mouseout":outFnc
+  });
+
+  //mouse이벤트와 focus/blur 이벤트를 사용하면 마우스 말고도 키보드로도 사용 가능 
+  $("#btn2")
+  .data({"text":"welcome"})
+  .on({
+    "mouseover focus":overFnc,
+    "mouseout blur":outFnc
+  })
+
+  function overFnc() {
+    $(".txt").text($(this).data("text"));
+  };
+  function outFnc() {
+    $(".txt").text("");
+  }
+})
+-----------------------------------------------------------------------------------
+<body>
+  <select id="rel_site">
+    <option value="">사이트 선택</option>
+    <option value="www.google.com">구글</option>
+    <option value="www.naver.com">네이버</option>
+    <option value="www.daum.net">다음</option>
+  </select>
+  <p class="txt"></p>
+</body>
+
+$(function() {
+  //#rel_site값 변경될때 .txt에 변경된 값을 텍스트로 입력
+  $("#rel_site").on("change", function() {
+    $(".txt").text($(this).val());
+  });
+});
+
+
+
+-----------------------------------------------------------------------------------
+<p>
+    <input type="text" name="user_id" id="user_id" />
+  </p>
+
+
+$(function() {
+  //키보드를 눌렀을 때 keyEventFnc 이벤트 실행
+  $(document).on("keydown", keyEventFnc);
+  function keyEventFnc(e) {
+    let direct = "";
+
+    switch(e.keyCode) {
+      case 37: direct = "LEFT";
+      break;
+      case 38: direct = "TOP";
+      break;
+      case 39: direct = "RIGHT";
+      break;
+      case 40: direct = "BOTTOM";
+    }
+    
+    //direct가 참이라면 input.value의 값을 direct로 넣어라
+    if(direct) $("#user_id").val(direct);
+  }
+});
+-----------------------------------------------------------------------------------
+<body>
+  <h2>$(this)</h2>
+  <ul class="menuWrap_1">
+    <li><a href="#">메뉴1</a></li>
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+  </ul>
+  <h2>Index()</h2>
+  <ul class="menuWrap_2">
+    <li><a href="#">메뉴4</a></li>
+    <li><a href="#">메뉴5</a></li>
+    <li><a href="#">메뉴6</a></li>
+  </ul>
+  <p class="idxNum"></p>
+</body>
+
+$(function() {
+  $(".menuWrap_1 a").on("click", function(e) {
+    e.preventDefault();
+    
+    $(".menuWrap_1 a").css({
+      "background-color":"#fff"
+    })
+    //.menuWrap_1 a 중에서 선택된 요소에 노란 배경색을 주는것
+    $(this).css({
+      "background-color":"#ff0"
+    })
+  })
+})
+
+
+-------------------------------------------------------------------------------------------------
+
+<body>
+  <h2>$(this)</h2>
+  <ul class="menuWrap_1">
+    <li><a href="#">메뉴1</a></li>
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+  </ul>
+  <h2>Index()</h2>
+  <ul class="menuWrap_2">
+    <li><a href="#">메뉴4</a></li>
+    <li><a href="#">메뉴5</a></li>
+    <li><a href="#">메뉴6</a></li>
+  </ul>
+  <p class="idxNum"></p>
+</body>
+
+$(function() {
+  $(".menuWrap_1 a").on("click", function(e) {
+    e.preventDefault();
+    
+    $(".menuWrap_1 a").css({
+      "background-color":"#fff"
+    })
+    //.menuWrap_1 a 중에서 선택된 요소에 노란 배경색을 주는것
+    $(this).css({
+      "background-color":"#ff0"
+    })
+  })
+
+  $(".menuWrap_2 a").on("click", function(e) {
+    e.preventDefault();
+
+    $(".menuWrap_2 a").css({
+      "background-color": "#fff"
+    });
+
+    //idx라는 변수에 .menuWrap_2 a 의 인덱스 값을 넣고 eq를 사용해 배경색 추가
+    let idx = $(".menuWrap_2 a").index(this);
+    $(".menuWrap_2 a").eq(idx).css({
+      "background-color": "#0ff"
+    });
+
+    $(".idxNum").text(idx);
+  });
+});
+
+================================================================
+jQuery : 이벤트 작동
+
+1) 단독 이벤트
+이벤트 함수 바로 사용
+
+2)그룹 이벤트
+2개 이상의 이벤트 함수를 사용하기 위해서 .on()
+
+
+
+지금까지 사용했었던 그룹 이벤트 on() : 
+이벤트 세팅 후 새롭게 생성되거나 복제되는 이벤트 요소를 적용할 수 없다
+
+새롭게 생성되거나 복제되는 이벤트 요소를 적용하고 싶다면
+**라이브 이벤트**를 사용
+
+$(function() {
+  $(document).on("mouseover focus", ".btn_1.on" ,function() {
+    alert("Hello");
+  });
+  $(".btn_1").addClass("on");
+});
+
+이와같은 그룹 이벤트 방식을 "라이브 이벤트 등록 방식" 이라고 한다
+$("이벤트 대상의 상위 요소 선택").on("이벤트 종류", "이벤트 대상", function({자바스크립트 코드}))
+================================================================
+delegate() 이벤트 등록 메서드
+: 선택한 요소의 하위요소에 이벤트를 등록할 때 사용
+
+one() 이벤트 등록 메서드
+: 이벤트가 1회 발생하면 자동으로 등록된 이벤트 제거
+
+
+<body>
+  <div id="wrap">
+    <p class="btn_wrap">
+      <button class="btn_1">버튼1</button>
+    </p>
+    <p>
+      <button class="btn_2">버튼2</button>
+    </p>
+  </div>
+</body>
+
+$(function() {
+  //delegate : 선택한 요소의 하위요소를 선택
+  $(".btn_wrap").delegate(".btn_1.on", "mouseover focus", function() {
+    alert("Hello");
+  });
+  $(".btn_1").addClass("on");
+
+  //one : 이벤트가 1회 발생하면 이벤트 제거
+  $(document).one("mouseover focus", ".btn_2.on", function() {
+    alert("welcome");
+  })
+  $(".btn_2").addClass("on");
+});
+
+on() <--> off() : on()메서드로 등록한 이벤트를 제거할 때 사용
+delegate() <--> undelegate : delegate()메서드로 동록한 이벤트를 제거할 때 사용
+
+-------------------------------------------------------------------------------------------------
+
+<body>
+  <div id="wrap">
+    <p>
+      <button class="btn_1">버튼1</button>
+    </p>
+    <p>
+      <button class="del_1">버튼1 이벤트 해제</button>
+      <button class="del_2">버튼2 이벤트 해제</button>
+    </p>
+  </div>
+</body>
+
+$(function() {
+  $(".btn_1").on("mouseover", function() {
+    alert("hello");
+  });
+
+  //추가로 작성된 이벤트라 라이브 이벤트 등록방식으로 작성
+  $(document).on("mouseover", ".btn_2" ,function() {
+    alert("welcome");
+  });
+
+  //btn_2라는 변수에 버튼2를 생성하고 #wrap하위요소로 등록
+  let btn_2 = $("<p><button class=\"btn_2\">버튼2</button></p>");
+  $("#wrap").append(btn_2);
+
+  //del_1버튼을 클릭하면 btn_1의 이벤트 제거
+  $(".del_1").on("click", function() {
+    $(".btn_1").off("mouseover");
+  })
+
+    //del_2버튼을 클릭하면 btn_2의 이벤트 제거
+    //다만 btn_2는 추가로 작성된 이벤트라 등록할때 라이브 이벤트 등록방식으로 작성해서
+    //제거할때도 라이브 이벤트 등록방식으로 적용해야함
+  $(".del_2").on("click", function() {
+    $(document).off("mouseover", ".btn_2");
+  });
+});
+
+-------------------------------------------------------------------------------------------------
+<body>
+  <p class="zoomBtnZone">
+    <button class="zoomOutBtn">-</button>
+    <button class="originBtn">100%</button>
+    <button class="zoomInBtn">+</button>
+  </p>
+  <p class="fontSize">14px</p>
+  <div id="wrap">
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, obcaecati dolorum eveniet et nisi debitis. Dolorem harum temporibus molestiae et incidunt reiciendis quas nemo atque sed fugit! Officia, vel corporis.
+    Fugit repellat voluptate sunt ad dicta deleniti facilis vel, autem atque dolores, fugiat rem inventore doloremque iste! Delectus corporis sit molestias laudantium eveniet atque! Enim, necessitatibus assumenda. Obcaecati, fuga perspiciatis?
+    Aut dignissimos doloribus dolores iure quaerat porro quas sunt, tempora perspiciatis ducimus facilis, ipsa at nam voluptatem, et magnam placeat. Odit omnis sequi fugiat laboriosam natus illum voluptas. Ipsum, non!
+    Molestias quisquam debitis assumenda doloremque, exercitationem aspernatur dicta. Quo est rerum, aliquam sunt doloribus illum excepturi earum corrupti, odit cupiditate fugit quas saepe, officiis commodi facere necessitatibus. Ut, minus facere.
+    Rerum aliquid optio odit obcaecati natus? Veritatis officia quibusdam delectus pariatur rem magni rerum voluptates modi itaque distinctio quasi, in sunt velit tenetur nostrum praesentium possimus dignissimos, eum laudantium aperiam!
+    Ducimus, modi culpa. Unde saepe ipsam illum fugit repellendus, accusantium sed cumque modi pariatur quibusdam numquam perferendis quae quo error est, dolores eligendi sequi! Voluptatem commodi dolorum tempora veniam quis.
+    Natus obcaecati temporibus voluptatem quibusdam dolore iure qui alias blanditiis aspernatur. Labore voluptatum, eaque obcaecati laboriosam eligendi optio maxime aut non at, facere saepe libero, recusandae cupiditate ad perspiciatis fugit.
+    Asperiores dolorem laborum quod, amet omnis alias mollitia quo incidunt nisi sed commodi ex. Consequuntur consectetur quam aperiam! Deleniti illo dolores reprehenderit harum rem quia molestias sint ducimus est minima!
+    Ipsam, eveniet. Repellat minus expedita sit perferendis possimus odio ad vitae beatae cum ipsum totam quisquam tempore excepturi non, enim accusamus inventore adipisci maxime provident et nesciunt. Rem, libero doloribus?
+    Explicabo quas voluptas tempore? Commodi temporibus dolorem laborum magnam ipsam accusamus voluptates voluptas, porro asperiores vitae a illum et, adipisci exercitationem? Id temporibus veritatis architecto laborum sunt ut, cumque doloremque?
+  </div>
+</body>
+
+
+$(function() {
+  let baseFontSize = 14;
+  $(".zoomBtnZone button").on("click", zoomInOut);
+  function zoomInOut() {
+    //zoomOutBtn을 클릭할때 baseFontSize가 8보다 작아지면 리턴으로 멈추고
+    if($(this).hasClass("zoomOutBtn")) {
+      if(baseFontSize <= 8) return false;
+      baseFontSize--;
+    //zoomInBtn을 클릭할때 baseFontSize가 20보다 커지면 리턴으로 멈추게
+    } else if ($(this).hasClass("zoomInBtn")) {
+      if(baseFontSize >= 20) return false;
+      baseFontSize++;
+    //둘다 아닌 경우, 즉 100%버튼은 폰트 사이즈를 그대로 놔둠
+    } else {
+      baseFontSize = 14;
+    };
+    //.fontSize요소에 baseFontSize 값과 "px" 삽입
+    $(".fontSize").text(baseFontSize + "px");
+    //body에 css값 추가
+    $("body").css({
+      fontSize: baseFontSize + "px"
+    })
+  }
+})
+
+
+-------------------------------------------------------------------------------------------------
+이벤트를 적용하지 않았을때를 정의한 다음에 이벤트를 적용했을때를 정의
+
+<body>
+  <ul class="gnb">
+    <button><a href="">menu1</a></button>
+    <button><a href="">menu2</a></button>
+    <button><a href="">menu3</a></button>
+    <button><a href="">menu4</a></button>
+  </ul>
+</body>
+
+$(function() {
+  let beforeMenu = null;
+
+  $(".gnb > button > a").on("mouseover", function() {
+    if(beforeMenu) {
+      beforeMenu.css({background:"none"})
+    }
+    //mouseover가 된다면 배경색을 아쿠아로
+    $(this).css({"background-color":"#0ff"});
+    //beforeMenu는 선택자를 의미한다. 선택된 요소에만 색상을 줄 수 있도록 하기 위해
+    beforeMenu = $(this);
+
+    //mouseleave가 될 때 선택되지 않았을 때 , beforeMenu값 즉 null인 요소에 background none을 적용
+    $(".gnb").on("mouseleave", function() {
+      if(beforeMenu) {
+        beforeMenu.css({background:"none"})
+      };
+    });
+  });
+});
+-------------------------------------------------------------------------------------------------
+************     uncaught referenceerror $ is not defined 에러 ***************
+제이쿼리 설치하지 않아서 생긴 문제
+
+
+
+-------------------------------------------------------------------------------------------------
+
+<body>
+  <p>
+    <button class="btn1">slideUp</button>
+    <button class="btn2">fadeIn</button>
+  </p>
+  <p>
+    <button class="btn3">toggleSlide</button>
+  </p>
+  <p>
+    <button class="btn4">fadeTo(0.3)</button>
+    <button class="btn5">fadeTo(1)</button>
+  </p>
+  <div class="box">
+    <div class="content">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repudiandae cum repellat nam, deserunt ad alias dolorum facilis possimus ea enim non, doloribus ullam? A numquam itaque voluptas vitae tempore.
+      Minima dolores autem magni asperiores beatae voluptatem, placeat similique! Sit, earum delectus! Explicabo quia laudantium labore doloremque placeat similique eos ipsa ex nihil ut dolor quas porro, commodi aperiam tempore.
+      Aspernatur provident numquam omnis unde ipsum perferendis soluta ad placeat sit voluptatibus eligendi quam nulla repudiandae debitis, dolores qui minima atque doloremque vitae iure officia culpa? Dicta quia eligendi magni.
+      Maxime, ipsam doloremque provident illo itaque tenetur quae facilis aliquam aliquid? Dicta sint, excepturi nihil harum cumque ad atque blanditiis laboriosam doloribus quod quae. Consectetur ea autem porro repellat repudiandae!
+      Nihil vero molestias excepturi iste! Libero, harum recusandae! Saepe aliquid perspiciatis consequuntur, nihil aut tenetur expedita quidem harum. Omnis tenetur deserunt, ipsa distinctio nemo quidem. Recusandae, suscipit? At, ab hic.
+    </div>
+  </div>
+</body>
+
+$(function() {
+  //.btn2 숨김
+  $(".btn2").hide();
+
+  //.btn1을 클릭하면 .box가 슬라이드업되고 이벤트가 진행되고나서
+  //콜백함수를 통해 .btn1이 숨겨지고 .btn2가 나타난다
+  $(".btn1").on("click", function() {
+    //콜백함수(생략가능) : 이벤트가 진행되고 나서 어떠한 함수를 불러온다
+    $(".box").slideUp(1000, "linear", function() {
+      $(".btn1").hide();
+      $(".btn2").show();
+    });
+  });
+
+  $(".btn2").on("click", function() {
+    $(".box").fadeIn(1000, "swing", function() {
+      $(".btn2").hide();
+      $(".btn1").show();
+    });
+  });
+
+  $(".btn3").on("click", function() {
+    $(".box").slideToggle(1000, "linear")
+  });
+  
+  $(".btn4").on("click", function() {
+    $(".box").fadeTo("fast", 0.3);
+  });
+  
+  $(".btn5").on("click", function() {
+    $(".box").fadeTo("fast", 1);
+  });
+});
+
+-------------------------------------------------------------------------------------------------
+animate
+
+
+<body>
+  <p><button class="btn1">버튼1</button></p>
+  <span class="txt1">500px이동</span>
+  <hr/>
+  <p><button class="btn2">버튼2</button></p>
+  <span class="txt2">50px씩 이동</span>
+</body>
+
+
+$(function() {
+  $(".btn1").on("click", function() {
+    $(".txt1").animate({
+      marginLeft: "500px",
+      fontSize: "30px"
+    }, 2000, "linear", function() {
+      alert("모션 완료")
+    });
+  });
+
+  $(".btn2").on("click", function() {
+    $(".txt2").animate({
+      marginLeft:"+=50px"
+    }, 1000);
+  });
+});
+
+-------------------------------------------------------------------------------------------------
+
+<body>
+  <p><button class="btn1">버튼1</button></p>
+  <span class="txt1">500px이동</span>
+  <hr/>
+  <p><button class="btn2">버튼2</button></p>
+  <span class="txt2">50px씩 이동</span>
+</body>
+
+
+$(function() {
+  $(".btn1").on("click", function() {
+    $(".txt1")
+    .animate({opacity:0.5}, 1000)
+    .animate({marginLeft:"500px"}, 1000);
+    //stop은 현재 진행중인 첫번째 애니메이션만 적용
+    //두번째 애니메이션은 작동 => opacity는 stop, marginleft는 진행
+    $(".txt1").stop();
+  });
+
+  $(".btn2").on("click", function() {
+    $(".txt2")
+    .animate({opacity:0.5}, 1000)
+    .animate({marginLeft:"500px"}, 1000);
+    //.stop(clearQueue, finish);
+    //그래서 true, true는 clearQueue로 모든 애니메이션 삭제, finish로 맨 처음으로 돌아가서
+    //첫번째 애니메이션 opacity만 작동
+    $(".txt2").stop(true, true);
+  });
+});
+
+-------------------------------------------------------------------------------------------------
+
+<body>
+  <p class="txt1">효과1</p>
+  <p class="txt2">효과2<br/>delay(3000)</p>
+  <p><button class="btn1">50px 전진</button></p>
+  <p class="txt3">효과3</p>
+  <p class="txt4">효과4<br/>stop()</p>
+  <p class="txt5">효과5<br/>stop(true, ture)</p>
+</body>
+
+$(function() {
+  $(".txt1").animate({
+    marginLeft: "300px"
+  }, 1000);
+
+
+p {
+  width: 110px;
+  text-align: center;
+}
+.txt1 {
+  background-color: aqua;
+}
+.txt2 {
+  background-color: pink;
+}
+.txt3 {
+  background-color: orange;
+}
+.txt4 {
+  background-color: green;
+}
+.txt5 {
+  background-color: gold;
+}
+
+
+  $(".txt2").delay(3000)
+  .animate({marginLeft:"300px"}, 1000);
+
+  $(".btn1").on("click", moveElement);
+  function moveElement() {
+    $(".txt3")
+    .animate({marginLeft:"+=50px"}, 800);
+
+    $(".txt4")
+    .animate({marginLeft:"+=50px"}, 800);
+    $(".txt4").stop();
+
+    $(".txt5").animate({"marginLeft": "+=50px"}, 800);
+    $(".txt5").stop(true, true);
+  };
+});
+-------------------------------------------------------------------------------------------------
+<body>
+  <p class="txt1">내용1</p>
+</body>
+
+p {
+  width: 110px;
+  text-align: center;
+}
+.txt1 {
+  width: 50px;
+  text-align: center;
+  background-color: aqua;
+}
+
+$(function() {
+  $(".txt1")
+  .animate({marginLeft:"200px"}, 1000)
+  .animate({marginTop:"200px"}, 1000)
+  //queue : 현재 적용된 효과만 적용하고 끝. 뒤에있는 효과는 실행하지 않는다
+  .queue(function() {
+    $(this).css({background:"red"});
+    //dequeue : 끝내지 않고 다음단계로 이어지게
+    $(this).dequeue();
+  })
+  .animate({marginLeft:"0"}, 1000)
+  .animate({marginTop:"0"}, 1000)
+})
+
+
+-------------------------------------------------------------------------------------------------
+<body>
+  <p class="txt1">내용1</p>
+  <p class="txt2">내용2</p>
+</body>
+
+p {
+  width: 110px;
+  text-align: center;
+}
+.txt1, .txt2 {
+  width: 50px;
+  text-align: center;
+  background-color: aqua;
+}
+.txt2 {
+  background-color: orange;
+}
+
+
+$(function() {
+  $(".txt1")
+  .animate({marginLeft:"100px"}, 1000)
+  .animate({marginLeft:"300px"}, 1000)
+  .animate({marginLeft:"400px"}, 1000);
+
+  $(".txt2")
+  .animate({marginLeft:"100px"}, 1000)
+  .animate({marginLeft:"300px"}, 1000)
+  .animate({marginLeft:"400px"}, 1000);
+  $(".txt2").clearQueue();
+})
+-------------------------------------------------------------------------------------------------
+<body>
+  <p class="btnWrap">
+    <button class="backBtn">Back</button>
+    <button class="goBtn">Go</button>
+  </p>
+  <div class="wrap">
+    <p class="txt1">내용1</p>
+  </div>
+</body>
+
+
+$(function() {
+  let txt1 = $(".txt1");
+  let count = 1;
+
+  $(".btnWrap button").on("click", function() {
+    if(!txt1.is(":animated")) {
+      if($(this).hasClass("backBtn")) {
+        count--;
+        if(count < 1) {
+          count = 1;
+          return false;
+        };
+        txt1.animate({marginLeft:"-=10%"}, 300);
+      } else {
+        count++;
+        if(count > 10) {
+          count = 10;
+          return false;
+        };
+        txt1.animate({marginLeft:"+=10%"}, 300);
+      };
+    };
+  });
+});
+
+
+-------------------------------------------------------------------------------------------------
+<body>
+  <button id="btn">버튼</button>
+  <p id="ctx">내용</p>
+</body>
+
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+#ctx {
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+}
+
+
+$(function() {
+  $("#btn").on("click", function() {
+    $("#ctx").animate({
+      marginLeft:"+=50px"
+    }, 500);
+  });
+});
+
+
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+
+
+
+
