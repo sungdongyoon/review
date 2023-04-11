@@ -1,0 +1,440 @@
+웹 서버를 설치하는 방법
+
+오토셋 설치
+
+cmd -> ipconfig입력해서
+ipv4주소 확인
+
+myipaddress페이지에서 확인하는 ip는
+외부 공유기에서 임시로 지정한 ip
+
+cmd가 진짜 ip주소이다
+
+========================================================================
+
+get : 
+사용자가 입력한 주소창에 query를 사용해 검색할 수 있게 하는 방식
+보안에 취약해서 간단한 데이터를 주고받을때 사용
+
+post :
+
+---------------------------------------------------------------------------------------------------------------
+<body>
+    <h1>LOAD 1</h1>
+    <div id="newsWrap_1"></div>
+    <h1>LOAD 2</h1>
+    <div id="newsWrap_2"></div>
+    
+    <form action="" method="post"></form>
+    <input type="text">
+  </body>
+
+
+$(function () {
+  //#newsWrap_1에 news.html 페이지의 #news_1을 넣기
+  $("#newsWrap_1")
+  .load("news.html #news_1");
+
+  $("#newsWrap_2")
+  .load("news.html #news_2");
+});
+
+---------------------------------------------------------------------------------------------------------------
+
+for (내부 변수 in 객체) : 객체 안에 있는 모든 변수를 반복해서 실행
+
+
+외부 데이터를 불러와서 실행
+바인딩..?
+
+
+****** json ******
+
+
+<body>
+    <div class="wrap"></div>
+  </body>
+
+$(function() {
+  $.ajax({
+    url:"/MOCK_DATA.json",
+    dataType:"json",
+    success:function(data) {
+      if(data.length > 0) {
+        let tb = $("<table />");
+        for(i in data) {
+          let $id = data[i].id;
+          let $first_name = data[i].first_name;
+          let $last_name = data[i].last_name;
+          let $email = data[i].email;
+          let $gender = data[i].gender;
+
+          let row = $("<tr />").append(
+                    $("<td />").text($id),
+                    $("<td />").text($first_name),
+                    $("<td />").text($last_name),
+                    $("<td />").text($email),
+                    $("<td />").text($gender),
+          );
+          tb.append(row);
+        }
+        $(".wrap").append(tb);
+      }
+    }
+  })
+})
+
+
+
+
+****** xml ******
+
+
+$(function() {
+  $.ajax({
+    url:"/dataset.xml",
+    dataType:"xml",
+    success:function(data) {
+      let $data = $(data).find("record");
+      if($data.length > 0) {
+        let tb = $("<table />");
+        $.each($data, function(i, o) {
+          let $id =
+          $(o).find("id").text();
+
+          let $first_name =
+          $(o).find("first_name").text();
+
+          let $last_name =
+          $(o).find("last_name").text();
+
+          let $email =
+          $(o).find("email").text();
+
+          let $gender =
+          $(o).find("gender").text();
+
+          let row = $("<tr />").append(
+            $("<td />").text($id),
+            $("<td />").text($first_name),
+            $("<td />").text($last_name),
+            $("<td />").text($email),
+            $("<td />").text($gender),
+          );
+
+          tb.append(row);
+        });
+        $(".wrap").append(tb);
+      }
+    }
+  });
+});
+
+
+---------------------------------------------------------------------------------------------------------------
+RSS를 통해 내 포트폴리오에 외부 페이지를 출력할 수 있다
+
+rss를 사용했을때
+Access to XMLHttpRequest at 'https://www.chosun.com/arc/outboundfeeds/rss/category/sports/?outputType=xml' from origin 'http://192.168.110.162' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+이런 오류가 발생한다
+이유는
+서로 다른 사이트로 이동하는 경우는 원칙적으로 불가능하기 때문에
+ex)
+a사이트 -> b사이트 = 불가능
+a사이트/a.html -> a사이트/b.html = 가능
+
+가능하게 하려면 서버 언어 php를 거쳐서 가져와야 한다.
+js파일에서 php파일 경로 잡을때 절대경로 x
+
+
+
+//작동 x
+$(function() {
+  $.ajax({
+    url:"https://www.chosun.com/arc/outboundfeeds/rss/category/sports/?outputType=xml",
+    dataType:"xml",
+    success:function(data){
+      document.write(data);
+    }
+  })
+})
+
+//작동 o
+$(function() {
+  $.ajax({
+    url:"news.php",
+    dataType:"xml",
+    success:function(data){
+      let $items = $(data).find("item");
+
+      if($items.length > 0) {
+        $items = $items.slice(0, 10);
+        let $ulTag = $("<ul />");
+        $.each($items, function(i, o) {
+          let $title = $(o).find("title").text();
+          let $link = $(o).find("link").text();
+
+          let $aTag = $("<a />")
+          .attr({
+            "href":$link,
+            "target":"_blank"
+          })
+          .text($title)
+
+          let $liTag = $("<li />")
+          .append($aTag);
+
+          $ulTag.append($liTag);
+        });
+        $(".wrap").append($ulTag);
+      }
+    }
+  });
+});
+
+---------------------------------------------------------------------------------------------------------------
+파일질라로 호스팅해서 php사용해서 데이터 업로드
+
+<?php
+$data = '[
+  {"id":"1", "name":"Sofet", "email":"safddf@naver.com"},
+  {"id":"2", "name":"levi", "email":"vcvwo@naver.com"},
+  {"id":"3", "name":"Excel", "email":"asadl@google.com"},
+  ]';
+  echo $_GET["callback"]."(".$data.")";
+?>
+
+
+
+$(function() {
+  let href = "http://ehdtjd0906.dothome.co.kr/member.php?callback=myFnc";
+  $.ajax({
+    url:href,
+    dataType:"jsonp"
+  }).done(function myFnc(data) {
+    if(data.length > 0) {
+      let $table = $("<table />");
+      data.forEach(function(o) {
+        $id = o.id;
+        $name = o.name;
+        $email = o.email;
+        
+        let trTag = $("<tr />");
+        trTag.append(
+          $("<td />").text($id),
+          $("<td />").text($name),
+          $("<td />").text($email),
+        );
+
+        $table.append(trTag);
+      });
+      $(".wrap").append($table);
+    }
+  });
+});
+
+---------------------------------------------------------------------------------------------------------------
+
+
+//사용자가 함수의 매개변수값을 넣지 않았을 경우를 대비해 tax = 0.08처럼 값을 지정할 수 있고
+//지정값이 있는데 사용자가 매개변수값을 두개 넣었을 경우 사용자가 넣은 값이 우선이다
+function calcFunction(price, tax = 0.08) {
+  const result = price + price * tax;
+  return result;
+}
+
+const result1 = calcFunction(100);
+console.log(result1);
+
+---------------------------------------------------------------------------------------------------------------
+
+함수에 들어갈 수 있는 파라미터값이 가변적인 경우
+
+//매개변수값이 몇개가 있어도 ...을 사용하면 다 사용할 수 있다
+function calcSum(...prices) {
+  let result = 0;
+  for (value of prices) {
+    result += value;
+  }
+  return result;
+}
+
+const result1 = calcSum(10, 20, 30, 40,);
+console.log(result1);
+
+---------------------------------------------------------------------------------------------------------------
+if문의 경우 조건문의 내용이 단순한 경우
+else( *false) 문장은 생략 가능
+
+조건문에서 만약 true => if(조건식) {중괄호}
+간략한 식에서는 중괄호 생략 가능
+
+---------------------------------------------------------------------------------------------------------------
+
+const myFruit = "딸기";
+
+switch (myFruit) {
+  case "사과":
+    alert("사과입니다");
+    break;
+  case "귤":
+    alert("귤입니다");
+    break;
+  default:
+    alert("기타 과일입니다");
+    break;
+}
+
+
+변형
+
+
+const myFruit = "귤";
+
+switch (myFruit) {
+  case "사과":
+  case "귤":
+    alert("사과 혹은 귤입니다");
+    break;
+  default:
+    alert("기타 과일입니다");
+    break;
+}
+
+
+---------------------------------------------------------------------------------------------------------------
+아날로그 시계
+
+<body>
+    <main class="centering">
+      <div class="clock">
+        <div class="lineHour"></div>
+        <div class="lineMin"></div>
+        <div class="lineSec"></div>
+      </div>
+    </main>
+  </body>
+
+
+
+main {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 480px;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+main.centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.clock {
+  width: 400px;
+  height: 400px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.lineHour {
+  width: 10px;
+  height: 150px;
+  background-color: #fff;
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc((50% - 5px));
+  transform-origin: bottom;
+}
+.lineMin {
+  width: 4px;
+  height: 200px;
+  background-color: #fff;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc((50% - 1px));
+  transform-origin: bottom;
+}
+.lineSec {
+  width: 2px;
+  height: 200px;
+  background-color: #ccc;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc((50% - 1px));
+  transform-origin: bottom;
+}
+
+
+
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+
+  const degH = h * (360 / 12) + m * (360 / 12 / 60);
+  const degM = m * (360 / 60);
+  const degS = s * (360 / 60);
+
+  const elementH = document.querySelector(".lineHour");
+  const elementM = document.querySelector(".lineMin");
+  const elementS = document.querySelector(".lineSec");
+
+  elementH.style.transform = `rotate(${degH}deg)`;
+  elementM.style.transform = `rotate(${degM}deg)`;
+  elementS.style.transform = `rotate(${degS}deg)`;
+}, 1000);
+
+
+---------------------------------------------------------------------------------------------------------------
+마우스 효과
+ <body>
+    <div id="wrap">
+      <div class="pointer"></div>
+    </div>
+  </body>
+
+
+#wrap {
+  width: 100%;
+  height: 100vh;
+  /* border: 2px solid #333; */
+  overflow: hidden;
+  position: relative;
+}
+.pointer {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  border-radius: 50%;
+  transition: all 0.1s ease-out;
+}
+
+
+let pointSize = $(".pointer").width();
+$("#wrap").mousemove(function (e) {
+  $(".pointer").css("top", e.pageY - pointSize);
+  $(".pointer").css("left", e.pageX - pointSize);
+  $(".pointer").fadeIn();
+});
+
+$("#wrap").on("mouseleave", function () {
+  $(".pointer").fadeOut();
+});
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+
