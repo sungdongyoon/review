@@ -1,0 +1,416 @@
+두개의 숫자를 받아서 해당 두개의 숫자의 최대공약수를 구하는 함수를 작성하고
+해당 값(최대공약수)을 화면에 출력
+
+const num1 = parseInt(prompt("첫번째 숫자"));
+const num2 = parseInt(prompt("두번째 숫자"));
+
+/*  
+1. 두 숫자가 특정값에 동일하게 나누어져야 한다
+2. 그 특정값 중에서 가장 큰 값을 찾아야 한다
+*/
+
+
+function getGCD(n, m) {
+  //삼항조건연산자를 통해 max의 값 지정. n이 m보다 크면 n이 max, 아니라면 m이 max
+  let max = n > m ? n : m
+  let GCD = 0;
+  for(let i = 1; i <= max; i++) {
+    if(n % i === 0 && m % i === 0) {
+      GCD = i;
+    }
+  }
+  return GCD;
+}
+
+document.write(`${num1}와 ${num2}의 최대공약수는 ${getGCD(num1, num2)} 입니다`);
+===================================================================
+
+DOM = 문서객체모델
+문서객체모델 > 최상위클래스 : document객체
+body - 객체 = 요소
+h1 - 객체 = 요소
+p - 객체 = 요소
+input - 객체 = 요소
+문서객체모델 안에서는 객체로 부른다
+
+객체 : 속성(프로퍼티) / 기능(메서드)
+객체와 요소는 동일
+
+돔트리의 각 박스는 노드라고 부른다
+
+html > 문서구조 > 태그 = 객체 > 요소
+: 요소에 접근한다
+
+요소에 접근할 수 있는 함수
+1. querySelector()
+> 무조건 낱개 요소에 접근 = 단일요소에 접근
+> 매개변수에 입력한 선택자에 접근
+> 해당 선택자가 document안에 다수 존재하는 경우, 가장 첫번째로 선택된 요소에 접근
+
+2. querySelectorAll()
+> 모든 요소에 접근
+> document.querySelectorAll(".user")[1] = .user의 두번째 값 접근
+이 함수는 배열객체로 요소를 저장하기 때문
+
+3. getElementById ()
+4. getElementsByClassName ()
+5. getElementsByTagName ()
+
+--------------------------------------------------------------------------------------------
+요소데이터 가져오는 방법
+
+> 웹 요소.innerText -> 보여지는 그대로를 불러오는것
+> 웹 요소.innerHTML -> 상세정보와 태그를 불러온다
+> 웹 요소.textContent -> 태그를 불러오지 않는다
+
+바꾸고싶은 내용이 있으면
+세가지 방법 다
+웹 요소.innerText = 바꾸고싶은 내용;
+이렇게 작성
+-------------------------------------------------------------------------------
+바꾸고싶은 이미지가 있다면
+웹 요소.src = 바꾸고 싶은 내용;
+
+<body>
+  <h1>My Profile</h1>
+  <div id="profile">
+    <img src="/아이유.jpg" alt="">
+    <div id="desc">
+      <p class="user">이름 : 아이유</p>
+      <p class="user">주소 : 서울시</p>
+      <p class="user">연락처 : 010-1234-5678</p>
+    </div>
+  </div>
+</body>
+
+const userName = document.querySelector("#desc p");
+const pfImg = document.querySelector("#profile img");
+
+userName.onclick = () => userName.innerHTML = `이름 : <b>아이돌</b>`;
+pfImg.onclick = () => pfImg.src = "/아이유2.jpg";
+-------------------------------------------------------------------------------
+css속성에 접근해서 스타일 수정하는 방법
+> 수정하고 싶은 요소.style.속성명 = 바꾸고 싶은 스타일
+
+<body>
+  <h1>My Profile</h1>
+  <div id="profile">
+    <img src="/아이유.jpg" alt="">
+    <div id="desc">
+      <p class="user">이름 : 아이유</p>
+      <p class="user">주소 : 서울시</p>
+      <p class="user">연락처 : 010-1234-5678</p>
+    </div>
+  </div>
+</body>
+
+const title = document.querySelector("#title");
+
+title.onclick = () => {
+  title.style.backgroundColor = "#000";
+  title.style.color = "#fff";
+}
+
+-------------------------------------------------------------------------------
+classList 속성(프로퍼티) : 
+- 해당 요소의 클래스값을 배열객체 형태로 찾아준다
+
+선택한 선택요소.classList.add("클래스명")
+> 선택한 선택요소에 클래스명을 추가
+
+선택한 선택요소.classList.remove("클래스명")
+> 선택한 선택요소에 클래스명을 삭제
+
+선택한 선택요소.classList.contains("클래스명")
+> 선택한 선택요소에 클래스명이 있는지 여부를 확인
+
+선택한 선택요소.classList.toggle("클래스명")
+> 선택한 선택요소에 클래스명이 있는지 여부를 확하여 추가 및 삭제를 해준다
+-------------------------------------------------------------------------------
+클릭하면 class추가 or 제거
+
+const title = document.querySelector("#title");
+
+title.onclick = () => {
+  if(!title.classList.contains("clicked")) {
+    title.classList.add("clicked");
+  } else {
+    title.classList.remove("clicked");
+  }
+}
+
+>>>>>>>>>>>이 방법보다 간단하게 토글을 사용하면
+
+const title = document.querySelector("#title");
+
+title.onclick = () => {
+  title.classList.toggle("clicked");
+}
+-------------------------------------------------------------------------------
+toggle() 함수를 사용해서 웹브라우저 화면의 day / night모드 설정
+
+<body>
+  <h1 id="title">My Profile</h1>
+  <div id="profile">
+    <img src="/아이유.jpg" alt="">
+    <div id="desc">
+      <p class="user">이름 : 아이유</p>
+      <p class="user">주소 : 서울시</p>
+      <p class="user">연락처 : 010-1234-5678</p>
+    </div>
+  </div>
+  <!-- <button>night</button> -->
+  <input type="button" value="night" />
+</body>
+
+
+.clicked {
+  background-color: #000;
+  color: #fff;
+}
+
+
+const body = document.querySelector("body");
+const input = document.querySelector("input");
+// const button = document.querySelector("button);
+
+// button.onclick = () => {
+//   body.classList.toggle("clicked")
+//   if(button.innerText == "Night") {
+//     button.innerText = "Day";
+//   } else {
+//     button.innerText = "Night";
+//   }
+// } 
+
+input.onclick = () => {
+  body.classList.toggle("clicked")
+  //삼항조건연산자 사용가능
+  input.value == "night" ? input.value = "day" : input.value = "night";
+  // if(input.value == "night") {
+  //   input.value = "day";
+  // } else {
+  //   input.value = "night";
+  // }
+} 
+
+-------------------------------------------------------------------------------
+=============================================================================
+<body>
+  <div class="container">
+    <form name="order">
+      <fieldset>
+        <legend>상품정보</legend>
+        <ul>
+          <li>
+            <label for="product" class="field">상품 : </label>
+            <input type="text" class="input-box" id="product" name="product">
+          </li>
+          <li>
+            <label for="prod-num" class="field">개수 : </label>
+            <input type="number" class="input-box" id="prod-num" name="prod-num" value="1" min="1"> 
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>주문정보</legend>
+        <ul>
+          <li>
+            <label for="order-name" class="field">이름 : </label>
+            <input type="text" class="input-box" id="order-name" name="order-name" value="아이언맨">
+          </li>
+          <li>
+            <label for="order-tel" class="field">연락처 : </label>
+            <input type="text" class="input-box" id="order-tel" name="order-tel"> 
+          </li>
+          <li>
+            <label for="order-addr" class="field">주소 : </label>
+            <input type="text" class="input-box" id="order-addr" name="order-addr"> 
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>옵션상품</legend>
+        <label for="opt">상품추가</label>
+        <select name="option" id="option">
+          <option>=== 옵션선택 ===</option>
+          <option value="opta">롤화장지</option>
+          <option value="optb">계란한판</option>
+          <option value="optc">생수1세트</option>
+          <option value="optd">양말세트</option>
+          <option value="opte">배송비할인</option>
+          <option value="optf">반값쿠폰</option>
+        </select>
+      </fieldset>
+      <fieldset id="delivery-list">
+        <legend>배송비 옵션선택</legend>
+        <p>배송비 결제방식을 선택해주세요</p>
+        <label><input type="radio" name="delivery" value="before">선결제</label>
+        <label><input type="radio" name="delivery" value="after">후결제</label>
+        <label><input type="radio" name="delivery" value="coupon">쿠폰결제</label>
+      </fieldset>
+      <fieldset id="mailing-list">
+        <legend>메일링</legend>
+        <p>메일로 받고 싶은 쇼핑정보를 선택해주세요</p>
+        <label><input type="checkbox" name="mailing" value="fruit">과일류</label>
+        <label><input type="checkbox" name="mailing" value="fashion">패션잡화</label>
+        <label><input type="checkbox" name="mailing" value="food">식품류</label>
+      </fieldset>
+      <button type="submit" class="order">주문하기</button>
+    </form>
+  </div>
+</body>
+
+------------------------------------------------------------------------------------------------------
+
+const selectMenu = document.querySelector("#option");
+
+function displaySelect() {
+  let selectedText = selectMenu.options[selectMenu.selectedIndex].innerText;
+  alert(`[${selectedText}]를 선택했습니다`);
+}
+
+selectMenu.onchange = displaySelect;
+
+=============================================================================
+
+
+<body>
+  <div id="container">
+    <h1>나이키 나이키 에어 포스 1 '07</h1>
+    <div id="top">
+      <img src="/에어포스.jpg" width="250px" alt="나이키">
+      <ul>
+        <li><b>상품명</b> 나이키 에어 포스 1 '07</li>
+        <li><b>모델명</b> CW2288-111</li>
+        <li><b>출시일</b> 2023-04-14</li>
+        <li><b>컬러</b> 화이트</li>
+        <li><button id="view">상세설명 보기/닫기</button></li>
+      </ul>
+    </div>
+    <div id="detail" class="hidden">
+      <h2>
+        ----------------------------------<br />
+        나이키 에어 포스 판매순위 1위 <br />
+        착용하는 순간 편안한 느낌 <br />
+        누구나 좋아하는 디자인 <br />
+        ----------------------------------<br />
+      </h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus sunt ea cupiditate delectus. Neque velit dolor hic obcaecati, earum perferendis rem in praesentium, quas placeat delectus fuga natus nulla. In.
+        Natus, sint repudiandae itaque harum unde at expedita voluptatibus, impedit nemo suscipit delectus. Corporis nemo perferendis accusantium unde. Quod corporis eligendi ipsa fuga a neque quam molestiae, corrupti magnam pariatur.
+        Voluptatem maxime tempore dolores dicta ullam provident saepe, ea tempora tenetur obcaecati eveniet dolorum, iure aliquid natus! Quos facilis, vero optio illo, cupiditate doloremque iste repellendus molestias ratione dolorum sit.
+        Quaerat molestiae vitae ad minus facilis soluta praesentium explicabo ipsum suscipit id voluptate labore nemo, commodi modi enim recusandae architecto similique dolorum! Officia ab quo suscipit quisquam repellendus accusantium reprehenderit?
+        Modi ex optio totam eligendi enim ad asperiores tempora! Harum eum deleniti reiciendis earum, ab impedit? Eaque expedita quos, nulla molestiae ullam beatae reiciendis dolor! Nemo soluta id corporis cupiditate!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus sunt ea cupiditate delectus. Neque velit dolor hic obcaecati, earum perferendis rem in praesentium, quas placeat delectus fuga natus nulla. In.
+        Natus, sint repudiandae itaque harum unde at expedita voluptatibus, impedit nemo suscipit delectus. Corporis nemo perferendis accusantium unde. Quod corporis eligendi ipsa fuga a neque quam molestiae, corrupti magnam pariatur.
+        Voluptatem maxime tempore dolores dicta ullam provident saepe, ea tempora tenetur obcaecati eveniet dolorum, iure aliquid natus! Quos facilis, vero optio illo, cupiditate doloremque iste repellendus molestias ratione dolorum sit.
+        Quaerat molestiae vitae ad minus facilis soluta praesentium explicabo ipsum suscipit id voluptate labore nemo, commodi modi enim recusandae architecto similique dolorum! Officia ab quo suscipit quisquam repellendus accusantium reprehenderit?
+        Modi ex optio totam eligendi enim ad asperiores tempora! Harum eum deleniti reiciendis earum, ab impedit? Eaque expedita quos, nulla molestiae ullam beatae reiciendis dolor! Nemo soluta id corporis cupiditate!
+      </p>
+    </div>
+  </div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+  font-size: 1rem;
+  line-height: 2;
+}
+li > b {
+  width: 70px;
+  float: left;
+}
+#container {
+  width: 600px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 1.5rem;
+  margin: 10px;
+}
+#top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+#view {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-left: none;
+  border-right: none;
+}
+h2 {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 10px;
+}
+p {
+  font-size: 0.8rem;
+  line-height: 2;
+  margin-top: 5px;
+}
+.hidden {
+  display: none;
+}
+
+
+const view = document.querySelector("#view");
+const detail = document.querySelector("#detail");
+
+view.onclick = () => {
+  detail.classList.toggle("hidden");
+}
+
+
+=============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
