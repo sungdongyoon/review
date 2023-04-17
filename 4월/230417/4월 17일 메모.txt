@@ -1,0 +1,482 @@
+==========
+이벤트와 DOM
+==========
+이벤트
+> 웹 브라우저 안에서 사용자가 실행하는 모든 동작
+
+자바스크립트에서 이벤트가 작동될 수 있는 2가지 방법
+
+1. HTML태그에 직접 함수를 연결하는 방법(*간단한 함수 / 내장함수일 경우에만 사용)
+<태그 이벤트핸들러 = "함수명">
+문제점)
+복수의 이벤트를 적용이 불가능
+자바스크립트에서 정의한 함수를 활용해서 HTML에 함수를 연결한 경우, 자바스크립트에서 함수명을 수정 및 변경하면 작동하지 않는다
+
+2. 자바스크립트에서 직접 함수를 연결하는 방법(대부분 이 방법을 사용)
+선택요소(*이벤트를 주고 싶은 요소).이벤트핸들러 = 함수
+----------------------------------------------
+const button = document.querySelector("button");
+
+button.onclick = () => {
+  document.body.style.backgroundColor = "green";
+}
+-----------------------------------------------
+function changeBackground() {
+  document.body.style.backgroundColor = "green";
+}
+
+const button = document.querySelector("button");
+
+button.onclick = changeBackground;
+-----------------------------------------------
+
+1번과 2번을 동시에 실행할 경우 2번만 작동
+
+addEventListener = 복수의 이벤트 적용 가능
+그러면 1번과 2번을 동시에 실행해도 둘다 작동한다
+addEventListener 자주 사용!
+이벤트 핸들러보다 대중성 있다
+
+선택요소.addEventListener(이벤트명, 함수)
+
+<body>
+  <button onclick="alert('클릭')">Click</button>
+</body>
+
+const button = document.querySelector("button");
+
+function changeBackground() {
+  document.body.style.backgroundColor = "green";
+}
+
+button.addEventListener("click", changeBackground);
+------------------------------------------------------------------------------------
+이벤트핸들러 사용x, addEventListener 사용해서
+버튼 클릭했을때 문서의 배경색과 글자색을 토글하는 소스코드 작성
+
+<body>
+  <button>Click</button>
+  <p>안녕하세요</p>
+</body>
+
+.toggleBtn {
+  background-color: #000;
+  color: #fff;
+}
+
+const body = document.querySelector("body");
+const button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+  body.classList.toggle("toggleBtn");
+})
+------------------------------------------------------------------------------------
+텍스트 길이 출력
+<body>
+  <div id="contents">
+    <input type="text" id="word">
+    <button id="btn">글자 수 확인</button>
+  </div>
+  <div id="result"></div>
+</body>
+
+* {
+  margin: 0;
+  padding: 0;
+}
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+const button = document.querySelector("#btn");
+
+//1. input 안에 입력된 텍스트를 알아야한다
+//2. 해당 텍스트의 개수를 알아야 한다
+//3. 해당 텍스트 개수의 숫자를 #result에 출력해야한다
+button.addEventListener("click", () => {
+  const word = document.querySelector("#word");
+  let count = word.value.length;
+  const result = document.querySelector("#result");
+
+  result.innerText = `${count}`;
+})
+
+------------------------------------------------------------------------------------
+
+
+> 이벤트 종류
+- 문서로딩[abort, error, load, resize, scroll, unload 등]
+특정 문서를 불러올 때 사용하는 이벤트
+ex) 문서를 모두 불러온 이후에 어떤 함수를 실행
+
+load : 특정 문서의 로딩이 끝났을 때, 어떠한 결과를 보여주는 이벤트
+
+on키워드 + 이벤트 : 이벤트 핸들러
+이벤트 핸들러 = 이벤트가 발생하면 이벤트에 맞는 연결동작이 필요, 이벤트 핸들러는 이벤트 연결동작을 처리하는 것
+
+- 마우스
+클릭, 더블클릭, 마우스 포인터가 특정 요소 / 포커스 블러 되었을 때
+
+- 키보드
+키를 눌렀을 때, 키에서 손을 뗄때, 키를 누르고 있는 동안
+
+<body>
+  <h1>키보드 아무키나 눌러보세요</h1>
+  <div id="result"></div>
+</body>
+
+const result = document.querySelector("#result");
+
+//키보드 이벤트 > 문서객체 > body태그
+const body = document.querySelector("body");
+
+body.addEventListener("keydown", (e) => {
+  result.innerText =
+  `code: ${e.code},
+  key: ${e.key}`;
+}
+)
+
+
+- 폼
+특정 폼 요소에 포커스 / 블러 되었을 때
+목록 or 체크상태가 변경 되었을 때
+
+> 이벤트 처리하기
+html 태그에 함수 연결하기
+이벤트 리스너로 이벤트 처리하기
+
+
+>이벤트 객체
+이벤트가 발생하게 되었을 때, 어떤 요소에서 어떤 이벤트가 발생했는지에 대한 정보가 포함된 객체
+[객체 = 속성(프로퍼티) / 기능(메서드 = 함수)]
+
+preventDefault() = 대표적인 이벤트 객체 내 메서드
+-> 기본 요소의 속성값을 취소 및 무력화하는 메서드
+
+이벤트 객체 > 프로퍼티
+pageX : 현재 문서를 기준으로 이벤트가 발생한 가로위치
+pageY : 현재 문서를 기준으로 이벤트가 발생한 세로위치
+target : 이벤트요소.target : 이벤트가 발생한 대상을 반환 e.target
+
+-----------------------------------------
+	
+키보드 이벤트
+e.code : 키보드로 입력한 키의 코드 값
+e.key : 키보드로 입력한 키보드 값
+
+<body>
+  <div id="result"></div>
+</body>
+
+
+#result {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #222;
+  border-radius: 5%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  color: crimson;
+}
+
+
+const body = document.querySelector("body");
+const result = document.querySelector("#result");
+
+body.addEventListener("keydown", (e) => {
+  result.innerText = `
+  code : ${e.code},
+  key : ${e.key}
+  `;
+});
+-----------------------------------------
+************** js로 슬릭슬라이더 만들기 **************
+
+1. 이미지를 출력할 공간에 정의
+2. 총 5장의 이미지 중 각각의 이미지를 선택했다고 할 수 있는 정의
+3. 버튼에 대한 기능 정의
+- 오른쪽 버튼을 클릭했을 때, 이미지 한 장씩 돌고
+- 왼쪽 버튼을 클릭했을 때, 이미지가 반대로 한장씩 돌아야한다
+4. 만약에 이미지가 처음 혹은 마지막에 도달했을때,
+원점으로 다시 돌아가게 하는 기능 정의
+
+<body>
+  <div id="container">
+    <div class="arrow" id="left">&lang;</div>
+    <div class="arrow" id="right">&rang;</div>
+  </div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#container {
+  margin-top: 50px;
+  position: relative;
+  border: 2px solid #ccc;
+  width: 600px;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.arrow {
+  font-size: 2em;
+  padding: 10px;
+  color: #222;
+  background-color: #ddd;
+  opacity: 0.4;
+}
+.arrow:hover {
+  opacity: 1;
+}
+
+
+//마우스 오른쪽 클릭 금지 안내 & 기본값 디폴트
+window.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+  this.alert("오른쪽 버튼을 사용할 수 없습니다");
+})
+
+const container = document.querySelector("#container");
+const pics = ["pic-1.jpg", "pic-2.jpg", "pic-3.jpg", "pic-4.jpg", "pic-5.jpg", "pic-6.jpg"];
+
+container.style.backgroundImage = `url(/img/${pics[0]})`;
+
+const arrows = document.querySelectorAll(".arrow");
+let i = 0;
+
+arrows.forEach((e) => {
+  e.addEventListener("click", (e) => {
+    if(e.target.id === "left") {
+      i--;
+      if(i < 0) {
+        i = pics.length - 1;
+      }
+    } else if(e.target.id === "right") {
+      i++;
+      if(i >= pics.length) {
+        i = 0;
+      } 
+    }
+    container.style.backgroundImage = `url(/img/${pics[i]})`;
+  })
+})
+-----------------------------------------
+
+이벤트 객체 프로퍼티
+이벤트 객체 메서드
+
+
+
+> 이벤트 전파
+이벤트 버블링 : 특정 요소에서 이벤트가 발생했을 때, 그 이벤트가 해당 요소 뿐만 아니라 해당 요소의 부모요소,
+부모요소의 부모요소에도 똑같이 이벤트가 발생한 것으로 간주하는 것
+
+
+---------------------------------------------
+<body>
+  BODY
+  <div>
+    DIV
+    <section>
+    SECTION
+    <p>
+    P</p>
+    </section>
+  </div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+body {
+  border: 2px solid #333;
+  width: 80%;
+  height: 250px;
+  font-size: 20px;
+  font-weight: bold;
+}
+div {
+  border: 2px dashed #333;
+  width: 100%;
+  height: 200px;
+}
+section {
+  border: 2px solid #333;
+  width: 100%;
+  height: 150px;
+}
+p {
+  border: 2px dashed #333;
+  width: 100%;
+  height: 50px;
+}
+
+
+const elements = document.querySelectorAll("*");
+
+for(let el of elements) {
+  el.addEventListener("click", e => {
+    console.log(`e.target : ${e.target.tagName}, e.currentTarget : ${e.currentTarget.tagName}`), false
+  });
+}
+
+
+target = 현재 선택된 선택자
+currentTarget = 현재 선택된 선택자의 상위요소
+---------------------------------------------
+마우스 오버 및 마우스 아웃 이벤트를 적용
+원본 : pic-1.jpg
+마우스오버 : pic-6.jpg
+
+조건 : addEventListener() 사용
+
+
+<body>
+    <img src="/img/pic-1.jpg" alt="">
+</body>
+
+
+const pic = document.querySelector("img");
+
+pic.addEventListener("mouseover", () => {
+  pic.src = `/img/pic-6.jpg`;
+})
+pic.addEventListener("mouseleave", () => {
+  pic.src = `/img/pic-1.jpg`;
+})
+
+---------------------------------------------
+우측 네비게이션 효과
+
+<body>
+  <button id="btn">&#9776;</button>
+  <nav id="nav">
+    <ul>
+      <li><a href="#">HTML5</a></li>
+      <li><a href="#">CSS3</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </nav>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+button {
+  position: fixed;
+  top : 20px;
+  right: 20px;
+  border: none;
+  outline: none;
+  background-color: #639;
+  color: #fff;
+  padding: 15px;
+  transition: transform 1s ease-in-out;
+}
+button.active {
+  transform: translateX(-130px);
+}
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #639;
+  height: 100vh;
+  padding: 2em;
+  transform: translateX(100%);
+  transition: transform 1s ease-in-out;
+}
+nav.active {
+  transform: translateX(0);
+}
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+nav ul li {
+  padding: 1em 0;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+const btn = document.querySelector("#btn");
+const nav = document.querySelector("#nav");
+
+btn.addEventListener("click", () => {
+  nav.classList.toggle("active");
+  btn.classList.toggle("active");
+})
+
+
+---------------------------------------------
+
+이벤트 캡처링
+
+DOM
+
+
+
+
+
+
+
+
+
+====================================
+
+
+
+오늘 했던
+모달 / 우측 네비게이션 / 슬라이더 / 우클릭 사용금지 / 마우스오버 & 마우스아웃 이벤트
+
+이외에도 다크모드
+
+포트폴리오에 넣기
+
+플러그인보다 바닐라 자바스크립트로 만들기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
