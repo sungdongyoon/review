@@ -1,0 +1,704 @@
+내장객체 활용하기
+Window, Date, Math
+
+웹브라우저의 최상위 객체 : window
+
+js에서 쓰던 함수는 js에 있는게 아니라
+window에 포함되어있는 함수
+
+window에서 함수표시가 안되어있는것들은 하위객체
+
+window.alert();가 정석이지만
+window는 모든 객체의 최상위요소라 생략
+
+window : .pageX / .pageY : 화면상에 마우스가 이동했을 때의 키값을 반환하는 프로퍼티
+
+window객체의 하위요소들
+> screen 객체 : .innerWidth / width
+> navigator 객체 : .userAgent
+> location 객체 : .reload()
+-----------------------------------------------------------------------------
+//창닫기
+<body>
+  <p>
+    <img src="/img/iu.jpg" alt="아이유" usemap="#intro">
+    <map name="intro">
+      <area shape="rect" coords="9,12,406,411" href="#" alt="창닫기" onclick="window.close()">
+    </map>
+  </p>
+</body>
+
+
+//팝업생성
+//팝업 이름 반드시 작성
+window.open("popup.html", "popup1", "width=400, height=400, left=50, top=20");
+
+<popup.html>
+<body>
+  <h1>이벤트 팝업</h1>
+  <button onclick="window.close()">닫기</button>
+</body>
+
+window.open("popup.html", "이벤트 팝업", "width=600 height=500 left=300 top=200");
+
+-----------------------------------------------------------------------------
+<index.html>
+<body>
+  <button>팝업 창 열기</button>
+</body>
+
+<popup.html>
+ <style>
+    body {
+      background: url('/img/event-bg.png') no-repeat center;
+      background-size: auto;
+    }
+    h1 {
+      font-size: 60px;
+      color: #fff;
+    }
+    button {
+      position: fixed;
+      right: 50px;
+      bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>이벤트 팝업</h1>
+  <button onclick="window.close()">닫기</button>
+</body>
+
+
+const btn = document.querySelector("button");
+const popWidth = 600;
+const popHeight = 500;
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+button:hover {
+  color: #fff;
+  background-color: #06f;
+}
+
+
+
+btn.addEventListener("click", () => {
+  //좌우상하 가운데로 오기 위해 나누기 2한것
+  let left = (screen.availWidth - popWidth) / 2;
+  let top = (screen.availHeight - popHeight) / 2;
+
+  window.open("popup.html", "pop1", `width=${popWidth} height=${popHeight} left=${left} top=${top}`);
+})
+
+-----------------------------------------------------------------------------
+window.navigator.userAgent = 웹브라우저 정보
+
+기종에 따른 이미지변경
+
+let info = navigator.userAgent.toLocaleLowerCase();
+let osImg = null;
+
+if(info.indexOf('windows') >= 0) {
+  osImg = 'windows.png';
+} else if(info.indexOf('macintosh') >= 0) {
+  osImg = 'macintosh.png';
+} else if(info.indexOf('iphone') >= 0) {
+  osImg = 'iphone.png';
+} else if(info.indexOf('android') >= 0) {
+  osImg = 'android.png';
+}
+
+document.write("<img src=\"/img/" + osImg + "\">");
+let scr = screen;
+let sc_w = scr.width;
+let sc_h = scr.height;
+
+document.write("모니터 해상도 너비: " + sc_w + "px", "<br />");
+document.write("모니터 해상도 높이: " + sc_h + "px", "<br />");
+
+-----------------------------------------------------------------------------
+location
+location.reload() 사용
+
+let id = "today";
+let pw = 1234;
+
+let user_id = prompt("당신의 아이디는?");
+
+if(id == user_id) {
+  let user_pw = parseInt(prompt("당신의 비밀번호는?"));
+
+  if(pw == user_pw) {
+    document.write(user_id + "님 반갑슴니다");
+  } else {
+    alert("비밀번호가 일치하지 않습니다");
+    location.reload();
+  }
+} else {
+  alert("아이디가 일치하지 않습니다");
+  location.reload();
+};
+=================================================================
+Date 객체 : 현시점의 년도, 월, 일, 날짜, 요일, 시간 등을 사용하고자 할 때 이용하는 내장객체
+
+>내장되어 있는 Date 객체를 사용하는 방법 :
+let today = new Date();
+date라는 내장객체를 프로토타입이라고 부를 수 있다
+today를 변수라고 부를수도 있고 인스턴스객체라고 부를 수도 있다
+
+
+
+자바스크립트 시간
+
+1초 = 1000밀리초
+1분 = 60 * 1000
+1시간 = 60 * 60 * 1000
+1일 = 24 * 60 * 60 * 1000
+
+
+let today = new Date();
+
+let theday1 = new Date("2023-02-28");
+let theday1 = new Date("2023,02,28");
+let theday1 = new Date("2023-02-28T09:30:00");
+let theday1 = new Date("02/28/2023");
+
+Date객체 메서드
+get, set 차이 알기
+getFullYear() = 연도를 가져온다
+...
+..
+.
+setFullYear() = 연도를 설정한다
+...
+..
+.
+toDateString() : Date에서 날짜 부분만 표시할때
+toTimeString() : Date에서 시간 부분만 표시할때
+
+****** 특정 날짜 데이터를 사용하고자 할 때, 월(month)의 값은 1이 아닌 0에서부터 시작
+항상 +1을 써줘야한다
+
+-----------------------------------------------------------------------------
+let today = new Date();
+let nowMonth = today.getMonth() + 1;
+let nowDate = today.getDate();
+let nowDay = today.getDay();
+
+document.write("<h1>오늘 날짜 정보</h1>");
+document.write("현재 월 : " + nowMonth, "<br/>");
+document.write("현재 일 : " + nowDate, "<br/>");
+
+let classOpen = new Date("02/28/2023");
+let theMonth = classOpen.getMonth() + 1;
+let theDate = classOpen.getDate();
+
+document.write("<h1>개강일 날짜 정보</h1>");
+document.write("개강 월 : " + theMonth, "<br/>");
+document.write("개강 일 : " + theDate, "<br/>");
+
+-----------------------------------------------------------------------------
+연말까지 얼마나 남았나
+
+let today = new Date();
+let nowYear = today.getFullYear();
+
+//월은 인덱스값을 부여하기 때문에 12월로 계산하려면 11월로 작성해야함
+let theDate = new Date(nowYear, 11, 31);
+let diffDate = theDate.getTime() - today.getTime();
+
+let result = Math.ceil(diffDate / (60 * 60 * 24 * 1000));
+document.write("연말 D-Day: " + result + "일 남았습니다");
+
+-----------------------------------------------------------------------------
+기념일 계산
+
+<body>
+  <div class="container">
+    <div class="day1">
+      <h3>우리 만난지</h3>
+      <p id="accent" class="accent"><span></span></p>
+    </div>
+    <div class="bar">기념일 계산</div>
+    <div class="day2">
+      <ul>
+        <li class="item-title">100일</li>
+        <li class="item-date" id="date100"></li>
+      </ul>
+      <ul>
+        <li class="item-title">200일</li>
+        <li class="item-date" id="date200">예시</li>
+      </ul>
+      <ul>
+        <li class="item-title">1년</li>
+        <li class="item-date" id="date365">예시</li>
+      </ul>
+      <ul>
+        <li class="item-title">500일</li>
+        <li class="item-date" id="date500">예시</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+.container {
+  border: 1px solid #ccc;
+  width: 450px;
+  margin: 100px auto;
+  border-radius: 2%;
+  box-shadow: 2px 2px 5px #333;
+}
+.day1 {
+  padding-top: 20px;
+  text-align: center;
+}
+.day1 h3 {
+  color: #666;
+  font-size: 0.6em;
+}
+.day1 span {
+  font-size: 0.6em;
+  font-family: italic;
+}
+.accent {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 3.5em;
+  color: #222;
+}
+.bar {
+  width: 100%;
+
+  margin: 60px auto 0 auto;
+  padding-left: 15px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #747474;
+  color: #fff;
+  font-size: 1.2em;
+}
+.day2 {
+  width: 420px;
+  margin: 20px auto;
+}
+.day2 ul {
+  border-bottom: 1px dashed #ccc;
+  height: 60px;
+}
+.day2 ul:last-child {
+  border-bottom: none;
+}
+.item-title {
+  /* border: 2px solid red; */
+  float: left;
+  width: 160px;
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 60px;
+}
+.item-date {
+  /* border: 2px solid red; */
+  float: left;
+  margin-left: 60px;
+  line-height: 60px;
+  text-align: right;
+  font-size: 1.2em;
+  color: #222;
+}
+
+
+let now = new Date();
+let toNow = now.getTime();
+
+let firstDay = new Date("2023-02-28");
+let toFirst = firstDay.getTime();
+
+let passedTime = toNow - toFirst;
+let passedDay = Math.round(passedTime / (24 * 60 * 60 * 1000));
+document.querySelector("#accent").innerText = passedDay + "일";
+
+function calcDate(e) {
+  let future = toFirst + e * (24 * 60 * 60 * 1000);
+  let someDay = new Date(future);
+  let year = someDay.getFullYear();
+  let month = someDay.getMonth() + 1;
+  let date = someDay.getDate();
+  document.querySelector("#date" + e).innerText = year + "년" + month + "월" + date + "일";
+}
+
+calcDate(100);
+calcDate(200);
+calcDate(365);
+calcDate(500);
+
+-----------------------------------------------------------------------------
+디지털 시계
+
+<body>
+  <div class="time hour"></div>
+  <div class="divider"> : </div>
+  <div class="time min"></div>
+  <div class="divider"> : </div>
+  <div class="time sec"></div>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  column-gap: 10px;
+  font-size: 48px;
+  font-weight: bold;
+}
+.time {
+  /* border: 2px solid red; */
+  width: 80px;
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+
+
+const hour = document.querySelector(".hour");
+const min = document.querySelector(".min");
+const sec = document.querySelector(".sec");
+
+function clock() {
+  const now = new Date();
+
+  hour.innerText = now.getHours();
+  min.innerText = now.getMinutes();
+  sec.innerText = now.getSeconds();
+}
+
+setInterval(clock, 1000);
+
+-----------------------------------------------------------------------------
+아날로그 시계
+
+<body>
+  <div class="clock">
+    <div class="lineHour"></div>
+    <div class="lineMin"></div>
+    <div class="lineSec"></div>
+  </div>
+</body>
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.clock {
+  width: 400px;
+  height: 400px;
+  border: 3px solid #ccc;
+  border-radius: 50%;
+  position: relative;
+}
+.lineHour {
+  width: 10px;
+  height: 150px;
+  background-color: #ccc;
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 5px);
+  transform-origin: bottom;
+}
+.lineMin {
+  width: 4px;
+  height: 200px;
+  background-color: #ccc;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 2px);
+  transform-origin: bottom;
+}
+.lineSec {
+  width: 2px;
+  height: 200px;
+  background-color: #ccc;
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 1px);
+  transform-origin: bottom;
+}
+
+
+setInterval(() => {
+  const now = new Date();
+
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  
+  const degH = h * (360 / 12) + m * (360 / 12 / 60);
+  const degM = m * (360 / 60);
+  const degS = s * (360 / 60);
+  
+  const elementH = document.querySelector(".lineHour");
+  const elementM = document.querySelector(".lineMin");
+  const elementS = document.querySelector(".lineSec");
+  
+  elementH.style.transform = `rotate(${degH}deg)`;
+  elementM.style.transform = `rotate(${degM}deg)`;
+  elementS.style.transform = `rotate(${degS}deg)`;
+}, 1000);
+
+-----------------------------------------------------------------------------
+만 보 걷기
+
+<body>
+  <h1>만 보 걷기</h1>
+  <p><span id="result"></span>일 연속 달성</p>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+h1 {
+  margin-bottom: 20px;
+}
+#result {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: red;
+}
+
+
+const today = new Date();
+const firstDay = new Date("2023-02-28");
+const result = document.querySelector("#result");
+
+let passedTime = today.getTime() - firstDay.getTime();
+let passedDay = Math.round(passedTime / (24 * 60 * 60 * 1000));
+
+result.innerText = passedDay;
+
+
+-----------------------------------------------------------------------------
+디지털시계 2
+
+<body>
+  <div id="container">
+    <div id="today">
+      <!-- 현재 날짜 -->
+    </div>
+    <div id="clock">
+      <!-- 현재 시간 -->
+    </div>
+  </div>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#container {
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+#container div {
+  margin: 12px;
+}
+#today {
+  font-size: 1.2em;
+}
+#clock {
+  font-size: 1em;
+}
+
+
+const today = new Date();
+
+const displayDate = document.querySelector("#today");
+
+
+const year = today.getFullYear();
+const month = today.getMonth() + 1;
+const date = today.getDate();
+const day1 = today.getDay();
+
+let day2 = "";
+
+switch(day1) {
+  case 0 :
+    day2 = "일요일"; break;
+  case 1 :
+    day2 = "월요일"; break;
+  case 2 :
+    day2 = "화요일"; break;
+  case 3 :
+    day2 = "수요일"; break;
+  case 4 :
+    day2 = "목요일"; break;
+  case 5 :
+    day2 = "금요일"; break;
+  case 6 :
+    day2 = "토요일"; break;
+}
+
+displayDate.innerHTML = `${year}년 ${month}월 ${date}일 ${day2}`;
+
+const displayTime = document.querySelector("#clock");
+
+let clock = () => {
+  let current = new Date();
+  let hrs = current.getHours();
+  let mins = current.getMinutes();
+  let secs = current.getSeconds();
+
+  let period = "AM";
+  if(hrs == 0) {
+    hrs = 12;
+  } else if(hrs > 12) {
+    hrs = hrs - 12;
+    period = "PM";
+  }
+  hrs = (hrs < 10) ? "0" + hrs : hrs;
+  mins = (mins < 10) ? "0" + mins : mins;
+  secs = (secs < 10) ? "0" + secs : secs;
+  displayTime.innerText = `${period} ${hrs} : ${mins} : ${secs}`
+}
+
+setInterval(clock, 1000);
+
+-----------------------------------------------------------------------------
+수학객체
+메서드 : 24개
+주로 사용하는것 : 18개
+
+
+let num = 2.1234;
+
+//max - 최대값 리턴
+let maxNum = Math.max(10, 5, 8, 30);
+//min - 최소값 리턴
+let minNum = Math.min(10, 5, 8, 30);
+//round - 반올림
+let roundNum = Math.round(num);
+//floor - 내림
+let floorNum = Math.floor(num);
+//ceil - 올림
+let ceilNum = Math.ceil(num);
+//random - 무작위, 절대 1을 넘지 않는다 0 ~ 0.9999999999..... -> 난수를 실수로 가져오는것
+let rndNum = Math.random();
+//pi - 원주율 리턴
+let piNum = Math.PI;
+
+document.write(maxNum, "<br/>");
+document.write(minNum, "<br/>");
+document.write(roundNum, "<br/>");
+document.write(floorNum, "<br/>");
+document.write(ceilNum, "<br/>");
+document.write(rndNum, "<br/>");
+document.write(piNum, "<br/>");
+
+
+-----------------------------------------------------------------------------
+
+let menu = ["짜장밥", "돈가스", "국밥", "김치찌개", "회덮밥"];
+let menuNum = Math.floor(Math.random() * menu.length);
+let result = menu[menuNum];
+
+document.write(result);
+
+
+-----------------------------------------------------------------------------
+랜덤 가위바위보 맞추기
+
+let game = prompt("가위, 바위, 보 중 선택하세요", "ex)가위");
+let gameNum;
+switch (game) {
+  case "가위" :
+    gameNum = 1;
+    break;
+  case "바위" :
+    gameNum = 2;
+    break;
+  case "보" :
+    gameNum = 3;
+    break;
+  default : alert("잘못 입력했습니다");
+  location.reload();
+};
+
+let com = Math.ceil(Math.random() * 3);
+document.write("<img src=\"/img/math_img_"+ com +".jpg\">");
+if(gameNum == com) {
+  document.write("<img src=\"/img/game_1.jpg\">");
+} else {
+  document.write("<img src=\"/img/game_2.jpg\">");
+};
+-----------------------------------------------------------------------------
+
+
