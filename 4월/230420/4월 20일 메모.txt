@@ -1,0 +1,752 @@
+http://naver.me/Fv7tlZqy
+
+가위바위보 2
+
+1. 버튼에 대한 정의
+
+2. 컴퓨터 선택에 대한 정의 (*Math객체 활용)
+
+3. 컴퓨터와 사용자 선택값에 대한 우열을 가릴 수 있는 조건식 정의
+
+4. 컴퓨터와 사용자 선택값에 따른 결과를 출력할 공간에 대한 정의
+
+
+<body>
+  <div class="container">
+    <div class="block">
+      <h3>컴퓨터 선택 : </h3>
+      <p class="computer-choice"></p>
+    </div>
+    <div class="block">
+      <h3>사용자 선택 : </h3>
+      <p class="your-choice"></p>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="red">가위</button>
+    <button class="blue">바위</button>
+    <button class="green">보</button>
+  </div>
+  <div class="result">가위바위보@</div>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  row-gap: 30px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.block {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+button {
+  width: 70px;
+  height: 70px;
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+.buttons {
+  display: flex;
+  column-gap: 15px;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.result {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+
+
+
+const buttons = document.querySelectorAll("button");
+const computerChoice = document.querySelector(".computer-choice");
+const userChoice = document.querySelector(".your-choice");
+const winner = document.querySelector(".result");
+const result = ["가위", "바위", "보"];
+
+const show = (user, computer, result) => {
+  computerChoice.innerText = computer;
+  userChoice.innerText = user;
+  winner.innerText = result;
+}
+
+const game = (user, computer) => {
+  if(user == computer) {
+    message = "무승부";
+  } else {
+    switch (user + computer) {
+      case '가위보' :
+      case '바위가위' :
+      case '보바위' :
+        message = "사용자 승리";
+        break;
+      case '가위바위' :
+      case '바위보' :
+      case '보가위' :
+        message = "컴퓨터 승리";
+        break;
+    }
+  };
+  show(user, computer, message);
+};
+
+const play = (event) => {
+  const user = event.target.innerText;
+  const randomIndex = Math.floor(Math.random() * result.length)
+  const computer = result[randomIndex];
+  game(user, computer);
+};
+
+buttons.forEach((button) => {
+  button.addEventListener("click", play);
+});
+
+---------------------------------------------------------------------------------------------------------------------
+원의 넓이와 둘레 구하기
+
+원 넓이 구하는 공식 : 반지름 * 반지름 * 원주율
+원 둘레 구하는 공식 : 반지름 * 2 * 원주율
+
+
+1. 결과값을 출력해야하는 공간 정의
+
+2. 원의 넓이를 구하는 공식에 대한 정의
+
+3. 원의 둘레를 구하는 공식에 대한 정의
+
+4. 반지름 > 사용자로부터 값을 받을 예정
+
+
+<body>
+  <div id="result"></div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#result {
+  border: 2px solid #ccc;
+  font-size: 1.5em;
+}
+
+
+const result = document.querySelector("#result");
+const radius = prompt("반지름의 크기는?");
+
+//원의 넓이 구하는 함수
+function area(r) {
+  return Math.PI * r * r;
+};
+
+//원의 둘레 구하는 함수
+function circum(r) {
+  return Math.PI * 2 * r;
+};
+
+result.innerText = `반지름 : ${radius}
+원의 넓이 : ${Math.round(area(radius))}
+원의 둘레 : ${Math.round(circum(radius))}`;
+
+
+---------------------------------------------------------------------------------------------------------------------
+랜덤 배경
+
+1. 출력할 공간 정의
+
+2. 출력할 요소(컨텐츠)에 대한 정의
+
+
+const changeBg = () => {
+  const bgCount = 5;
+
+  let randomNum = Math.ceil(Math.random() * bgCount);
+  document.body.style.backgroundImage = `url(img/bg-${randomNum}.jpg)`;
+};
+
+document.onload = changeBg();
+
+
+---------------------------------------------------------------------------------------------------------------------
+내가 살아온 시간
+
+1. 계산이라는 버튼에 대한 기능 정의
+
+2. 사용자로부터 값을 입력받고 저장할 수 있는 공간에 대한 정의
+
+3. 원하는 값을 출력해야하는 공간에 대한 정의
+
+4. 출력할 값에 대한 수식 정의
+
+
+<body>
+  <div id="container">
+    <h1>내가 살아온 시간</h1>
+    <form>
+      <label for="year"><input type="text" id="year">년</label>
+      <label for="month"><input type="text" id="month">월</label>
+      <label for="date"><input type="text" id="date">일</label>
+      <button id="btn">계산</button>
+    </form>
+    <div id="result">
+      <p id="current">test</p>
+      <p id="days" class="accent"></p>
+      <p id="hours" class="accent"></p>
+      <p id="years" class="accent"></p>
+    </div>
+  </div>
+</body>
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#container {
+  width: 450px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+h1 {
+  font-size: 1.5rem;
+}
+form {
+  width: 100%;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+label {
+  margin-right: 20px;
+}
+input[type="text"] {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  margin-right: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+#btn {
+  padding: 10px;
+}
+#result {
+  border: 1px solid #ccc;
+  width: 450px;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 15px;
+}
+p {
+  font-size: 0.9rem;
+  line-height: 2;
+}
+.accent {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+
+const birthYear = document.querySelector("#year");
+const birthMonth = document.querySelector("#month");
+const birthDate = document.querySelector("#date");
+const btn = document.querySelector("#btn")
+
+const current = document.querySelector("#current");
+const resultDays = document.querySelector("#days");
+const resultHours = document.querySelector("#hours");
+const resultYears = document.querySelector("#years")
+
+const today = new Date();
+current.innerText = `${today.getFullYear()}년 ${today.getMonth() +1 }월 ${today.getDate()}일 ${today.getHours()}시 ${today.getMinutes()}분 현재`
+
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const birthDay = new Date(birthYear.value, birthMonth.value -1, birthDate.value);
+  
+  let passed = today.getTime() - birthDay.getTime();
+  let passedYear = Math.floor(passed / (1000 * 60 * 60 * 24 * 365));
+  let passedDays = Math.floor(passed / (1000 * 60 * 60 * 24));
+  let passedHours = Math.floor(passed / (1000 * 60 * 60));
+  resultYears.innerText = `년도로는 ${passedYear}년 지났습니다`
+  resultDays.innerText = `날짜로는 ${passedDays}일 지났습니다`
+  resultHours.innerText = `시간으로는 ${passedHours}시간 지났습니다`
+
+  birthYear.value = "";
+  birthMonth.value = "";
+  birthDate.value = "";
+})
+
+---------------------------------------------------------------------------------------------------------------------
+당첨자 발표
+
+1. 추첨 및 지우기 버튼에 대한 기능 정의
+
+2. 입력한 값에 대한 저장공간 및 활용에 대한 기능 정의
+
+3. 입력한 값을 출력할 공간에 대한 정의
+
+4. 출력할 값에 대한 조건 및 논리구조 정의
+
+
+
+<div id="container">
+    <h1>당첨자 발표</h1>
+    <form>
+      <label for="seed"><input type="text" id="seed">명 중에서</label>
+      <label for="total"><input type="text" id="total">명 뽑기</label>
+      <button type="submit" id="raffle">추첨</button>
+      <button type="reset" id="clear">지우기</button>
+    </form>
+    <div id="result"></div>
+  </div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#container {
+  width: 500px;
+  margin: 20px auto;
+}
+h1 {
+  font-size: 1.4rem;
+}
+input[type="text"] {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  margin-right: 10px;
+}
+button {
+  padding: 10px 20px;
+}
+#result {
+  border: 1px solid #000;
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #ccc;
+}
+
+
+const raffle = document.querySelector("#raffle");
+
+raffle.addEventListener("click", (e) => {
+  e.preventDefault();
+  const seed = document.querySelector("#seed");
+  const total = document.querySelector("#total");
+  const result = document.querySelector("#result");
+  let winner = "";
+
+  for(let i = 0; i < total.value; i++) {
+    let picked = Math.ceil(Math.random() * seed.value)
+    winner += `${picked}번, `;
+  }
+
+  result.innerText = `당첨자 : ${winner}`;
+})
+==========================================================
+자바스크립트 객체
+- 내장객체 : Date (), Math ()
+
+객체란
+> 프로그램에서 인식할 수 있는 모든 대상
+> 여러개의 데이터를 하나로 묶어놓은 대상
+> "회원" = 객체
+나이 : 20
+성별 : 남/녀
+사는곳 : 서울 / 경기
+
+document.querySelector에서 document는 문서객체(DOM)
+window.onload => 브라우저 객체(BOM)
+window.body =>  브라우저 객체(BOM)
+-----------------------------------------------------------------------------
+개발자가 정의할 수 있는 사용자 정의 객체
+
+객체의 형태
+객체명 {
+   key : value, => 프로퍼티
+   key : value, => 프로퍼티
+   key : value, => 프로퍼티
+}
+
+let book1 = {
+    title : "자바스크립트",
+    pages : 648
+}
+
+book1
+{title: '자바스크립트', pages: 648}
+
+key값을 불러오는 두가지 방법
+
+book1.title
+'자바스크립트'
+
+book1["pages"]
+648
+
+객체에 값을 추가하는 방법
+book1.author = "윤동성"
+
+book1;
+{title: '자바스크립트', pages: 648, author: '윤동성'}
+
+
+new Object() = 객체를 새로 생성하고 싶을 때 사용
+let book = new Object();
+
+book.title = "홍길동";
+book.pages = 700;
+
+키와 밸류값 둘다 삭제할 때는 delete사용
+
+delete book.pages;
+delete book.title;
+
+값만 정의하지 않을 경우
+book.pages = undefined;
+book3;
+{pagse: undefined};
+
+-------------------------------------------------------
+이중객체(중첩객체)
+
+//객체 안에 또다른 객체 = 객체 중첩
+let student = {
+  name : "Park",
+  score : {
+    history : 85,
+    science : 94,
+    average : function() {
+      return (this.history + this.science) / 2;
+    }
+  }
+}
+
+student.score.history;
+> 85
+
+student.score.average();
+> 89.5
+
+
+//키값 뒤쪽에 바로 괄호 사용해도 함수 정의가 된다
+let book3 = {
+  title : "파이썬",
+  pages : 360,
+  buy() {
+    console.log("이 책을 구입했습니다");
+  }
+}
+
+
+
+
+let book4 = {
+  title : "Javascript",
+  pages : 500,
+  author : "윤동성",
+  done : true,
+  finish : function() {
+    book4.done == false ? console.log("읽는중") : console.log("완독");
+  }
+}
+
+
+let book4 = {
+  title : "Javascript",
+  pages : 500,
+  author : "윤동성",
+  done : true,
+  finish : function() {
+    this.done == false ? console.log("읽는중") : console.log("완독");
+  }
+}
+this를 쓰면 객체를 복제해도 정상적으로 작동할 수 있게한다
+
+
+
+****중요한 내용****
+객체에 객체를 할당
+
+변수는
+원시 유형 자료복사
+원시적 : 처음 시작된 그대로의 상태
+
+객체는 원시 데이터가 아니라
+참조 주소를 복사하는 개념이라
+
+let bag1 = {
+    color : "blue",
+    width : 30,
+    height : 50
+};
+bag1;
+>{color: 'blue', width: 30, height: 50}
+
+let bag2 = bag1;
+
+bag2.color = "red";
+'red'
+
+bag2
+>{color: 'red', width: 30, height: 50}
+
+bag1
+>{color: 'red', width: 30, height: 50}
+
+bag2의 값만 재할당해도
+bag1의 값도 같이 변경된다
+
+----------------------------------------------------------------------------
+생성자 함수
+> 동일한 프로퍼티 및 메서드를 가지고 있는 객체를 만들때 사용할 수 있는 함수를 의미 => 붕어빵 틀이라고 생각. 재료만 있으면 계속 찍어낼 수 있다. 틀을 사용해서 만든 붕어빵을 인스턴스 객체라고 한다. 즉 생성자 함수를 통해 만들어진 복제된 객체
+
+인스턴스 객체
+> 생성자 함수를 통해서 만들어진 복제된 객체
+let today = new Date();
+
+function book(매개변수1, 매개변수2, ...) {
+  //this는 들어온 인자값을 뜻함
+  this.매개변수1 = 매개변수1;
+  this.매개변수2 = 매개변수2;
+
+  this.메서드1 : function() {...}
+  this.메서드2 : function() {...}
+}
+
+익명함수로도 사용 가능
+const book(매개변수) = function() {
+  //this는 들어온 인자값을 뜻함
+  this.매개변수1 = 매개변수1;
+  this.매개변수2 = 매개변수2;
+
+  this.메서드1 : function() {...}
+  this.메서드2 : function() {...}
+}
+
+----------------------------------------------------------------------------
+// 생성자 함수와 인스턴스 객체
+function Book(title, pages, done) {
+  this.title = title;
+  this.pages = pages;
+  this.done = done;
+  this.finish = function() {
+    let str = "";
+    this.done == false ? str = "읽는중" : str = "완독";
+    return str;
+  }
+}
+
+let book1 = new Book("파이썬", 648, false);
+let book2 = new Book("자바스크립트", 360, true);
+
+document.write(`${book1.title} - ${book1.pages}쪽 - ${book1.finish()}, <br/><br/>`);
+document.write(`${book2.title} - ${book2.pages}쪽 - ${book2.finish()}, <br/>`);
+
+----------------------------------------------------------------------------
+자바스크립트 클래스를 활용한 객체 생성
+생성자 함수의 불편함을 개선하기 위해 사용
+
+class 클래스명 {
+  constructor() {
+    프로퍼티1,
+    프로퍼티2,
+  }
+  메서드1() {}
+  메서드2() {}
+}
+
+
+class Book2 {
+  constructor(title, pages, done) {
+    this.title = title;
+    this.pages = pages;
+    this.done = done;
+  }
+  finish() {
+    let str = "";
+    this.done == false ? str = "읽는중" : str = "완독";
+    return str;
+  }
+}
+
+let book1 = new Book2("파이썬", 348, false);
+let book2 = new Book2("자바스크립트", 700, true);
+
+document.write(`${book1.title} - ${book1.pages} - ${book1.finish()} <br/><br/>`);
+document.write(`${book2.title} - ${book2.pages} - ${book2.finish()}`);
+
+
+*********** 생성자 함수, 클래스를 활용한 객체 생성 둘다 너무 중요하고
+요즘은 클래스를 활용한 방법이 많이 늘어나고 있다********************
+
+----------------------------------------------------------------------------
+생성자 함수 및 클래스를 사용해서 인스턴스 객체를 생성하고 이를 활용해서 원기둥의 부피를 구하는 프로그램 생성
+
+원기둥의 부피 : 밑면적 x 높이
+밑면적 = 파이 x (지름/2)*2
+
+
+1. 계산하기 버튼에 대한 기능 정의
+
+2. 사용자가 입력하는 지름 및 높이 값에 대한 저장공간
+
+3. 원기둥의 부피를 구하는 계산식에 대한 정의
+
+4. 계산 후 결과값을 출력할 공간에 대한 정의
+
+
+
+
+<body>
+  <div id="container">
+    <div id="userInput">
+      <form>
+        <ul>
+          <li>
+            <label for="cyl-diameter">지름</label>
+            <input type="text" id="cyl-diameter">
+          </li>
+          <li>
+            <label for="cyl-height">높이</label>
+            <input type="text" id="cyl-height">
+          </li>
+          <li>
+            <button>계산하기</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div id="result">테스트</div>
+  </div>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+  margin: 15px;
+}
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#userInput {
+  width: 320px;
+  height: 150px;
+}
+#result {
+  width: 300px;
+  height: 100px;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fcfcfc;
+  border-radius: 12px;
+}
+li label {
+  float: left;
+  width: 50px;
+  padding: 5px;
+}
+input[type="text"] {
+  width: 140px;
+  padding: 5px;
+}
+button {
+  width: 190px;
+  margin-left: 5px;
+  padding: 5px;
+}
+
+
+
+function Cylinder(cylinderDiameter, cylinderHeight) {
+  this.diameter = cylinderDiameter;
+  this.height = cylinderHeight;
+
+  this.volume() = function() {
+    let radius = this.diameter / 2;
+    return (Math.PI * radius * radius * this.height).toFixed(1);
+  };
+};
+
+// class Cylinder {
+//   constructor(cylinderDiameter, cylinderHeight) {
+//     this.diameter = cylinderDiameter;
+//     this.height = cylinderHeight;
+//   }
+//   volume() {
+//     let radius = this.diameter / 2;
+//     return (Math.PI * radius * radius * this.height).toFixed(1);
+//   }
+// }
+
+const button = document.querySelector("button");
+const result = document.querySelector("#result");
+
+button.addEventListener("click", function(e) {
+  e.preventDefault();
+  const diameter = document.querySelector("#cyl-diameter").value;
+  const height = document.querySelector("#cyl-height").value;
+  
+  if(diameter == "" || height == "") {
+    result.innerText = `지름과 높이값을 입력하세요`;
+  } else {
+    let cylinder = new Cylinder(diameter, height);
+    result.innerText = `원기둥의 부피는 ${cylinder.volume()} 입니다`;
+  }
+});
