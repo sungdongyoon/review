@@ -1,0 +1,669 @@
+정규 표현식 사용하는 이유
+: 특정 패턴을 가지고 있는 문자 및 숫자를 추출 및 편집하기 위해서
+
+정규 표현식을 사용하려면 패턴을 사용 => / 패턴 /
+
+패턴을 정의하는 3가지 클래스
+
+<<<<<숫자(digit) 클래스>>>>>
+\d : 0~9사이의 숫자
+\D : 숫자가 아닌 모든 문자
+
+
+let regexp = /\d{3}/;
+regexp.test("Hello");
+> false
+regexp.test(123);
+> true
+
+
+let str = "ES2023 is powerful";
+str.match(/ES6/);
+> null
+str.match(/ES/);
+> ['ES', index: 0, input: 'ES2023 is powerful', groups: undefined]
+str.replace(/ES2023/, "ES6");
+> 'ES6 is powerful'
+/es/.test(str);
+> false
+/ES/.test(str);
+> false
+/es/i.test(str);         ----> i는 대소문자 구별 x
+> true
+
+str.match(/ES\d/);
+> ['ES2', index: 0, input: 'ES2023 is powerful', groups: undefined]
+
+str.match(/ES\d\d\d\d/);
+> ['ES2023', index: 0, input: 'ES2023 is powerful', groups: undefined]
+
+
+<<<<<공백(space) 클래스>>>>>
+\s : 공백, 탭, 줄바꿈 등
+\S : 공백이 아닌 모든 문자
+
+
+
+
+<<<<<단어(word) 클래스>>>>>
+\w : 단어에 들어가는 모든 숫자, 문자, 언더바
+\W : 단어에 들어가지 않는 
+
+
+
+
+
+
+문자열의 시작과 끝을 체크하는 특수문자
+^(캐럿) : 해당 단어로 시작하는 문자를 찾을 때
+$ : 해당 단어로 끝나는 문자를 찾을 때
+
+
+
+
+let hello = "Hello, everyone.";
+/^H/.test(hello);
+> true
+/^h/.test(hello);
+> false
+/^h/i.test(hello);
+> true
+/one.$/.test(hello);
+> true
+/e.$/.test(hello);
+> true
+/one$/.test(hello);
+> false
+
+
+"ES2023".match(/[0-9]/);
+> ['2', index: 2, input: 'ES2023', groups: undefined]
+"ES2023".match(/^[0-9]/);
+> null
+"ES2023".match(/^[0-9]/g);         -----> g : 모든 패턴 중에서 일치하는 것이 있으면 찾아라
+> null
+"ES2023".match(/[0-9]/g);
+> (4) ['2', '0', '2', '3']
+
+
+
+정규 표현식에서 반복적인 검색을 할 때 사용하는 표현방법
+
+1) 패턴{n} : 패턴이 n번 반복되는 것을 찾아라
+
+2) 패턴{n,} : 패턴이 최소 n번 이상 반복되는 것을 찾아라
+
+3) 패턴{m, n} : 패턴이 최소 m번 이상, 최대 n번 이하로 반복되는 것을 찾아라
+
+
+
+let str = "Oooops";
+str.match(/o{2}/);
+> ['oo', index: 1, input: 'Oooops', groups: undefined]
+str.match(/o{2,}/);
+> ['ooo', index: 1, input: 'Oooops', groups: undefined]
+str.match(/o{2,4}/);
+> ['ooo', index: 1, input: 'Oooops', groups: undefined]
+str.match(/o{2,4}/i);
+> ['Oooo', index: 0, input: 'Oooops', groups: undefined]
+
+
+let str2 = "ES2023(ES6) is powerful";
+let regexp = /ES2023|ES6/;
+regexp.test(str2);
+> true
+
+
+
+
+조건에 일치하는 문자열 찾기 특수문자
+
+[ ] : 특정 식의 시작과 끝
+ex. [1-9] => 1에서 9까지
+^x : x로 시작하는 문자열
+x$ : x로 끝나는 문자열
+x+ : x가 한 번 이상 반복되는 문자열
+x? : x가 0번 또는 1번있는 문자열
+x* : x가 0번 이상 반복되는 문자열
+. : 특정 문자 하나를 찾을 때 사용  ----> [x, z] : x라는 문자와 z라는 문자 사이에 문자 하나만 존재하는 패턴을 찾아라
+
+
+*** 숫자패턴 ***
+모든 숫자 패턴을 찾는 식  :  /^[0-9]+$/
+
+*양의정수 패턴
+/^[1-9]\d*$/
+
+*음의정수 패턴
+/^\-[1-9]\d*$/
+
+*영문자 패턴
+/^[a-zA-Z]+$/
+
+*영문자 및 숫자 패턴
+/^[a-zA-Z0-9]+$/
+
+
+<<<문자열과 배열을 변환하는 방법>>>
+let str5 = "Hello, everyone";
+str5.split("");
+> (15) ['H', 'e', 'l', 'l', 'o', ',', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e']
+
+1) split
+let array2 = str5.split("");
+array2;
+> (15) ['H', 'e', 'l', 'l', 'o', ',', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e']
+2) 전개연산자 ...
+let str5 = "Hello, everyone";
+array3 = [...str5];
+> (15) ['H', 'e', 'l', 'l', 'o', ',', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e']
+3) Array.from
+array4 = Array.from(str5);
+> (15) ['H', 'e', 'l', 'l', 'o', ',', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e']
+
+
+---------------------------------------------------------------------------------------------------------------------
+문자를 받아서 첫번째 문자만 대문자로 변환
+
+let text = prompt("영문 소문자로 된 문자열을 입력하세요");
+
+// const firstCh = text[0].toUpperCase();
+// const remainCh = text.slice(1);
+// const result = firstCh + remainCh;
+// document.write(result);
+
+//join() : 배열을 문자열로 변환
+const result = [text[0].toUpperCase(), text.slice(1)].join("");
+document.write(result);
+---------------------------------------------------------------------------------------------------------------------
+****배열 : 여러개의 객체를 한꺼번에 묶거나 일부분을 삭제 및 수정하거나 할 때 사용할 수 있는 객체 타입
+
+배열을 생성하는 방법 3가지
+
+1) 빈 배열을 만들고 값 할당
+let seasons = [];
+seasons[0] = "spring";
+> 'spring'
+seasons[1] = "summer";
+> 'summer'
+seasons;
+> (2) ['spring', 'summer']
+
+2) 리터럴 표기법으로 생성
+let pets = ["dog", "cat", "mouse"];
+pets;
+> (3) ['dog', 'cat', 'mouse']
+
+3) Array객체의 인스턴스 객체로 생성
+let fruits = new Array("사과", "복숭아", "포도");
+fruits;
+> (3) ['사과', '복숭아', '포도']
+
+
+
+let pets = ["dog", "cat", "mouse"];
+pets[1] = "hamster";
+> 'hamster'
+pets;
+> (3) ['dog', 'hamster', 'mouse']
+pets[4] = "lion";
+> 'lion'
+pets;
+> (5) ['dog', 'hamster', 'mouse', empty, 'lion']
+
+
+
+배열을 사용할때 유독 반복문을 많이 사용
+
+let colors = ["red", "green", "blue", "white", "black"];
+
+for(let i = 0; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+
+
+
+
+반복문 중에서도 forEach()를 많이 사용
+
+let animals = ["lion", "bear", "bird"];
+
+animals.forEach(function(el) {
+  console.log(el);
+})
+
+>>>>>위아래 같은 결과(인자값이 하나일 때)
+
+animals.forEach(animal => {
+  console.log(animal);
+})
+
+>>>>>인자값이 두개일 때
+//animal은 밸류값, i는 인덱스값
+animals.forEach((animal, i) => {
+  console.log(`animals[${i}] : ${animal}`);
+})
+
+>>>>>인자값이 세개일 때
+//animal은 밸류값, index는 인덱스값, array는 배열
+animals.forEach((animal, index, array) => {
+  console.log(`[${array}][${index}] : ${animal}`);
+})
+
+
+
+
+******배열과 배열을 서로 합치는 방법
+
+1)concat()
+let vegitable = ["양상추", "토마토", "피클"];
+let meat = ["불고기"];
+let meatBurger = vegitable.concat(meat);
+meatBurger;
+> (4) ['양상추', '토마토', '피클', '불고기']
+let meatBurger = vegitable.concat(meat, "빵");
+meatBurger;
+>(5) ['양상추', '토마토', '피클', '불고기', '빵']
+
+let meatBurger2 = meat.concat("빵", vegitable);
+meatBurger2;
+> (5) ['불고기', '빵', '양상추', '토마토', '피클']
+
+
+2) 전개 연산자 ...
+let vegitable = ["양상추", "토마토", "피클"];
+let cheese = ["모짜렐라", "슈레드"];
+let cheeseBurger = [...vegitable, ...cheese];
+cheeseBurger;
+> (5) ['양상추', '토마토', '피클', '모짜렐라', '슈레드']
+
+
+
+
+
+*****배열 요소 정렬하는 방법
+
+1)역순으로 정렬하는 방법 : reverse();
+let numbers = [6, 9, 3, 21, 18];
+numbers.reverse();
+> (5) [18, 21, 3, 9, 6]
+
+
+
+2)크기에 따라 정렬하는 방법 : sort();
+let week = ["sun", "mon", "tue"];
+let values = [5, 20, 3, 11, 4, 15];
+week.sort();
+> (3) ['mon', 'sun', 'tue']		----> 알파벳 순서 기준
+values.sort();
+> (6) [11, 15, 20, 3, 4, 5]		----> 맨 앞에있는 숫자 기준
+
+values.sort(function(a, b) {		-----> 살짝 고전적인 방법
+    if(a > b) return 1;
+    if(a < b) return -1;
+    if(a === 0) return 0;
+});
+> (6) [3, 4, 5, 11, 15, 20]
+
+values.sort(function(a, b) {		-----> 그나마 더 간단한 방법
+    return a - b;
+});
+> (6) [3, 4, 5, 11, 15, 20]
+
+
+
+
+*****배열 요소에서 맨 끝에 값을 추가하거나 제거하는 방법
+- 요소.pop() : 맨 마지막 값을 제거하는 메서드
+- 요소.push() : 맨 마지막 값을 추가하는 메서드
+
+*****배열 요소에서 맨 앞에 값을 추가하거나 제거하는 방법
+- 요소.shift() : 맨 앞 값을 제거하는 메서드
+- 요소.unshift() : 맨 앞 값을 추가하는 메서드
+
+
+let animals = ["lion", "bear", "bird"];
+animals.pop();
+> 'bird'
+animals;
+> (2) ['lion', 'bear']
+animals.push("tiger");
+> 3
+animals;
+> (3) ['lion', 'bear', 'tiger']
+
+
+let fruits = ["apple", "pear", "banana"];
+fruits.shift();
+> 'apple'
+fruits;
+> (2) ['pear', 'banana']
+fruits.unshift("cherry");
+> 3
+fruits;
+> (3) ['cherry', 'pear', 'banana']
+
+
+******특정 위치에 어떠한 요소를 추가하거나 제거하는 메서드
+splice();	--->split과 slice가 합쳐진 기능
+
+
+let subjects = ["html", "css", "javascript", "react", "typescript"];
+subjects[2];
+> 'javascript'
+subjects.splice(2);
+> (3) ['javascript', 'react', 'typescript']
+subjects;
+> (2) ['html', 'css']
+
+slice(인수) : 해당 인수부터 끝까지 요소를 모두 선택
+slice(인수, 인수) : 첫번째 인수부터 두번째 인수 바로 직전까지 선택
+
+splice(인수) : 해당 인수부터 끝까지 요소를 모두 선택
+splice(인수, 인수) : 첫번째 인수에서 두번째 인수의 개수만큼 요소를 선택해서 삭제
+
+
+let brunch = ["egg", "milk", "apple", "banana"];
+brunch.splice(2, 0, "coffee", "bread");
+> [ ]
+brunch;
+> (6) ['egg', 'milk', 'coffee', 'bread', 'apple', 'banana']
+
+
+splice() : 원본 배열을 수정
+slice() : 원본 배열을 수정하지 않는다
+
+<<slice()>>
+let colors = ["red", "green", "blue", "white", "black"];
+let color1 = colors.slice(2);
+color1;
+> (3) ['blue', 'white', 'black']
+colors;
+> (5) ['red', 'green', 'blue', 'white', 'black']
+
+<<splice()>>
+let colors = ["red", "green", "blue", "white", "black"];
+let color2 = colors.splice(2);
+color2;
+> (3) ['blue', 'white', 'black']
+colors;
+> (2) ['red', 'green']
+
+
+==============================================================
+<정의가 필요한 부분>
+1. 출력공간에 대한 정의
+- 원래 배열 출력
+- 모든 값을 더한 배열 출력
+
+2. 주어진 배열을 더하는 연산식 정의
+
+3. 출력방식에 대한 정의
+- 테이블 형식
+
+<body>
+  <div class="container">
+    <div id="array">
+      <h1>주어진 배열 : [2, 4, 6, 8, 10]</h1>
+    </div>
+    <h1>원래 배열</h1>
+    <div id="origin">
+    </div>
+    <h1>모든 값을 더한 배열</h1>
+    <div id="result">
+    </div>
+  </div>
+</body>
+
+
+.container {
+  width: 800px;
+  height: 700px;
+  border: 3px solid #ccc;
+  margin: 0 auto;
+  padding: 10px 40px;
+}
+#array {
+  border-bottom: 1px solid #ccc;
+}
+table, td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+td {
+  padding: 5px 10px;
+  font-size: 1.5em;
+}
+#result td:last-child {
+  background-color: #222;
+  color: #fff;
+}
+
+
+const origin = document.querySelector("#origin");
+const result = document.querySelector("#result");
+
+let numbers = [2, 4, 6, 8, 10];
+showArray(origin, numbers)
+
+function showArray(area, numbers) {
+  let str = "<table><tr>";
+  for(let i = 0; i < numbers.length; i++) {
+    str += "<td>" + numbers[i] + "</td>";
+  }
+  str += "</tr></table>";
+  area.innerHTML = str;
+}
+
+let sum = 0;
+for(let i = 0; i < numbers.length; i++) {
+  sum += numbers[i];
+}
+numbers.push(sum);
+showArray(result, numbers);
+==============================================================
+사용자로부터 임의의 숫자값을 받고
+해당 숫자 개수가 1개 이상이면 첫번째 숫자를 제외한 숫자를 화면에 출력
+만약 해당 숫자 개수가 1개이면 화면에 모두 출력
+
+
+<body>
+  <div class="container">
+    <h1>원래 입력 숫자 </h1>
+    <div id="origin"></div>
+    <hr />
+    <h1>변경된 숫자(2개 이상일 때, 첫번째 숫자 제외)</h1>
+    <div id="result"></div>
+  </div>
+</body>
+
+
+const origin = document.querySelector("#origin");
+const result = document.querySelector("#result");
+
+
+let number = prompt("숫자를 입력하세요");
+
+// function detail(e) {
+//   let num = "";
+//   if(e.length > 1) {
+//     num = e.slice(1);
+//   } else {
+//     num = e;
+//   }
+//   return num;
+// }
+
+const detail = e => {
+  let sum = e.length > 1 ? e.slice(1) : e;
+  return sum;
+}
+
+origin.innerText = number;
+result.innerText = detail(number);
+
+==============================================================
+
+함수, 객체, 변수, 배열 등의 심화 내용
+
+1. 매개변수 기본값 설정
+
+2. 전개연산자(3가지 사용법) = 전개구문                     >>전개연산자는 원본 데이터에 영향을 주지 않는다
+1) 나머지 매개변수
+2) 배열 합칠 때
+3) 배열객체 데이터 복사할 때
+4) 구조 분해 할당하기
+
+function addNum(...numbers) {
+  let sum = 0;
+
+  for(let el of numbers) {
+    sum += el;
+  }
+  return sum;
+}
+console.log(addNum(1, 2, 4, 5, 6, 7, 9));
+
+
+
+const animal = ["bird", "cat"];
+const fruits = ["apple", "banana", "cherry"];
+
+let total = [...animal, ...fruits];
+console.log(total);
+
+
+배열객체 = 객체
+원시유형 자료 전달 x (변수만 가능)
+참조주소 전달
+
+
+const fruits = ["apple", "banana", "cherry"];
+const favorite = fruits;
+favorite[1] = "grape";
+
+// console.log(favorite);
+// console.log(fruits);
+
+const mine = [...fruits];
+console.log(mine);
+
+mine[1] = "orange";
+console.log(mine);
+console.log(favorite);
+console.log(fruits);
+
+
+
+*** 심벌 : 차별화된 객체 값을 저장하고자 할 때 사용
+
+let id = Symbol();
+
+const member = {
+    name : "Yoon",
+    [id] : 12345
+}
+
+member;
+> {name: 'Yoon', Symbol(): 12345}
+member.id = 6789;
+> 6789
+member;
+> {name: 'Yoon', id: 6789, Symbol(): 12345}
+let grade = Symbol("grade");
+member[grade] = "vip";
+> 'vip'
+member;
+> {name: 'Yoon', id: 6789, Symbol(): 12345, Symbol(grade): 'vip'}
+
+
+*** 구조 분해 할당
+: 주어진 자료의 구조를 분해해서 변수에 할당하는 기능
+let [apple, peach] = ["사과", "복숭아"];
+apple;
+> '사과'
+peach;
+> '복숭아'
+
+const fruits = ["사과", "복숭아"];
+let [apple, peach] = fruits;
+apple;
+> '사과'
+peach;
+> '복숭아'
+
+let [spring, ,fall, ] = ["봄", "여름", "가을", "겨울"];
+spring;
+> '봄'
+fall;
+> '가을'
+
+
+>>>전개 연산자 사용<<<
+let [teacher, ...students] = ["kim", "lee", "park", "choi"];
+teacher;
+> 'kim'
+students;
+> (3) ['lee', 'park', 'choi']
+
+
+
+
+이런것도 가능
+let x = 10;
+let y = 20;
+
+[x, y] = [y, x];
+> (2) [20, 10]
+x
+> 20
+y
+> 10
+
+
+-----
+const member = {
+    name : "kim",
+    age : 25
+}
+
+let {name, age} = member;
+name
+> 'kim'
+age
+> 25
+
+let {name : userName, age} = member;
+userName
+> 'kim'
+-----
+
+-----
+중첩된 객체
+const student = {
+  name : "홍길동",
+  score : {
+    history : 85,
+    science : 94
+  },
+  friends : ["kim", "lee", "park"]
+}
+
+let {
+  name,
+  score : {
+    history,
+    science
+  },
+  friends : [f1, f2, f3]
+} = student
+
+
+history
+> 85
+f2
+> 'lee'
+-----
+
+
+
