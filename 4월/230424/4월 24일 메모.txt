@@ -1,0 +1,532 @@
+지난주 내용
+
+자바스크립트 객체 만들기
+> 내장객체 : Date(), Math() 등
+> DOM : 문서객체모델(*document)
+> BOM : 브라우저객체모델 (*window > location / screen / navigator 등)
+
+- 만들어서 사용할 수 있는 객체 = 사용자 정의 객체
+
+객체 선언 -> 할당
+a
+let book1 = {
+   title : "자바스크립트",
+   pages : 648
+
+객체 값 변경
+book1.pages = 50;
+
+추가
+book1.author = "yoon";
+
+삭제
+book.author = "undefined" ;
+
+
+let book2 = {};
+book2.pages = 600;
+
+객체 복사하기
+1. 원시유형 복사하기
+- 변수 2개 예시
+
+let num1 = 100;
+let num2 = num1;
+
+num2 = 100;
+let num2 = 200;
+
+2. 참조 주소 전달하기
+let bag1 = {
+   color : "red;
+}
+let bag2 = {
+   color : "blue;
+}
+let bag2 = bag1
+----------------------------------------------------------------------------------
+생성자 함수 / 클래스(*중요)
+
+똑같은 프로퍼티 & 메서드를 가지고 있는 객체를 반복해서 만든다면?
+=> 생성자 함수를 1번만 만들고 해당 생성자 함수를 활용해서 복제품(*객체)을 만들어 사용하면
+보다 편리하게 프로그래밍 가능
+
+셍상지 함수 = 붕어빵 틀
+인스턴스 객체 = 틀에서 만들어진 붕어빵
+
+let today = new Date();
+
+클래스 선언방법 : 
+- class 클래스명 {
+     constructor() {
+     프로퍼티 1,
+     프로퍼티 2
+   }
+   메서드1() {}
+}
+==============================================================================
+4/24 내용
+
+for문
+- 기본
+기본적인 반복
+- for in
+객체를 반복할때 자주 사용
+- for of
+- forEach
+
+
+객체의 키와 값에 접근하는 방법
+
+let bag = {
+  type : "backpack",
+  color : "blue",
+  size : 15
+}
+//키값만
+for(let key in bag) {
+  console.log(`${key}`);
+};
+//키값과 밸류
+for(let key in bag) {
+  console.log(`${key} : ${bag[key]}`);
+};
+
+---------------------------------------------------------------------
+
+새로운 객체를 선언 및 생성하는 방법
+let home = new Object();
+
+
+
+let book1 = {
+  title : "자바스크립트",
+  pages : 650,
+  buy : function() {
+    console.log("이 책을 구입했습니다");
+  }
+};
+
+
+//하나의 공식 처럼 알고있기//
+let keys = Object.keys(book1);
+book1의 키값을 가져온다
+
+let values = Object.values(book1);
+book1의 밸류값을 가져온다
+
+let entries = Object.entries(book1);
+book1의 키와 밸류값을 둘다 배열형식으로 가져온다
+
+
+
+---------------------------------------------------------------------
+자바스크립트에서 "프로토타입"
+: 객체를 만들어내는 원형(*원본)
+: 인스턴스 객체(*복제품)의 상위객체 혹은 부모객체
+
+
+
+
+
+생성자함수와 프로토타입 객체
+
+const Book = function(title, pages, done) {
+  this.title = title;
+  this.pages = pages;
+  this.done = done;
+
+  this.finish = function() {
+    this.done == false ? str = "읽는 중" : str = "완독";
+    return str;
+  }
+}
+
+//book1이라는 인스턴스 객체는 3가지의 인자값을 생성자함수로 만들어놓은 Book안에 넣어준다
+// const book1 = new Book("자바스크립트", 650, false);
+
+//객체 생성의 최상위 객체 단위 : Object()
+
+Object > Book > book1
+
+//인스턴스 객체의 프로토타입 확인
+book1.__proto__;
+//생성자함수의 프로토타입 확인
+Book.prototype;
+
+-----------------------------------------------------------------------------------------------------------
+
+1. 생성자 함수 or 클래스
+
+2. 사용자 정의 객체
+
+3. 유사한 혹은 동일한 프로퍼티 또는 메서드를 가지고 있는 객체를 대량으로 생산하고 싶어서
+
+
+
+생성자함수 사용
+
+** 만약 100%같지는 않지만 새로운 버전의 생성자 함수가 필요하다면 **
+
+//값이 계속 추가되어야할때
+const Book = function(title, pages) {
+  this.title = title;
+  this.pages = pages;
+}
+
+const Book = function(title, pages, done) {
+  this.title = title;
+  this.pages = pages;
+  this.done = done; 
+}
+
+function Book(title, price) {
+  this.title = title;
+  this.price = price;
+}
+
+Book.prototype.buy = function() {
+  console.log(`${this.title}을 ${this.price}원에 구매하였습니다`);
+}
+
+** 교재정보를 추가로 담는 또다른 생성자 함수가 필요하다면 **
+
+function Book(title, price) {
+  this.title = title;
+  this.price = price;
+}
+
+Book.prototype.buy = function() {
+  console.log(`${this.title}을 ${this.price}원에 구매하였습니다`);
+}
+
+function Textbook(title, price, major) {
+  //call = 기존에 만들어놨던 생성자 함수의 값을 가져온다
+  Book.call(this, title, price);
+  this.major = major;
+}
+
+Textbook.prototype.buyTextbook = function() {
+  console.log(`${this.major} 전공서적, ${this.title}을 구매했습니다`);
+}
+
+
+//생성자 함수의 상속 => Object.setPrototypeOf(자녀객체, 부모객체)
+Object.setPrototypeOf(Textbook.prototype, Book.prototype);
+
+
+
+클래스 사용
+
+class BookC {
+  constructor(title, price) {
+    this.title = title;
+    this.price = price;
+  }
+  buy() {
+    console.log(`${this.title}을 ${this.price}원에 구매하였습니다`);
+  }
+}
+
+//BookC에게 상속받아서 TextbookC에 넣는다
+class TextbookC extends BookC {
+  constructor(title, price, major) {
+    super(title, price);
+    this.major = major;
+  }
+
+  buyTextBook() {
+    console.log(`${this.major}전공서적, ${this.title}을 구매했습니다`);
+  }
+}
+
+
+
+
+*****생성자 함수를 활용한 객체 생성방법 : 고전적이면서 전통적인 방법
+2015년 ES6버전이 생겨나면서 클래스 객체 생성방법이 추가
+두가지 방법 다알고있는게 좋다*****
+
+-----------------------------------------------------------------------------------------------------------
+사용자로부터 강아지이름을 받기
+안내문으로 강아지이름이 담겨있는 문장을 띄어보기
+*클래스사용
+
+
+let ques = prompt("강아지 이름을 알려주세요");
+
+class Pet {
+  constructor(name, color) {
+    this.name = name;
+    this.color = color;
+  }
+  run() {
+    alert(`${this.name} is running`);
+    location.reload();
+  }
+}
+
+//사용자지정객체 생성
+const dog = new Pet(ques, "yellow");
+dog.run();
+
+
+-----------------------------------------------------------------------------------------------------------
+위에서 만들었던 Pet클래스를 상속받는 Cat클래스를 신규로 만들기
+그리고 사용자로부터 고양이 이름을 받아서 안내문에
+고양이 이름, 품종, 색을 출력
+
+
+let ques = prompt("강아지 이름을 알려주세요");
+let ques2 = prompt("고양이 이름을 입력해주세요");
+
+class Pet {
+  constructor(name, color) {
+    this.name = name;
+    this.color = color;
+  }
+  run() {
+    alert(`${this.name} is running`);
+    location.reload();
+  }
+}
+
+//사용자지정객체 생성
+const dog = new Pet(ques, "yellow");
+dog.run();
+
+
+
+class Pet2 extends Pet {
+  constructor(name, kind, color) {
+    super(name, color);
+    this.kind = kind;
+  }
+  catInfo() {
+    alert(`이름 : ${this.name}, 품종 : ${this.kind}, 색 : ${this.color}`);
+  }
+}
+
+const cat = new Pet2(ques2, "코숏", "whilte");
+cat.catInfo();
+
+==============================================================
+자바스크립트의 쓰임새
+1) 전통 프론트엔드 개발 : 웹브라우저 화면에 펼쳐질 수 있는 기술, 스킬
+
+2) 백엔드 연동 스킬 : 비동기 방식 데이터 수집(문자열, 배열 영역 탄탄해야함)
+==============================================================
+문자열 및 배열(*중요)
+
+문자열에서 문자의 위치를 확인하는 2가지 메서드
+1) charAt() : 매개변수값에 해당하는 인덱스 문자열을 반환할 때 사용
+
+2) indexOf() : 매개변수값에 해당하는 문자의 인덱스 넘버를 반환할 때 사용
+- 중복이 되어도 왼쪽부터 시작하기 때문에 처음에 온 단어를 지정
+- 해당 값이 없으면 무조건 -1이 나온다
+* 중복되었을때 두번째 인덱스를 찾고 싶을 때
+let str1 = "Good morning, everyone. Beautiful morning.";
+let firstIndex = str1.indexOf("morning");
+firstIndex;
+str1.indexOf("morning", firstIndex+1);          --> str1의 morning이라는 단어를 찾는데 firstIndex의 두번째 값을 찾는방법
+---------------------------------------------------------------------------------------------
+*사용자로부터 특정 텍스트(*문자)를 수집하고
+해당 텍스트에 특정 문자가 몇번 사용되었는지 확인해보는 프로그램 생성
+
+const string = prompt("영어 단어를 입력하세요");
+const letter = prompt("어떤 문자를 체크하시겠습니까?");
+
+function counting(str, ch) {
+  let count = 0;
+
+  for(let i = 0; i < str.length; i++) {
+    //if(str[i] === ch)도 똑같은 결과
+    if(str.charAt(i) === ch)
+    count += 1;
+  }
+  return count;
+}
+
+const result = counting(string, letter);
+
+document.write(`"${string}"에는 "${letter}이라는 단어가" ${result}개 입니다.`);
+
+
+---------------------------------------------------------------------------------------------
+문자열에서 문자를 확인하는 3가지 메서드
+1) startsWith() : 특정 문자나 문자열로 시작하는지 확인
+> 문자열.startsWith(문자, 인덱스 넘버) : 특정 인덱스 넘버에 문자가 존재하는지 여부를 확인할 때 사용
+
+let str2 = "Hello, eveyone.";
+str2.startsWith("Hello"); => true
+str2.statrsWith("hello"); => false
+str2.statrsWith("He") => true
+str2.statrsWith("el", 1) => true / str2에 el이 있는지, 그리고 뒤에는 인덱스값
+str2.statrsWith("o", 4) => true
+
+2) endsWith() : 특정 문자나 문자열로 끝나는지 확인
+> 문자열.endsWith(문자, 전체 길이) : 문자열의 전체 길이 가운데 마지막 문자열에 해당 문자여부 확인할 때 사용
+
+let str2 = "Hello, everyone.";
+str2.endsWith("everyone") => false
+str2.endsWith("everyone.") => true
+str2.endsWith("Everyone") => false
+str2.endsWith("lo, everyone.") => true
+str2.length; => 16
+str2.endsWith("one.", 16); => true
+str2.endsWith("one.", 15); => false
+str2.endsWith("lo", 5); = true
+
+3) includes() : 특정 문자나 문자열에 어떤 문자가 포함되었는지 확인할 때 사용
+
+let str2 = "Hello, everyone.";
+str2.indexOf("even"); => -1
+str2.indexOf("every") !== -1;    => true
+str2.includes("every"); => true
+
+---------------------------------------------------------------------------------------------
+문자열에서 공백을 제거하는 3가지 메서드
+1) 문자열.trim() : 문자열의 앞뒤 공백 제거
+2) 문자열.trimStart() : 문자열의 앞 공백 제거
+3) 문자열.trimEnd() : 문자열의 뒤 공백제거
+
+---------------------------------------------------------------------------------------------
+
+문자열에서 대소문자 바꾸는 2가지 메서드
+1) 문자열.toUpperCase() : 문자열 모두 대문자 변환
+2) 문자열.toLowerCase() : 문자열 모두 소문자 변환
+
+let str4 = "Good morning.";
+str4.toUpperCase(); => "GOOD MORNING"
+str4.toLowerCase(); => "good morning"
+
+
+---------------------------------------------------------------------------------------------
+문자열에서 특정 문자열만 추출할 때 사용하는 2가지 메서드
+1) 문자열.substring(시작위치, 끝위치) : 시작위치부터 끝위치 직전까지의 문자열을 반환, 양수만 가능
+> 문자열.substring(시작위치) : 시작위치부터 끝까지 반환(끝위치가 지정되어있지 않으면 끝까지)
+
+let str4 = "Good morning.";
+str4.substring(5); => "morning"
+str4.substring(-5, 12); => "Good morning" / substring에서 위치값에 음수가 오면 무조건 0으로 변경
+
+2) 문자열.slice(시작위치, 끝위치) : 시작위치부터 끝위치 직전까지의 문자열을 반환, 음수값 가능
+> 문자열.slice(시작위치) : 시작위치부터 끝까지 반환(끝위치가 지정되어있지 않으면 끝까지)
+
+let str4 = "Good morning.";
+str4.slice(0, 4); => "Good"
+str4.slice(-5, 12); => "ning"
+
+---------------------------------------------------------------------------------------------
+문자열에서 특정 구분자에 따라서 문자를 쪼갤 때 사용하는 메서드
+split(구분자)
+
+str5 = "Hello everyone"; => 'Hello everyone'
+
+let array1 = str5.split(" ");
+array1; => ['Hello', 'everyone']
+array1[0]; => 'Hello'
+array1[1]; => 'everyone'
+
+let array2 = str5.split("");
+array2; => ['H', 'e', 'l', 'l', 'o', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e'] 
+---------------------------------------------------------------------------------------------
+
+const button = document.querySelector("button");
+const email = document.querySelector("#userEmail");
+const result = document.querySelector("#result");
+
+button.addEventListener("click", () => {
+  let username = "";
+  let domain = "";
+
+  if(email.value !== "") {
+    username.email.value.split("@")[0];
+    username.username.substring(0, 2);
+    domain.email.value.split("@")[1];
+    result.innerText = `${username}...@ ${domain}`
+    email.value = "";
+  }
+})
+
+---------------------------------------------------------------------------------------------
+*** 정규 표현식(은근 중요) ***
+:특정 패턴을 사용해서 문자열을 표현하는 언어
+: 명확한 패턴이 일치하지 않으면 무조건 false(점 하나라도 잘 봐야함)
+
+1) 숫자(digit) 클래스
+> \d : 0-9사이의 숫자
+> \D : 숫자가 아닌 모든 문자
+
+2) 공백(space) 클래스
+> \s : 공백, 탭, 줄바꿈 의미
+> \S : 공백이 아닌 모든 문자
+
+
+3) 단어(word) 클래스
+> \w : 단어에 들어가는 문자 및 숫자를 의미
+> \W : 단어에 들어가지 않는 모든 문자
+
+
+
+패턴을 정의한다 =  //
+let regexp = /\d{3}/;     ==> 3자리의 숫자를 찾아와라
+regexp.test("Hello");      ==> false
+regexp.test(123);      ==> true
+regexp.test(12);      ==> false
+
+let str = "ES2023 is powerful";
+str.match(/is/);
+str.match(/ES6/);     ==> null
+str.replace(/ES2023/, "ES6");       ==> "ES6 is powerful"
+
+
+let str = "ES2023 is powerful";
+/es/.test(str);       ==> false
+/es/i.test(str);      ==> true / i는 대소문자 구분 x
+/es/g.test(str);     ==> false
+/es/ig.test(str);     ==> true
+
+
+let str = "ES2023 is powerful";
+str.match(/ES/);                        ==>[ES]
+str.match(/ES\d/);                     ==>[ES2]
+str.match(/ES\d\d\d\d/);          ==>[ES2023]
+
+
+
+let hello = "Hello, everyone.";
+>H로 시작하는지 여부 확인
+/^H/.test(hello);           ==> true
+/^h/.test(hello);           ==> false
+
+>one.로 끝나는지 여부 확인
+/one.$/.test(hello);         ==> true
+/e.$/.test(hello);            ==> true
+/one$/.test(hello);          ==> false
+
+
+>숫자 패턴을 갖고있는 모든 패턴을 불러서 찾아라
+"ES2023".match(/[0-9]/g);         ==>(4) ['2', '0', '2', '3']
+"ES2023".match(/^[0-9]/g);        ==> null
+
+>숫자를 제외한 모든 값을 찾아라
+"ES2023".match(/[^0-9]/g);        ==> (2) ['E', 'S']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
