@@ -1,0 +1,590 @@
+onreadystatechange
+-----------------------------------------------------------------------------
+수강생 명단
+
+<body>
+  <div id="container">
+    <h1>수강생 명단</h1>
+    <div id="result"></div>
+  </div>
+</body>
+
+
+#container {
+  width: 400px;
+  margin: 20px auto;
+}
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+#result {
+  width: 100%;
+  margin: 20px 10px;
+  padding: 10px;
+}
+
+
+
+
+[
+  {
+    "name" : "홍길동",
+    "major" : "컴퓨터공학",
+    "grade" : 2
+  },
+  {
+    "name" : "아이언맨",
+    "major" : "시각디자인학과",
+    "grade" : 1
+  },
+  {
+    "name" : "헐크",
+    "major" : "국문과",
+    "grade" : 3
+  }
+]
+
+
+let xhr = new XMLHttpRequest();
+xhr.open("GET", "student.json");
+xhr.send();
+
+xhr.onreadystatechange = function() {
+  if(xhr.readyState == 4 && xhr.status == 200) {
+    let students = JSON.parse(xhr.responseText);
+    // document.getElementById("result").innerHTML = `
+    // <h1>${student.name}</h1>
+    // <ul>
+    // <li>전공 : ${student.major}</li>
+    // <li>학년 : ${student.grade}학년</li>
+    // </ul>
+    // `
+    renderHTML(students);
+  }
+}
+
+function renderHTML(students) {
+  let output = "";
+  for(let student of students) {
+    output += `
+    <h2>${student.name}</h2>
+    <ul>
+    <li>전공 : ${student.major}</li>
+    <li>학년 : ${student.grade}</li>
+    </ul>
+    `
+  }
+  document.getElementById("result").innerHTML = output;
+}
+
+
+
+-----------------------------------------------------------------------------
+
+예외처리 = 오류처리
+> 프로그램에서 문제가 발생할 때를 대비해서 작업해놓은 코드
+
+* 사용자로부터 특정 숫자를 받아서 어떤 프로그램을 실행시킨다면
+- 사용자가 숫자를 입력하지 않았을 때의 오류
+
+try문 / catch문 / throw문
+- try문 : 실제 오류가 발생했을 때 실행할 명령문을 작성하는 곳
+- catch문 : 발생한 오류의 이름 및 설명들이 들어가 있는 곳
+- throw문 : 개발자가 직접 오류 메세지를 정의할 수 있는 곳
+- console.error() => 오류 메세지를 표기할 때 사용할 수 있다
+
+try {
+  console.log("시작");
+  add();
+  console.log("실행중");
+} catch(err) {
+  console.log(`오류발생 : ${err}`)
+}
+console.log("끝");
+
+>
+시작
+오류발생 : ReferenceError: add is not defined
+끝
+
+
+
+try {
+  console.log("시작");
+  add();
+  console.log("실행중");
+} catch(err) {
+  console.error(`오류발생 : ${err}`)
+  console.error(`오류발생 : ${err.name}`)
+  console.error(`오류발생 : ${err.message}`)
+}
+console.log("끝");
+------------------------------------------
+오류 메세지를 커스텀하고 싶을 때
+
+let json = '{"grade" : 3, "age" : 25}'
+
+try {
+  let user = JSON.parse(json);
+  if(!user.name) {
+    throw "사용자 이름이 없습니다";
+  }
+  console.log("시작");
+  add();
+  console.log("실행중");
+} catch(err) {
+  console.error(err)
+}
+console.log("끝");
+
+throw : 오류 메세지를 지정하고 싶을 때 사용하는 예약어
+------------------------------------------
+상품정보
+
+<body>
+  <div id="container">
+    <h1>상품정보</h1>
+    <div id="result"></div>
+  </div>
+</body>
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+const result = document.querySelector("#result");
+const url = "https://reqres.in/api/products/10"
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', url, true);
+xhr.send();
+
+xhr.onreadystatechange = function() {
+  if(xhr.readyState === 4 && xhr.status === 200) {
+    let product = JSON.parse(xhr.responseText);
+    console.log(product);
+    result.innerHTML = `
+    <p>상품명 : ${product.data.name}</p>
+    <p>상품명 : ${product.data.year}년도식</p>
+    `;
+  }
+}
+------------------------------------------------------------------------------------
+10보다 작은 숫자 입력
+
+<body>
+  <div id="container">
+    <h1>10보다 작은 숫자를 입력하세요</h1>
+    <label for="user_number">
+      <input type="text" id="user_number">
+    </label>
+    <button>입력</button>
+    <div id="result"></div>
+  </div>
+</body>
+
+
+
+const input = document.querySelector("#user_number");
+const button = document.querySelector("button");
+const result = document.querySelector("#result");
+
+button.addEventListener("click", (e) => {
+  e.preventDefault();
+  let n = input.value;
+  try {
+    if(n === "" || isNaN(n)) {
+      throw "숫자를 입력하세요";
+    }
+    n = parseInt(n);
+    if(n >= 10) {
+      throw "10보다 작은 숫자를 입력해주세요"
+    } else {
+      result.innerText = n;
+    }
+  } catch(err) {
+    alert(err);
+  } finally {
+    input.value = "";
+  }
+  //finally : 마무리
+})
+
+
+==================================================================
+비동기 프로그래밍
+
+동기 처리 방식
+> 프로그램 소스가 작성된 순서대로 처리를 하는 방식
+
+비동기 처리방식
+> 프로그램 소스의 작성순서와 상관없이 처리를 할 수 있는 방식
+
+AJAX : asynchronous(비동기) Javascript And Xml
+
+자바스크립트는 원래 동기 처리방식
+문제점 해결하기 위해 나온것이 AJAX
+
+
+function displayA() {
+  console.log("A");
+}
+function displayB() {
+  setTimeout(() => {
+    console.log("B")
+  }, 2000);
+}
+function displayC() {
+  console.log("C");
+}
+
+displayA();
+displayB();
+displayC();
+
+
+* 싱글스레드
+스레드 : 프로그램에서 어떠한 프로세스를 실행하는 단위
+한번에 하나의 프로세스를 실행한다면 단일 혹은 싱글 스레드 라고 한다
+/ 한번에 여러 개의 프로세스를 실행한다면 멀티 스레드 라고 한다.
+
+
+
+자바스크립트는 태생적으로 싱글스레드 / 동기처리방식 지원 프로그램
+
+콜백함수 = 자바스크립트의 비동기 처리방식을 위한 필수요소
+
+
+
+
+function displayA() {
+  console.log("A");
+}
+
+//비동기처리방식, 콜백함수 사용
+function displayB(callback) {
+  setTimeout(() => {
+    console.log("B");
+    callback();
+  }, 2000)
+}
+
+function displayC() {
+  console.log("C");
+}
+
+displayA();
+displayB(displayC);
+
+B와C가 동시에 출력된다
+
+----------------------------------
+콜백함수를 이용한 멀티스레드방식(비동기 처리방식이 되었다)
+
+function order(coffee, callback) {
+  console.log(`${coffee} 주문접수`)
+  setTimeout(() => {
+    callback(coffee);
+  }, 3000)
+}
+
+function display(result) {
+  console.log(`${result} 준비완료`)
+}
+
+order("딸기라떼", display);
+
+----------------------------------
+프로미스 객체 : 무분별한 콜백함수 사용의 부작용을 최소화하기 위해서 만든 객체
+프로미스 객체 => 매개변수 : 조건값이 true일 때 실행할 함수 & 조건값이 false일 때 실행할 함수를
+
+
+promise
+
+let likePizza = true;
+//첫번째 오는 콜백함수는 true일 때, 두번째 값은 false
+const pizza = new Promise((resolve, reject) => {
+  if(likePizza) {
+    resolve("피자를 주문합니다.");
+  } else {
+    reject("피자를 주문하지 않습니다.");
+  }
+});
+
+pizza
+  .then (
+    result => console.log(result)
+  )
+  .catch (
+    err => console.log(err)
+  )
+   //true던 false던 finally로 끝내라
+  .finally (
+    () => console.log("완료")
+  );
+
+
+promise 객체 진행 단계(3가지)
+
+1. pending : 프로미스 객체를 만들고 대기중인 상태
+
+2. fulfilled : 프로미스 객체를 활용해서 true값에 도착한 상태
+
+3. rejected : 프로미스 객체를 활용해서 false값에 도착한 상태
+
+
+----------------------------------------------------------------------
+커피주문
+
+<body>
+  <div id="container">
+    <div class="start"></div>
+    <div class="end"></div>
+  </div>
+</body>
+
+
+
+#container {
+  width: 300px;
+  margin: 20px auto;
+  border: 2px solid #ccc;
+}
+.active {
+  background-color: #222;
+  color: #fff;
+  padding: 10px 20px;
+}
+.done {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+
+
+let coffee = prompt("어떤 커피를 주문하시겠습니까?", "아메리카노");
+
+const order = new Promise((resolve, reject) => {
+  if(coffee != null && coffee != "") {
+    document.querySelector(".start").innerText = `${coffee} 주문접수`;
+    setTimeout(() => {
+      resolve(coffee);
+    }, 3000)
+  } else {
+    reject("커피를 주문하지 않았습니다");
+  }
+});
+
+function display(coffee) {
+  document.querySelector(".end").innerText = `${coffee} 준비 완료`
+  document.querySelector(".end").classList.add("active");
+  document.querySelector(".start").classList.add("done");
+}
+
+function showErr(err) {
+  document.querySelector(".start").innerText = err;
+}
+
+order
+  .then(display)
+  .catch(showErr)
+
+
+----------------------------------------------------------------------
+피자 만들기
+
+
+*** 콜백 지옥 ***
+
+const step1 = (callback) => {
+  setTimeout(() => {
+    console.log("피자 도우 준비");
+    callback();
+  }, 2000);
+}
+
+const step2 = (callback) => {
+  setTimeout(() => {
+    console.log("토핑 완료");
+    callback();
+  }, 1000);
+}
+
+const step3 = (callback) => {
+  setTimeout(() => {
+    console.log("굽기 완료");
+    callback();
+  }, 2000);
+}
+
+console.log("피자를 주문합니다");
+step1(function() {
+  step2(function() {
+    step3(function() {
+      console.log("피자가 준비되었습니다")
+    });
+  })
+});
+
+*** promise ***
+
+const pizza = () => {
+  return new Promise((resolve, reject) => {
+    resolve("피자를 주문합니다");
+  });
+};
+
+const step1 = (message) => {
+  console.log(message);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("피자 도우 준비");
+    }, 3000);
+  });
+};
+
+const step2 = (message) => {
+  console.log(message);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("토핑 완료");
+    }, 3000);
+  });
+};
+
+const step3 = (message) => {
+  console.log(message);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("굽기 완료");
+    }, 3000);
+  });
+};
+
+pizza()
+  .then((result) => step1(result))
+  .then((result) => step2(result))
+  .then((result) => step3(result))
+  .then((result) => console.log(result))
+  .then(() => {
+    console.log("피자가 준비되었습니다")
+  })
+----------------------------------------------------------------------
+
+서버에 있는 JSON 파일을 가져올 때 사용하는 객체
+"XMLHttpRequest"(promise 객체 반환 불가능)대신 => "fetch"(promise객체 반환 가능)를 사용
+
+<body>
+  <div id="container">
+    <h1>수강생 명단</h1>
+    <div id="result"></div>
+  </div>
+</body>
+
+
+fetch('student.json')
+.then(response => response.json())
+.then(json => {
+  let output = "";
+  json.forEach(student => {
+    output += `
+    <h2>${student.name}</h2>
+    <ul>
+      <li>전공 : ${student.major}</li>
+      <li>학년 : ${student.grade}</li>
+    </ul>
+    `
+  });
+  document.querySelector("#result").innerHTML = output;
+})
+.catch(error => console.log(error)); 
+
+
+----------------------------------------------------------------------
+
+> https 프로토콜
+> 클라이언트 / 서버
+> GET / POST
+> XMLHttpRequest
+> XML / JSON
+> JSON -> 객체 / 객체 -> JSON
+> 예외처리방식 (try / catch / finally / throw)
+> 비동기프로그래밍
+> 동기 처리방식 = 싱글스레드 / 비동기 처리방식 = 멀티스레드
+> 콜백함수
+> promise 객체(콜백함수 개선) => then / catch
+> fetch(XMLHttpRequest 업그레이드)
+> async 함수 / await 예약어 (과도한 promise사용 시 복잡해지는 것을 개선하기 위해 사용)
+-> async 함수와 await 예약어는 promise 객체 혹은 콜백함수 사용 시 함수 안에 있는 실행문을
+비동기적으로 실행하기 위해서 생겼다
+
+
+
+함수 앞에 async를 붙이면 promise를 반환한다
+
+---------------------------------------------------------------------------------------------------------
+// function whatsYourFavorite() {
+//   let fav = "Javascript";
+//   return new Promise((resolve, reject) => resolve(fav));
+// }
+
+// function displaySubject(subject) {
+//   return new Promise((resolve, reject) => resolve(`Hello ${subject}`));
+// }
+
+// whatsYourFavorite()
+//   .then(displaySubject)
+//   .then(console.log);
+
+
+
+===========>>>>>>>
+
+
+
+async function whatsYourFavorite() {
+  let fav = "Javascript";
+  return fav;
+}
+
+async function displaySubject(subject) {
+  return `Hello ${subject}`;
+}
+
+// whatsYourFavorite()
+//   .then(displaySubject)
+//   .then(console.log);
+
+async function init() {
+  const response = await whatsYourFavorite();
+  const result = await displaySubject(response);
+  console.log(result);
+}
+
+init();
+
+//whatsYourFavorite()함수의 실행이 끝날때까지 기다린 후에 response 값을 저장
+//response값을 사용해서 displaySubject()함수를 실행하고 결과값을 result 저장
+//비동기처리방식에서 예외적으로 동기처리방식으로 사용해야 할 때 await를 사용
+
+
+---------------------------------------------------------------------------------------------------------
+
+
