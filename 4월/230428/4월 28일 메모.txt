@@ -1,0 +1,538 @@
+회원정보
+
+<body>
+  <h1>회원정보</h1>
+  <div id="result"></div>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+table {
+  width: 300px;
+  margin: 10px;
+  display: inline-block;
+  border-collapse: collapse;
+}
+th {
+  border: 1px solid #ccc;
+  width: 80px;
+  border-collapse: collapse;
+}
+td {
+  border: 1px solid #ccc;
+  width: 210px;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+
+async function init() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await response.json();
+  display(users);
+}
+
+function display(users) {
+  const result = document.querySelector("#result");
+  let string = "";
+  users.forEach((user) => {
+    string += `
+    <table>
+    <tr><th>이름</th><td>${user.name}</td></tr>
+    <tr><th>아이디</th><td>${user.username}</td></tr>
+    <tr><th>이메일</th><td>${user.email}</td></tr>
+    </table>
+    `
+  });
+  result.innerHTML = string;
+}
+
+init();
+
+
+=============================================================================
+랜덤 명언
+
+
+<body>
+  <div id="result">
+    <div class="quote"></div>
+    <div class="author"></div>
+  </div>
+</body>
+
+
+body {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+}
+#result {
+  color: #000;
+  padding: 20px;
+}
+.author {
+  margin-left: 1rem;
+  font-style: italic;
+  font-size: 1.5rem;
+}
+.quote {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+
+
+const quoteURL = "https://dummyjson.com/quotes";
+
+fetch(quoteURL)
+  .then(response => response.json())
+  .then(data => {
+    const result = document.querySelector("#result");
+    const random = Math.floor(Math.random() * 30);
+    result.querySelector(".quote").innerHTML = data.quotes[random].quote;
+    result.querySelector(".author").innerHTML = `- ${data.quotes[random].author}`;
+  })
+
+
+=============================================================================
+캔버스 기능
+> 소스코드를 활용해서 그림을 그릴 수 있는 기능 부여
+> 자바스크립트를 활용해서 애니메이션 제작 및 생성
+
+자바스크립트에서 캔버스 기능을 사용하려면
+HTML
+1) <canvas> 태그 설정 -> 그림을 그릴 공간
+2) 컨텍스트 설정
+컨텍스트 : 프로그램에 특정 실행문을 호출하고 응답받을 수 있는 준비를 해놓은 상태
+
+
+degree : 일상생활에서 사용하는 각도 개념
+radian : 컴퓨터 프로그래밍 개발 시 사용하는 각도 개념
+
+1radian = 180도 / 파이
+
+1도 = 파이 / 180
+
+(Math.PI / 180) * 60 = 60도
+
+그러면 180도는 파이라는 결론이 나온다
+90도 = Math.PI * 0.5
+180도 = Math.PI
+270도 = Math.PI * 1.5
+360도 = 0도 = Math.PI * 2
+
+
+캔버스 사용하려면
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+이 두개는 필수
+
+
+** 사각형을 그리는 메서드
+1) fillRect(x, y, width, height) : 색상을 채우는 사각형
+2) strokeRect(x, y, width, height) : 테두리만 있는 사각형
+3) clearRect(x, y, width, height) : 특정 위치 및 사이즈의 사각영역을 지울 때
+
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "rgb(200, 0, 0)";
+ctx.fillRect(10, 10, 200, 100);
+ctx.strokeStyle = "blue";
+ctx.strokeRect(10, 10, 200, 100);
+
+ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+ctx.fillRect(50, 50, 120, 100);
+
+ctx.clearRect(70, 80, 80, 45);
+
+
+** 삼각형을 그리는 메서드
+
+1) beginPath() : 사각형을 제외한 나머지 도형을 그리기 위한 시그널
+2) closePath() : 사각형을 제외한 나머지 도형을 다 그렸다는 마지막 시그널
+3) lineTo(x, y) : 시작점에서 부터 (x, y)좌표값 까지 직선 경로를 만들겠다고 선언하는 메서드
+4) moveTo(x, y) : 도형을 그릴 때, 시작점을 정의하는 메서드
+5) stroke() : 선에대한 경로 설정 후 해당 메서드를 반드시 입력해야만 화면에 출력이 된다
+6) fill() : 배경설정 후 해당 메서드를 반드시 입력해야만 화면에 배경이 채워진다
+
+
+ctx.beginPath();
+ctx.moveTo(50, 50);
+ctx.lineTo(150, 100);
+ctx.lineTo(50, 150);
+ctx.closePath();
+ctx.stroke();
+--------------------
+
+ctx.beginPath();
+ctx.moveTo(50, 50);
+ctx.lineTo(200, 200);
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.moveTo(350, 50);
+ctx.lineTo(200, 200);
+ctx.strokeStyle = "red";
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.moveTo(200, 50);
+ctx.lineTo(200, 200);
+ctx.strokeStyle = "blue";
+ctx.stroke();
+ctx.closePath();
+
+ctx.beginPath();
+ctx.moveTo(50, 50);
+ctx.lineTo(350, 50);
+ctx.strokeStyle = "green";
+ctx.stroke();
+ctx.closePath();
+
+
+이렇게 도형을 만들어놓고
+자바스크립트 객체 생성해서 함수를 이용하여 호출이 가능
+
+
+ctx.beginPath();
+ctx.moveTo(50, 50);
+ctx.lineTo(150, 100);
+ctx.lineTo(50, 150);
+ctx.closePath();
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(150, 100);
+ctx.lineTo(250, 50)
+ctx.lineTo(250, 150)
+ctx.closePath();
+ctx.fillStyle = "rgb(0, 200, 0)";
+ctx.fill();
+
+
+** 원 및 호를 그리는 메서드
+1) arc(x, y, r, startAngle, endAngle, counterClockwise);
+x, y : 원의 중심
+r : 반지름
+startAngle : 시작이 될 radian 값
+endAngle : 끝이 될 radian 값
+counterClockwise : 반시계 방향으로 도는 것을 기본값으로 인식
+-> true : 반시계 / false : 시계
+
+ctx.strokeStyle = "red";
+ctx.fillStyle  = "yellow";
+
+ctx.beginPath();
+ctx.arc(200, 150, 100, 0, Math.PI * 2);
+ctx.stroke();
+ctx.fill();
+ctx.closePath();
+;
+
+스타일을 줄 때는 beginPath 밖에 작성
+
+ctx.fillStyle = "aqua";
+
+ctx.beginPath();
+ctx.arc(120, 100, 50, 0, Math.PI, true);
+ctx.arc(300, 100, 50, 0, Math.PI, false);
+ctx.fill()
+ctx.closePath()
+
+
+ctx.beginPath();
+ctx.arc(120, 200, 50, (Math.PI / 180) * 90, (Math.PI / 180) * 270, false);
+ctx.closePath();
+ctx.stroke();
+
+ctx.strokeStyle = "blue";
+
+//선으로 호 만들기
+ctx.beginPath();
+ctx.arc(200, 200, 50, 0, (Math.PI / 180) * 60, false);
+ctx.stroke();
+
+코드가 중복되지 않게 작성 가능
+
+
+** 타원을 그리는 메서드(정석)
+ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, counterClockwise);
+x, y : 타원의 중심
+radiusX, radiusY : 타원의 가로 및 세로 반지름
+rotation : 타원의 회전각도
+startAngle : 시작이 될 radian 값
+endAngle : 끝이 될 radian 값
+counterClockwise : 반시계 방향으로 도는 것을 기본값으로 인식
+-> true : 반시계 / false : 시계
+
+ctx.strokeStyle = "red";
+
+ctx.beginPath();
+ctx.ellipse(200, 70, 80, 50, 0, 0, Math.PI * 2);
+ctx.closePath();
+ctx.stroke();
+
+ctx.strokeStyle = "blue";
+
+ctx.beginPath();
+ctx.ellipse(150, 200, 80, 50, (Math.PI / 180) * -30, 0, Math.PI * 2);
+ctx.closePath();
+ctx.stroke();
+
+
+** 타원을 그리는 메서드2(꼼수)
+- 기본적인 정원의 사이즈 변경을 통해서 가능
+- scale(x, y);
+
+ctx.strokeStyle = "blue";
+ctx.scale(1, 0.7);
+
+ctx.beginPath();
+ctx.arc(200, 150, 80, 0, Math.PI * 2);
+ctx.closePath();
+ctx.stroke();
+
+
+** 곡선을 그리는 방법
+: 베지에 Bezier
+- 2차 베지에 곡선 (*조절점이 1개)
+> quadraticCurveTo(cpx, cpy, x, y)
+cpx, cpy : 조절점 좌표
+x, y : 곡선이 끝나는 좌표
+
+곡선 3개 
+ctx.beginPath();
+ctx.moveTo(50, 100);
+ctx.quadraticCurveTo(100, 50, 150, 100);
+ctx.quadraticCurveTo(200, 150, 250, 100);
+ctx.quadraticCurveTo(300, 50, 350, 100);
+ctx.stroke();
+
+
+- 3차 베지에 곡선 (*조절점이 2개)
+> bezierCurveTo(cpx1, cpy1, cpx2, cpy2, x, y);
+
+
+
+ctx.beginPath();
+ctx.moveTo(50, 100);
+ctx.bezierCurveTo(90, 350, 310, 10, 350, 100);
+ctx.stroke();
+
+
+
+
+
+
+* 객체로 만들어서 사용
+let triangle = new Path2D();
+triangle.moveTo(100, 100);
+triangle.lineTo(300, 100);
+triangle.lineTo(200, 260);
+triangle.closePath();
+
+let circle = new Path2D();
+circle.arc(200, 155, 50, 0, Math.PI * 2);
+
+ctx.stroke(triangle);
+ctx.fillStyle = "green";
+ctx.fill(circle);
+
+
+-----------------------------------------------------------------------
+개구리 만들기
+
+ctx.scale(1, 0.8);
+
+/* Face */
+ctx.fillStyle = "green";
+ctx.strokeStyle = "black";
+ctx.beginPath();
+ctx.arc(150, 150, 80, 0, Math.PI * 2);
+ctx.fill();
+ctx.stroke();
+
+/* Eye */
+ctx.fillStyle = "white";
+ctx.strokeStyle = "green";
+ctx.beginPath();
+ctx.arc(120, 80, 20, 0, Math.PI * 2);
+ctx.moveTo(200, 80)
+ctx.arc(180, 80, 20, 0, Math.PI * 2);
+ctx.fill();
+ctx.stroke();
+
+ctx.fillStyle = "black";
+ctx.beginPath();
+ctx.arc(120, 80, 5, 0, Math.PI * 2);
+ctx.moveTo(200, 80)
+ctx.arc(180, 80, 5, 0, Math.PI * 2);
+ctx.fill();
+
+/* Mouse */
+ctx.strokeStyle = "black";
+ctx.fillStyle = "white";
+ctx.lineWidth = 3;
+ctx.beginPath();
+ctx.arc(150, 150, 50, 0, Math.PI);
+ctx.closePath();
+ctx.stroke();
+ctx.fill()
+
+
+
+이미지 만든거 png 파일로 저장 가능
+
+
+=============================================================
+** 캔버스를 활용하여 텍스트 그리기
+- fillText(text, x, y)
+- strokeText(text, x, y)
+text : 캔버스에 그릴 텍스트를 의미
+x, y : 텍스트를 표시할 좌표를 의미
+
+
+
+ctx.strokeStyle = "red";
+ctx.font = "italic 60px serif";
+ctx.strokeText("HELLO", 50, 70);
+ctx.fillStyle = "yellow";
+ctx.font = "bold 60px sans-serif";
+ctx.fillText("GOODBYE", 50, 150);
+
+
+
+**캔버스에 이미지 표시하기
+- drawImage (image, dx, dy)
+
+image : 캔버스에 표시할 이미지 객체 타입
+dx, dy : 캔버스 좌측 상단으로부터 얼마나 떨어진 지점에 표시할 것인가를 묻는 좌표값
+=> 내장객체를 사용
+
+
+let img = new Image();
+img.onload = function() {
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+}
+img.src = "/img/cat.jpg";
+
+**원본 이미지에서 도려낸 이미지만 출력
+- drawImage (image, sx, sy, sw, sh, dx, dy, dw, dh)
+
+let img = new Image();
+img.onload = function() {
+  ctx.drawImage(img, 100, 50, 280, 350, 160, 100, 140, 175);
+}
+img.src = "/img/cat.jpg";
+
+
+
+**이미지 클리핑하기
+- clip()
+
+
+let img = new Image();
+img.onload = function() {
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+}
+img.src = "/img/bird.jpg";
+ctx.beginPath();
+ctx.arc(250, 120, 100, 0, Math.PI * 2);
+ctx.clip();
+
+
+--------------------------------------------------
+별 그리기
+
+ctx.fillStyle = "yellow";
+ctx.beginPath();
+ctx.moveTo(80, 100);
+ctx.lineTo(310, 100);
+ctx.lineTo(120, 250);
+ctx.lineTo(190, 30);
+ctx.lineTo(190, 30);
+ctx.lineTo(280, 250);
+ctx.lineTo(80, 100);
+ctx.closePath();
+
+ctx.fill();
+
+--------------------------------------------------
+고양이 클리핑
+
+
+let cat = new Image();
+cat.onload = function() {
+  ctx.drawImage(cat, 0, 0, canvas.width, canvas.height);
+}
+
+cat.src = "/img/cat.jpg";
+
+ctx.beginPath();
+ctx.ellipse(180, 150, 100, 140 , 0, 0, Math.PI * 2);
+ctx.clip();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
