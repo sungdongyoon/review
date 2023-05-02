@@ -1,0 +1,374 @@
+캔버스에서 스타일 지정하는 방법
+
+fillStyle = color;
+strokeStyle = color;
+
+
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+//globalAlpha : 밑에 오는 모든 요소에 투명도
+// ctx.globalAlpha = 0.5;
+ctx.fillStyle = "rgb(255, 0, 0)";
+ctx.fillRect(50, 50, 100, 50);
+//각 요소에 투명도를 주고 싶으면 rgba를 사용
+ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
+ctx.fillRect(150, 50, 100, 50);
+
+ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
+ctx.fillRect(250, 50, 100, 50);
+
+ctx.fillStyle = "rgb(255, 255, 0)";
+ctx.fillRect(350, 50, 100, 50);
+
+
+------------------------------------------------------------------------------------------------------------
+** 그라데이션
+> 복수의 컬러를 은은하게 사용하고자 할 때 사용하는 스타일 기법
+
+1) 선형그라데이션
+- createLinearGradient(x1, y1, x2, y2);
+- 색 중지점 할당 메서드 : addColorStop(position, color);
+
+let linGrad = ctx.createLinearGradient(0, 0, 0, 200);
+linGrad.addColorStop(0, "#000");
+linGrad.addColorStop(0.6, "#fff");
+linGrad.addColorStop(1, "red");
+
+ctx.fillStyle = linGrad;
+ctx.fillRect(0, 0, 100, 200);
+
+
+
+2) 원형그라데이션
+- createRadialGradient(x1, y1, r1, x2, y2, r2);
+
+let radGrad = ctx.createRadialGradient(55, 60, 10, 80, 90, 100);
+radGrad.addColorStop(0, "aqua");
+radGrad.addColorStop(0.5, "yellow");
+radGrad.addColorStop(1, "red");
+
+ctx.fillStyle = radGrad;
+ctx.beginPath();
+ctx.arc(100, 100, 80, 0, Math.PI * 2, false);
+ctx.fill();
+
+
+3) 패턴채우기
+- createPattern(image, type);
+
+let img = new Image();
+img.onload = function() {
+  let pattern = ctx.createPattern(img, "repeat");
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, 200, 200);
+}
+
+img.src = "/img/pattern.png";
+
+
+4) 그림자효과 추가하기
+
+1) shadowOffsetX = x축으로부터 그림자가 얼마나 떨어져있는가
+2) shadowOffsetY = y축으로부터 그림자가 얼마나 떨어져있는가
+3) shadowBlur = 그림자의 밝기여부
+4) shadowColor = 그림자 색상
+
+let radGrad = ctx.createRadialGradient(55, 60, 10, 80, 90, 100);
+radGrad.addColorStop(0, "white");
+radGrad.addColorStop(0.4, "yellow");
+radGrad.addColorStop(1, "orange");
+
+ctx.shadowColor = "#ccc";
+ctx.shadowOffsetX = 15;
+ctx.shadowOffsetY = 20;
+ctx.shadowBlur = 10;
+
+ctx.fillStyle = radGrad;
+ctx.arc(100, 100, 80, 0, Math.PI * 2, false);
+ctx.fill();
+
+
+5) 텍스트 선 관련 스타일 속성
+
+1> 선의 굵기 속성 : ctx.lineWidth = 값
+2> 선의 끝 모양 : lineCap = butt || round || square(선 양쪽 끝에 높이가 선 너비의 1/2인 사각형을 추가)
+
+const lineCap = ["butt", "round", "square"];
+
+ctx.strokeStyle = "#222";
+for(let i = 0; i < lineCap.length; i++) {
+  ctx.lineWidth = 15;
+  ctx.lineCap = lineCap[i];
+  ctx.beginPath();
+  ctx.moveTo(50, 50 + i * 30);
+  ctx.lineTo(350, 50 + i * 30);
+  ctx.stroke();
+}
+
+
+3> 선 교차 스타일 : lineJoin = bevel || miter || round
+
+const lineJoin = ["bevel", "miter", "round"];
+
+for(let i = 0; lineJoin.length; i++) {
+  ctx.lineWidth = 20;
+  ctx.lineJoin = lineJoin[i];
+  ctx.beginPath();
+  ctx.moveTo(60, 60 * i + 50);
+  ctx.lineTo(100, 60 * i + 50);
+  ctx.lineTo(140, 60 * i + 50);
+  ctx.stroke();
+}
+
+
+
+======================================================================
+그림 그리기
+
+<body>
+  <div id="container">
+    <div id="toolbar">
+      <div>
+        <label for="stroke">색상</label>
+        <input type="color" id="stroke" value="#000">
+        <label for="lWidth">선굵기</label>
+        <input type="number" id="lWidth" min="1" max="50" value="2">
+      </div>
+      <button id="reset">지우기</button>
+    </div>
+  </div>
+  <canvas></canvas>
+</body>
+
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #fff;
+}
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  justify-content: left;
+  width: 100%;
+}
+#toolbar {
+  width: 100%;
+  background-color: #222;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 70px;
+}
+#toolbar button {
+  background-color: #cecece;
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+#toolbar label {
+  font-size: 0.8rem;
+}
+
+
+
+const canvas = document.querySelector("canvas");
+const toolbar = document.querySelector("#toolbar");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const canvasOffsetX = canvas.offsetLeft;
+const canvasOffsetY = canvas.offsetTop;
+
+let isDrawing = false;
+let lineWidth = 2;
+
+canvas.addEventListener("mousedown", (e) => {
+  isDrawing = true;
+})
+
+canvas.addEventListener("mousemove", (e) => {
+  if(!isDrawing) return;
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = "round";
+  ctx.lineTo(e.pageX - canvasOffsetX, e.pageY - canvasOffsetY);
+  ctx.stroke();
+})
+
+canvas.addEventListener("mouseup", (e) => {
+  isDrawing = false;
+  ctx.beginPath();
+})
+
+toolbar.addEventListener("change", (e) => {
+  if(e.target.id === "stroke") {
+    ctx.strokeStyle = e.target.value;
+  }
+  if(e.target.id === "lWidth") {
+    lineWidth = e.target.value;
+  }
+})
+
+toolbar.addEventListener("click", (e) => {
+  if(e.target.id === "reset") {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+})
+
+======================================================================
+
+
+ctx.fillStyle = "#ccc";
+ctx.fillRect(10, 10, 100, 100);
+
+
+//save와 restore는 같이 다님.
+//save와 restore안에 지정한 값을 실행하고 restore 후에는 종료
+ctx.save();
+ctx.translate(150, 150);
+ctx.fillStyle = "#222";
+ctx.fillRect(10, 10, 100, 100);
+ctx.fillStyle = "red";
+ctx.fillRect(50, 50, 80, 20);
+ctx.restore();
+
+ctx.fillStyle = "yellow";
+ctx.fillRect(100, 400, 100, 100);
+
+------------------------------------------------------------------------------------------------------
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+ctx.fillStyle = "#ccc";
+ctx.fillRect(150, 150, 100, 100);
+
+ctx.translate(150, 150);
+//rotate는 0, 0을 기준으로 시작
+ctx.rotate((Math.PI / 180) * 45);
+ctx.strokeRect(0, 0, 100, 100);
+//다시 translate값을 준 이유는 다음에 오는 도형의 위치에 영향을 끼치지 않게 하기 위해서
+ctx.translate(-150, -150);
+
+ctx.fillStyle = "#ccc";
+ctx.fillRect(150, 150, 100, 100);
+
+-----------------------------------------------------------------------------------------------
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+ctx.fillStyle = "#ccc";
+ctx.fillRect(50, 50, 100, 50);
+
+ctx.save();
+ctx.scale(3, 2);
+ctx.strokeRect(20, 70, 100, 50);
+ctx.restore();
+//save, restore을 사용했기 때문에 밑에 도형에 scale값이 적용되지 않았다
+
+ctx.strokeRect(200, 50, 100, 50);
+
+
+-----------------------------------------------------------------------------------------------
+도형 회전시키기
+
+<body>
+  <button>회전시키기</button>
+  <canvas></canvas>
+</body>
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+canvas {
+  border: 2px solid #ccc;
+}
+button {
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+
+
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+const button = document.querySelector("button");
+const origin = {
+  x: window.innerWidth/2,
+  y: window.innerHeight/2
+}
+const alpha = 0.7;
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+ctx.fillRect(origin.x, origin.y, 100, 100);
+
+button.onclick = function rotateCtx() {
+  let color = randomRGB();
+  ctx.globalAlpha = alpha;
+  ctx.translate(origin.x, origin.y);
+  ctx.rotate((Math.PI / 180) * 30);
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, 100, 100);
+  ctx.translate(-origin.x, -origin.y);
+}
+
+function randomRGB() {
+  let red = Math.floor(Math.random() * 256);
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

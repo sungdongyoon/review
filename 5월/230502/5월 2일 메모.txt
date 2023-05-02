@@ -1,0 +1,570 @@
+
+globalCompositeOperation 타입 종류
+
+1) source-over : source로 시작하는 그래픽 요소를 destination 요소 위쪽에 배치
+*destination
+2) source-in : source를 그리면서 destination 요소와 겹쳐지는 부분만 그리고 나머지는 투명하게 처리
+*destination
+3) source-out : source를 그리면서 destination 요소와 겹쳐지지 않는 부분만 그린다
+*destination
+4) source-atop : source를 그리면서 destination 요소와 겹쳐지는 부분을 그리고, 그 외 destination은 불투명하게 처리
+*destination
+5) lighter : 서로 다른 두개의 값을 합친 색
+
+6) darken : 서로 다른 두개의 값을 뺀 색
+
+7) copy(?)
+
+8) xor : 
+
+
+//destination : 밑에 그려진 도형
+ctx.fillStyle = "#ccc";
+ctx.fillRect(100, 50, 100, 100);
+
+ctx.globalCompositeOperation = "xor";
+
+//source : 위에 그려진 도형
+ctx.fillStyle = "red";
+ctx.beginPath();
+ctx.arc(180, 120, 50, 0, Math.PI * 2, false);
+ctx.fill();
+
+
+
+
+ctx.beginPath();
+ctx.font = "bold 300px sans-serif";
+ctx.fillText("GOOD", 100, 320);
+
+ctx.globalCompositeOperation = "source-in";
+
+ctx.beginPath();
+let img = new Image();
+img.onload = function() {
+  ctx.drawImage(img, 0, 0, 1200, 600);
+}
+
+img.src = "/img/flower.jpg";
+
+----------------------------------------------------------------------------------------------------
+원 색, 크기 ,위치 랜덤으로 나타나게 하기
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function Circle(x, y, radius, color) {
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+  this.color = color;
+
+  this.draw = function() {
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fill();
+  }
+}
+
+const objs = [];
+for(let i = 0; i < 20; i++) {
+  const radius = Math.floor((Math.random() * 50)) + 10;
+  const x = Math.random() * (canvas.width - radius * 2) + radius;
+  const y = Math.random() * (canvas.height - radius * 2) + radius;
+  const color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+  objs.push(new Circle(x, y, radius, color));
+}
+
+for(let i = 0; i < objs.length; i++) {
+  objs[i].draw();
+}
+
+
+----------------------------------------------------------------------------------------------------
+공튀기기(?)
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const circle = {
+  x: 100,
+  y: 100,
+  radius: 30,
+  dx: 20,
+  dy: 5,
+  color: "#222"
+}
+
+function drawCircle() {
+  ctx.fillStyle = circle.color;
+  ctx.beginPath();
+  ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
+  ctx.fill();
+}
+
+function move() {
+  ctx.fillStyle = "rgba(255, 255, 255, 0.3)"
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  drawCircle();
+
+  circle.x += circle.dx;
+  circle.y += circle.dy;
+  if(circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
+    circle.dx = -circle.dx;
+  }
+  if(circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
+    circle.dy = -circle.dy;
+  }
+  requestAnimationFrame(move);
+}
+
+move();
+
+----------------------------------------------------------------------------------------------------
+랜덤 색, 크기, 속도, 위치 원형
+
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function circle(x, y, radius, color) {
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+  this.color = color;
+
+  //dx, dy값 = 1 ~ 4
+  this.dx = Math.floor(Math.random() * 4) + 1;
+  this.dy = Math.floor(Math.random() * 4) + 1;
+
+  this.draw = function() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fill();
+  }
+  this.animate = function() {
+    this.x += this.dx;
+    this.y += this.dy;
+
+    if(this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+      this.dx = -this.dx;
+    }
+    if(this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+      this.dy = -this.dy;
+    }
+
+    this.draw();
+  }
+}
+
+const objs = [];
+for(let i = 0; i < 20; i++) {
+  const radius = Math.floor(Math.random() * 50) + 10;
+  const x = Math.random() * (canvas.width - radius * 2) + radius;
+  const y = Math.random() * (canvas.height - radius * 2) + radius;
+  const color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+  objs.push(new circle(x, y, radius, color));
+}
+
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for(let i = 0; i < objs.length; i++) {
+    let obj = objs[i];
+    obj.animate();
+  }
+  requestAnimationFrame(update);
+}
+
+update();
+
+
+----------------------------------------------------------------------------------------------------
+사각형 애니메이션
+
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function Rect(x, y, width, height, color) {
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
+  this.color = color;
+
+  this.dx = Math.floor(Math.random() * 10) + 1;
+  this.dy = Math.floor(Math.random() * 10) + 1;
+
+  this.draw = function() {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  this.animate = function() {
+    this.x += this.dx;
+    this.y += this.dy;
+    
+    if(this.x + this.width > canvas.width || this.x < 0) {
+      this.dx = -this.dx;
+    }
+    if(this.y + this.height > canvas.width || this.y < 0) {
+      this.dy = -this.dy;
+    }
+
+    this.draw();
+  }
+}
+
+const box1 = new Rect(10, 10, 50, 50, "red");
+const box2 = new Rect(20, 20, 30, 30, "blue");
+
+function move() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  box1.animate();
+  box2.animate();
+  requestAnimationFrame(move);
+}
+
+box1.draw();
+box2.draw();
+move();
+
+----------------------------------------------------------------------------------------------------
+anime.js 애니메이션 사이트
+easing-function 애니메이션 속도 사이트
+
+anime는 객체타입으로 데이터 불러온다
+anime({
+
+})
+
+anime({
+  targets : "ul.menu li",
+  translateX : 250,
+  easing : "linear",
+  loop : true,
+  direction : "alternate",
+  delay : function(el, i, l) {
+    console.log(el, i, l);
+  }
+  // endDelay : anime.stagger(100)
+})
+----------------------------------------------------------------------------------------------------
+<body>
+  <section>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+    </ul>
+  </section>
+</body>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+}
+ul {
+  display: flex;
+  list-style: none;
+}
+li {
+  width: 100px;
+  height: 100px;
+  background-color: cornsilk;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+
+anime ({
+  targets : "ul li",
+  translateY : function(el, i) {
+    if(i % 2 ==0) {
+      return 80
+    }
+    else {
+      return -80
+    }
+  },
+  opacity : 1,
+  easing : "linear",
+  duration : 1500
+
+  
+  
+  // delay : function(el, i) {
+  //   return i * 300
+  // }
+  //stagger는 비규칙적, 상당히 많이 사용
+  // delay : anime.stagger(300)
+})
+
+---------------------------------------------------------------------------------------
+<body>
+  <section>
+    <ul>
+    </ul>
+  </section>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+}
+ul {
+  display: flex;
+  list-style: none;
+  width: 400px;
+  flex-flow: wrap;
+}
+li {
+  width: calc(100% / 9 - 4px);
+  height: 30px;
+  background-color: cornsilk;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+const staggerWrap = document.querySelector("ul");
+//fragment : 다른 노드 요소를 담는 임시 컨테이너 역할을 맡기는 메서드 함수
+const fragment = document.createDocumentFragment();
+const grid = [9, 3];
+const col = grid[0];
+const row = grid[1];
+const allElem = col * row;
+
+for(let i = 0; i < allElem; i ++) {
+  const li = document.createElement("li");
+  fragment.appendChild(li);
+}
+
+staggerWrap.appendChild(fragment);
+
+anime ({
+  targets : "ul li",
+  easing : "linear",
+  duration : 1000,
+  // scale : anime.stagger([0.5, 2])
+  // scale : anime.stagger([0.5, 1], {
+  //   grid : [9, 3],
+  //   from : "center"
+  // })
+  scale : anime.stagger([0.5, 1], {
+    grid : [9, 3],
+    from : "center",
+    //axis : 중심축
+    axis : "x"
+  })
+})
+
+
+---------------------------------------------------------------------------------------
+<body>
+  <section>
+    <ul>
+    </ul>
+  </section>
+</body>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+}
+ul {
+  display: flex;
+  list-style: none;
+  width: 400px;
+  flex-flow: wrap;
+}
+li {
+  width: calc(100% / 9 - 4px);
+  height: 30px;
+  background-color: cornsilk;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+const staggerWrap = document.querySelector("ul");
+//fragment : 다른 노드 요소를 담는 임시 컨테이너 역할을 맡기는 메서드 함수
+const fragment = document.createDocumentFragment();
+const grid = [9, 5];
+const col = grid[0];
+const row = grid[1];
+const allElem = col * row;
+
+for(let i = 0; i < allElem; i ++) {
+  const li = document.createElement("li");
+  fragment.appendChild(li);
+}
+
+staggerWrap.appendChild(fragment);
+
+let tl = anime.timeline({
+  targets : "ul li",
+  delay : anime.stagger(200, {
+    grid : [9, 5],
+    from : "center"
+  }),
+  loop : true,
+  direction : "alternate"
+})
+
+tl.add({
+  scale : [
+    {value : 0.1, easing : "easeOutSine", duration : 500},
+    {value : 1, easing : "easeOutSine", duration : 1200},
+  ]
+})
+
+.add({
+  translateX : anime.stagger(10, {
+    grid : [9, 5],
+    from : "center",
+    axis : "x"
+  }),
+  translateY : anime.stagger(10, {
+    grid : [9, 5],
+    from : "center",
+    axis : "y"
+  }),
+  rotate : anime.stagger([0, 90], {
+    grid : [9, 5],
+    from : "center",
+    axis : "x"
+  })
+})
+---------------------------------------------------------------------------------------------------------
+피그마로 그림 그려서 svg로 추출
+anime에서 document -> svg 에서 효과 선택 후 code example 복붙
+
+
+
+<body>
+  <section>
+    <div class="circle"></div>
+    <div class="eye"></div>
+    <svg class="svg" viewBox="0 0 1920 1080">
+      <path d="M391.5 451.5C475.333 349.833 722.5 177 1040.5 299C1147.17 359.333 1381.1 472.6 1463.5 443C1502.67 430 1584.6 385.3 1599 310.5C1615.5 354.333 1638.6 450.3 1599 483.5C1582.83 503.667 1541.8 545.3 1507 550.5C1516.5 548.261 1714.5 630.5 1634 745C1622 760.5 1594.2 791.5 1579 791.5C1567.5 731.333 1530.2 615.9 1473 635.5C1395.83 682.667 1171.4 773.8 891 761C788.5 747.167 562.6 704.4 479 644C374.5 568.5 409.5 552 391.5 451.5Z"></path>
+    </svg>
+  </section>
+</body>
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(120deg, #4facfe 0%, #00f2fe 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.svg {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  width: 800px;
+  min-width: 800px;
+}
+.eye {
+  position: absolute;
+  left: calc(50% - 180px);
+  top: calc(50% - 35px);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  transform: rotate(-20deg);
+  animation: ani 1s infinite alternate ease-in-out;
+}
+@keyframes ani {
+  100% {
+    height: 10px;
+    transform: skew(10deg);
+  }
+}
+.circle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  left: calc(50% - 405px);
+  top: calc(50% - 230px);
+}
+
+
+const path = anime.path('.svg path');
+
+anime({
+  targets: '.circle',
+  translateX: path('x'),
+  translateY: path('y'),
+  rotate: path('angle'),
+  easing: 'linear',
+  duration: 15000,
+  loop: true
+});
