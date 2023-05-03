@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+.inner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  max-width: 1200px;
+}
+
+/* section 1
+#sec0 {
+  background-image: linear-gradient(to top, #88d3ce 0%, #6e45e2 100%);
+  height: 100vh;
+}
+#sec0 .inner {
+  display : block;
+}
+#sec0 .inner svg,
+#sec0 .inner img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+#sec0 .inner .svg1 {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+#sec0 .inner .svg2 {
+  width: 657px;
+  transform: translate(-49%, -49%);
+} */
+
+/* section 2
+#sec1 {
+  background-image: linear-gradient(to top, #88d3ce 0%, #6e45e2 100%);
+  height: 100vh;
+}
+#sec1 .inner {
+  flex-direction: column;
+}
+#sec1 .inner h1 img {
+  width: 400px;
+}
+.gage_wrap {
+  margin-top: 50px;
+  width: 500px;
+}
+.gage_wrap ul {
+  display: flex;
+}
+.gage_wrap ul li {
+  width: 25%;
+  text-align: center;
+}
+.gage_wrap ul li .gage {
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 15px;
+  height: 150px;
+  margin: auto;
+  position: relative;
+  padding: 5px;
+}
+.gage_wrap ul li .gage_in {
+  position: absolute;
+  width: 5px;
+  height: 0;
+  background-color: #fff;
+  bottom: 0;
+}
+.gage_tit {
+  color: #fff;
+  margin-top: 10px;
+} */
+
+/* section 3
+.inner h1 img {
+  width: 400px;
+}
+#sec2 {
+  background-image: url('/img/sec2_bg_0.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  transition: background 0.2s;
+}
+#sec2 h1 {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+.slider_wrap {
+  max-width: 700px;
+  width: 50vw;
+  height: 50vh;
+  max-height: 550px;
+  margin-left: 50px;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+.sec2_slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border-radius: 30px;
+}
+.sec2_slider li {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-indent: -9999px;
+  opacity: 0;
+}
+.sec2_slider li.on {
+  opacity: 1;
+}
+.sec2_slider li:nth-child(1) {
+  background-image: url('/img/sec2_1.png');
+}
+.sec2_slider li:nth-child(2) {
+  background-image: url('/img/sec2_2.png');
+}
+.sec2_slider li:nth-child(3) {
+  background-image: url('/img/sec2_3.png');
+}
+.sec2_slider li:nth-child(4) {
+  background-image: url('/img/sec2_4.png');
+}
+.btn_wrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.slide_btn {
+  display: block;
+  width: 10px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('/img/arr_01.png');
+  text-indent: -9999px;
+}
+.slide_btn.right {
+  background-image: url('/img/arr_02.png');
+}
+.slide_icons {
+  display: flex;
+}
+.slide_icons li {
+  width: 10px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  text-indent: -9999px;
+  margin: 0 2px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.3s ease-in-out;
+}
+.slide_icons li.active {
+  width: 20px;
+  background-color: #fff;
+} */
+
+/* section 4
+#sec3 {
+  background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%);
+  height: 100vh;
+  overflow: hidden;
+}
+h1 {
+  font-size: 100px;
+  display: flex;
+  letter-spacing: -3px;
+  color: #fff;
+  z-index: 1;
+}
+#sec3 h1 span {
+  opacity: 0;
+}
+#sec3 h1 span:nth-child(6) {
+  margin-right: 50px;
+}
+.sec3_svg {
+  fill: #F9F587;
+  stroke: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+} */
+
+#sec4 {
+  background-image: linear-gradient(to top, #7028e4 0%, #e5b2ca 100%);
+  height: 100vh;
+  overflow: hidden;
+}
+#sec4 h1 img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  z-index: 3;
+  opacity: 1;
+}
+#sec4 .img_wrap {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tail {
+  width: calc(100% / 20);
+  height: calc(100% / 20);
+  background-color: #0092fd;
+}

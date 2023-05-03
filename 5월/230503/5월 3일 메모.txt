@@ -1,0 +1,16 @@
+참고사이트
+adobe color pallete
+webgradients
+
+==============================================================
+애니메이션 프로젝트
+
+svg이미지 가져와서
+svg태그안에 넣고 fill값 다 삭제, width height값 설정(viewBox에 나와있는 값)
+anime사이트에서 효과 js에 복붙
+
+
+
+
+
+
