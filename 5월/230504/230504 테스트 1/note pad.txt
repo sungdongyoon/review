@@ -1,0 +1,65 @@
+ container
+	header
+		div.header_search_section
+			div.header_search
+				div.header_search_logo
+				div.header_search_title
+					h1
+				div.header_search_input
+		div.header_nav_section
+			div.header_nav
+				div.header_nav_left
+					span
+				div.header_nav_center
+					a
+				div_header_nav_right
+					a
+	nav
+		div.nav_btn_section
+			ul.nav_btns
+				li.nav_btn > a * 17
+		div.nav_waether_section
+			div.nav_weather_left
+				span
+			div.nav_weather_right
+				span
+			div.nav_weather_location
+				span
+	article
+		section
+			div.section_banner
+				img
+			div.section_short_news
+				div.section_short_news_text
+					div.section_short_news_text_title
+					div.section_short_news_text_content
+				div.section_short_news_nav
+					div.section_short_news_nav_btns
+						a * 4
+			div.section_presses
+				div.section_presses_top
+					div.section_presses_top_stand
+						span * 3
+					div.section_presses_top_btn
+						 i * 3
+				div.section_presses_bottom
+					div.section_presses_bottom_list * 24
+		aside
+			form.aside_login
+				div.aside_login_text
+					span
+				div.aside_login_button
+				div.aside_login_bottom
+					div.aside_login_bottom_idpw
+						a * 2
+					div.aside_login_bottom_join
+						a
+			div.aside_stock
+				div.aside_stock_text
+					span * 2
+				div.aside_stock_btn
+					button * 2
+			div.aside_banner
+				img
+				
+				
