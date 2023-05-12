@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/89df0d6fd7.js" crossorigin="anonymous"></script>
   
     <!-- Custom -->
-    <script src="/script.js"></script>
+    <script defer src="/gameScript.js"></script>
     <link rel="stylesheet" href="/gameStyle.css">
     <title>Document</title>
   </head>
@@ -27,7 +27,7 @@
       <div class="game_subtitle">제시어 : <span id="word">산기슭</span></div>
       <div class="word_text">
         <input type="text" id="myword" class="textbox" placeholder="단어를 입력해주세요" />
-        <button class="search">입력</button>
+        <button class="search" onclick="startWord()">입력</button>
       </div>
       <div id="result" class="word_result">결과</div>
     </div>

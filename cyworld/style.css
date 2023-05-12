@@ -81,9 +81,9 @@ a {
 .left_body_header_gray {
   width: 148px;
   height: 133px;
-  background: url('/img/아이유.jpg');
+  background: url('/img/profile.png');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: cover;
 }
 .left_body_header_line {
