@@ -1,0 +1,134 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.container {
+  background-color: #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+.wrapper {
+  width: 620px;
+  padding: 40px 30px;
+  background-color: #fff;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+.wrapper_head {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed gray;
+}
+.wrapper_head_title {
+  font-size: 32px;
+  background-color: orange;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.wrapper_head_sub-title {
+  font-size: 18px;
+  padding: 10px 0;
+}
+#point {
+  color: orange;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 15px;
+  display: block;
+}
+.wrapper_body {
+  border: 1px solid #ddd;
+  padding: 20px 30px;
+}
+.diary-title {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+}
+.kimchi {
+  color: red;
+  font-weight: 600;
+}
+.egg {
+  color: orange;
+  font-weight: 600;
+}
+.highlight {
+  font-size: 22px;
+  color: blue;
+  font-weight: 700;
+  font-style: italic;
+}
+.diary-date {
+  color: #919191;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* Navigation */
+.header {
+  border-bottom: 1px solid gray;
+}
+.header_inner {
+  width: 900px;
+  height: 100%;
+  margin: 0 auto;
+}
+.logo {
+  width: 100px;
+  height: 80px;
+  padding-top: 22px;
+  float: left;
+  margin-left: 150px;
+}
+.logo h1 a {
+  color: orange;
+}
+/* .menu {
+  float: left;
+  width: calc(100% - 200px);
+  height: 80px;
+  text-align: center;
+} */
+.menu {
+  width: 600px;
+  margin-left: 50%;
+  transform: translateX(-20%);
+}
+.menu_ul {
+  display: inline-block;
+}
+.menu_ul li {
+  float: left;
+}
+.menu_ul li a {
+  display: block;
+  padding: 29px 20px;
+}
+.menu_ul li a:hover {
+  color: orange;
+}
+.user {
+  float: left;
+  width: 100px;
+  height: 80px;
+  padding-top: 23px;
+}
+.clearfix {
+  clear: both;
+}
