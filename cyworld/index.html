@@ -8,7 +8,7 @@
   <script src="https://kit.fontawesome.com/89df0d6fd7.js" crossorigin="anonymous"></script>
 
   <!-- Custom -->
-  <script src="/script.js"></script>
+  <script defer src="/script.js"></script>
   <link rel="stylesheet" href="/style.css">
   <title>Document</title>
 </head>
@@ -69,8 +69,13 @@
             </div>
           </div>
           <div class="wrapper_right_body">
-            <iframe src="/game.html"></iframe>
+            <iframe id="contentFrame" src="/home.html"></iframe>
           </div>
+        </div>
+        <div class="navigation">
+          <div class="navigation_item" id="menuHome" onclick="menuHome()">홈</div>
+          <div class="navigation_item" id="menuGame" onclick="menuGame()">게임</div>
+          <div class="navigation_item" id="menuJukebox" onclick="menuJukebox()">주크박스</div>
         </div>
       </div>
     </div>

@@ -166,3 +166,28 @@ iframe {
   height: 100%;
   border: none;
 }
+
+/* Navigation */
+.navigation {
+  width: 62px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: absolute;
+  left: 784px;
+  top: 110px;
+}
+.navigation_item {
+  width: 60px;
+  height: 30px;
+  font-size: 13px;
+  line-height: 30px;
+  background-color: #298eb5;
+  text-align: center;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
