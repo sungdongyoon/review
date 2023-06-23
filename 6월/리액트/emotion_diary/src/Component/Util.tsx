@@ -22,7 +22,7 @@ export const getEmotionImgById = (emotionId: any) => {
   }
 }
 
-export const getFormattedDate = (targetDate: any) => {
+export const getFormattedDate = (targetDate) => {
   let year = targetDate.getFullYear();
   let month = targetDate.getMonth() + 1;
   let date = targetDate.getDate();

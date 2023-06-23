@@ -15,13 +15,23 @@ export const DiaryDispatchContext = React.createContext(null);
 const reducer = (state, action) => {
   switch(action.type) {
     case "CREATE": {
-      return [action.data, ...state]
+      const newState = [action.data, ...state];
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+      // return [action.data, ...state]
     }
     case "UPDATE": {
-      return state.map((it: any) => String(it.id) === String(action.data.id) ? {...action.data} : it)
+      const newState = state.map((it) =>
+        String(it.id) === String(action.data.id) ? {...action.data} : it);
+        localStorage.setItem("diary", JSON.stringify(newState));
+        return newState;
+      // return state.map((it: any) => String(it.id) === String(action.data.id) ? {...action.data} : it)
     }
     case "DELETE": {
-      return state.filter((it: any) => String(it.id) !== String(action.targetId))
+      const newState = state.filter((it) => String(it.id) != String(action.targetId));
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+      // return state.filter((it: any) => String(it.id) !== String(action.targetId))
     }
     case "INIT": {
       return action.data;
@@ -33,36 +43,45 @@ const reducer = (state, action) => {
   return state;
 }
 
-const mockData = [
-  {
-    id: "mock1",
-    date: new Date().getTime(),
-    content: "mock1",
-    emotionId: 1
-  },
-  {
-    id: "mock2",
-    date: new Date().getTime(),
-    content: "mock2",
-    emotionId: 2
-  },
-  {
-    id: "mock3",
-    date: new Date().getTime(),
-    content: "mock3",
-    emotionId: 3
-  }
-]
+// const mockData = [
+//   {
+//     id: "mock1",
+//     date: new Date().getTime() -1,
+//     content: "mock1",
+//     emotionId: 1
+//   },
+//   {
+//     id: "mock2",
+//     date: new Date().getTime() -2,
+//     content: "mock2",
+//     emotionId: 2
+//   },
+//   {
+//     id: "mock3",
+//     date: new Date().getTime() -3,
+//     content: "mock3",
+//     emotionId: 3
+//   }
+// ]
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
   useEffect(() => {
-    dispatch({
-      type: "INIT",
-      data: mockData
-    })
-    setIsDataLoaded(true)
+    const rawData = localStorage.getItem("diary");
+    if(!rawData) {
+      setIsDataLoaded(true)
+      return;
+    }
+    const localData = JSON.parse(rawData);
+    if(localData.length == 0) {
+      setIsDataLoaded(true);
+      return;
+    }
+    localData.sort((a, b) => Number(b.id - a.id));
+    idRef.current = localData[0].id + 1;
+    dispatch ({type: "INIT", data: localData});
+    setIsDataLoaded(true);
   }, [])
   const onCreate = (date, content, emotionId) => {
     dispatch({
@@ -110,7 +129,7 @@ function App() {
               <Route path='/' element={<Home/>}/>
               <Route path='/new' element={<New/>}/>
               <Route path='/diary/:id' element={<Diary/>}/>
-              <Route path='/edit' element={<Edit/>}/>
+              <Route path='/edit/:id' element={<Edit/>}/>
             </Routes>
           </div>
         </DiaryDispatchContext.Provider>
