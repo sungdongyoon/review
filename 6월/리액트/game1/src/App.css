@@ -1,0 +1,27 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+.box {
+  border: 1px solid #000;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.item-img {
+  width: 400px;
+}
+.win {
+  border: 10px solid green;
+  color: green;
+}
+.lose {
+  border: 10px solid red;
+  color: red;
+}
+.tie {
+  border: 10px solid black;
+  color: black;
+}
