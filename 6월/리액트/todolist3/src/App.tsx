@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { styled } from 'styled-components';
 import { useState } from 'react';
+import { Routes, Route } from "react-router-dom";
 import Title from './Components/Title';
 import Button from './Components/Button';
 import TodoItem from './Components/TodoItem';
@@ -11,6 +12,8 @@ import TextInput from './Components/TextInput';
 import TodoInput from './Components/TodoInput';
 import ShowInputButton from './Components/ShowInputButton';
 import InputContainer from './Components/InputContainer';
+import {TodoListContextProvider} from './Components/TodoListContextProvider';
+import Header from './Components/Header';
 
 
 const Container = styled.div`
@@ -28,7 +31,7 @@ function App() {
     '축구하기',
     '게임하기'
   ]);
-  const [toDo, setTodo] = useState("");
+  // const [toDo, setTodo] = useState("");
 
   const onDelete = (toDo: string) => {
     setToDoList(toDoList.filter((item) => item !== toDo))
@@ -38,12 +41,24 @@ function App() {
 
     setToDoList([...toDoList, toDo])
     // => toDoList의 값과 toDo 값이 추가된다
-    setTodo("");
+    // setTodo("");
   }
   return (
     <Container>
-      <DataView onDelete={onDelete} toDoList={toDoList}/>
-      <InputContainer onAdd={onAdd}/>
+      <TodoListContextProvider>
+        <Header/>
+        <Routes>
+          <Route path='/' element={<DataView/>} />
+          <Route path='/add' element={<TodoInput />}/>
+          <Route path='*' element={
+            <>
+            404
+            <br/>
+            NotFound
+            </>
+          }/>
+        </Routes>
+      </TodoListContextProvider>
     </Container>
   );
 }
