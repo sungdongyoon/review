@@ -11,6 +11,9 @@ const ProductCard = ({item}) => {
       <img src={item.img}/>
       <div>{item.title}</div>
       <div>{item.price}</div>
+      <div className='choice'>
+        {item.choice ? "Conscious Choice" : ""}
+      </div>
       <div>{item.new ? "신제품" : ""}</div>
     </div>
   )
