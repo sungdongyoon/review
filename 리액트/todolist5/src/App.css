@@ -1,0 +1,9 @@
+.App {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 100px;
+  box-shadow: inset 0px 0px 5px dodgerblue,
+  0px 0px 7px dodgerblue;
+  border-radius: 10px;
+  padding: 30px;
+}

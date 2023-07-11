@@ -1,0 +1,26 @@
+.TodoItem {
+  display: flex;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid #ddd;
+}
+.checkbox_col {
+  margin-right: 20px;
+}
+.title_col {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 7px;
+}
+.date_col {
+  margin-right: 15px;
+}
+.button_col button {
+  border: none;
+  background-color: rgb(98, 175, 253);
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 15px;
+  cursor: pointer;
+}

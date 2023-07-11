@@ -1,0 +1,16 @@
+.Header {
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.title {
+  color: rgb(38, 132, 240);
+  font-weight: bold;
+  font-size: 46px;
+}
+.date {
+  font-weight: bold;
+  font-size: 14px;
+
+}

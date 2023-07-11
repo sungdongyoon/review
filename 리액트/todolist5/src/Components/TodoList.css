@@ -1,0 +1,40 @@
+.TodoList .todoListTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.todoListInput {
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid rgb(98, 175, 253);
+  padding: 10px 0;
+  outline: none;
+  margin-bottom: 30px;
+}
+.todo_count {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 10px;
+}
+.todoListInput:focus {
+  border-bottom: 2px solid rgb(98, 175, 253);
+}
+.total_count,
+.done_count,
+.notDone_count {
+  margin-right: 15px;
+  font-weight: bold;
+  color: dodgerblue;
+  border: 1px solid dodgerblue;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+.done_count {
+  color: darkgreen;
+  border: 1px solid darkgreen;
+}
+.notDone_count {
+  color: red;
+  border: 1px solid red;
+}
