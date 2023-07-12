@@ -1,0 +1,185 @@
+body {
+  width: 100vw;
+  height: 100%;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App {
+  width: 700px;
+  border: 1px solid #ccc;
+  background-color: #A0C49D;
+  padding: 30px;
+}
+
+/* DiaryEditor */
+.DiaryEditor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px dashed #fff;
+  border-radius: 20px;
+}
+.DiaryEditor h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+}
+.DiaryEditor .diaryForm input {
+  width: 500px;
+  height: 30px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  color: #555;
+  margin-bottom: 20px;
+  outline: none;
+  padding: 0 10px;
+}
+.DiaryEditor .diaryForm input:focus {
+  box-shadow: 0 0 15px #fff;
+}
+.DiaryEditor .diaryForm input::placeholder {
+  color: #777;
+  font-size: 12px;
+}
+.DiaryEditor .diaryForm textarea {
+  width: 500px;
+  height: 150px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  color: #555;
+  margin-bottom: 20px;
+  outline: none;
+  padding: 10px;
+}
+.DiaryEditor .diaryForm textarea:focus {
+  box-shadow: 0 0 15px #fff;
+}
+.DiaryEditor .diaryForm textarea::placeholder {
+  color: #777;
+  font-size: 12px;
+}
+.DiaryEditor .diaryEmotion {
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #fff;
+  width: 130px;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+.DiaryEditor .diaryEmotion select {
+  border: none;
+  outline: none;
+  background-color: #A0C49D;
+}
+.DiaryEditor button {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 3px;
+  background-color: #C4D7B2;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* DiaryList */
+.DiaryList {
+  border: 3px dashed #fff;
+  border-radius: 20px;
+  margin-top: 20px;
+  padding: 30px;
+}
+.DiaryList h3 {
+  color: #fff;
+  font-size: 25px;
+}
+.DiaryList h4 {
+  color: #fff;
+  width: 200px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+
+/* DiaryItem */
+.DiaryItem {
+  background-color: #C4D7B2;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.DiaryItem span {
+  margin-bottom: 10px;
+}
+.diaryHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.author {
+  font-weight: bold;
+  color: #fff;
+  font-size: 25px;
+  flex: 1;
+}
+.emotion {
+  font-weight: bold;
+  font-size: 12px;
+  color: #777;
+  margin-right: 20px;
+  font-size: 26px;
+}
+.date {
+  color: #777;
+}
+.content {
+  height: 100px;
+  background-color: #F7FFE5;
+  font-size: 14px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.deleteBtn {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(248, 162, 162);
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 7px 20px;
+}
+.editBtn {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(88, 88, 247);
+  color: #fff;
+  cursor: pointer;
+  padding: 7px 20px;
+}
+.editArea {
+  background-color: #F7FFE5;
+  color: #999;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  outline: none;
+  border: none;
+}
