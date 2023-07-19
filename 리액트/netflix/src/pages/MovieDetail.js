@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faCircleInfo, faStar } from '@fortawesome/free-solid-svg-icons';
-import MovieSlide from '../Components/MovieSlide';
+import { movieAction } from '../redux/actions/movieAction';
 import { useSelector, useDispatch } from 'react-redux';
 
 const MovieDetail = () => {
@@ -13,11 +13,22 @@ const MovieDetail = () => {
   const genresArr = item.state.genreList.genreList;
   // console.log("genresArr", genresArr);
   // console.log("movieData", itemInfo);
+  console.log("아이템", item)
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(movieAction.getMovies());
+  }, []);
 
   const {popularMovies} = useSelector((state) => state.movie);
+  console.log("ddd",popularMovies)
+  const navigate = useNavigate();
+  const goPrevDetail = () => {
+    navigate(-1);
+  }
   return (
-    <div className='Movie_detail' style={{backgroundImage: 'url(' + `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${itemInfo.poster_path}` + ')'
-  }}>
+    <div className='Movie_detail' style={{backgroundImage: 'url(' + `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${itemInfo.poster_path}` + ')'}}>
+      <button onClick={goPrevDetail} className='backBtn'>{"<"}</button>
       <div className='detail_content'>
         {genres.map((id) => (
           <span key={id} className='detail_genre'>
@@ -26,7 +37,7 @@ const MovieDetail = () => {
         ))}
         <h1 className='detail_title'>{itemInfo.title}</h1>
         <div className='detail_info'>
-          <span className='detail_release'>{itemInfo.release_date}</span>
+          <span className='detail_release'>{itemInfo.release_date.slice(0, 4)}</span>
           <span className='detail_vote'>
             <FontAwesomeIcon icon={faStar} style={{marginRight: 10, color: "yellow"}}/>
             {itemInfo.vote_average} ({itemInfo.vote_count})

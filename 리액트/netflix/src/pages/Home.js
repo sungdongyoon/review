@@ -6,12 +6,23 @@ import MovieSlide from '../Components/MovieSlide';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const Home = () => {
+  const [selectGenre, setSelectGenre] = useState("");
   const dispatch = useDispatch();
-  const {popularMovies, topRatedMovies, upComingMovies, loading} = useSelector((state) => state.movie);
-  console.log("home", popularMovies);
+  const {popularMovies, topRatedMovies, upComingMovies, loading, genreList} = useSelector((state) => state.movie);
   useEffect(() => {
     dispatch(movieAction.getMovies());
   }, []);
+  console.log("gernList", genreList)
+  console.log("popular", popularMovies);
+
+  const select = document.querySelectorAll("select");
+  select.forEach((it) => {
+    it.innerHTML = `${genreList.map((genre) => `<option>${genre.name}</option>`)}`;
+  })
+  const onSelectGenre = () => {
+    console.log(selectGenre)
+  }
+
 
   // loading이 true면 loading spinner를 보여주고
   // loading이 false면 데이터를 보여준다
@@ -28,15 +39,30 @@ const Home = () => {
     <div className='slide'>
       <Banner movie={popularMovies.results[0]}/>
       <div className='popular'>
-        <h1>Popular Movie</h1>
+        <div className='popular_title'>
+          <h1>Popular Movie</h1>
+          <select onClick={onSelectGenre} onChange={(e) => setSelectGenre(e.target.value)} value={selectGenre}>
+            <option></option>
+          </select>
+        </div>
         <MovieSlide movies={popularMovies}/>
       </div>
       <div className='topRated'>
-        <h1>Top rated Movie</h1>
+        <div className='topRated_title'>
+          <h1>Top rated Movie</h1>
+          <select>
+            <option></option>
+          </select>
+        </div>
         <MovieSlide movies={topRatedMovies}/>
       </div>
       <div className='upcoming'>
-        <h1>Upcoming Movie</h1>
+        <div className='upcoming_title'>
+          <h1>Upcoming Movie</h1>
+          <select>
+            <option></option>
+          </select>
+        </div>
         <MovieSlide movies={upComingMovies}/>
       </div>
     </div>

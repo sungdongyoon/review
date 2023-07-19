@@ -2,6 +2,8 @@ import React from 'react';
 import { Badge } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const MovieCard = ({item}) => {
   const {genreList} = useSelector((state) => state.movie);
@@ -14,7 +16,7 @@ const MovieCard = ({item}) => {
       }
     });
   }
-  console.log(genreList)
+  // console.log(genreList)
   
   return (
     <div className='card'
@@ -22,16 +24,19 @@ const MovieCard = ({item}) => {
   }} onClick={goDetail}>
       <div className='overlay'>
         <h1>{item.title}</h1>
-        <div>
+        <div className='card_genres'>
           {item.genre_ids.map((id) => (
-            <Badge bg='danger' key={id}>
+            <Badge className='card_genre' bg='danger' key={id}>
               {genreList.find((item) => item.id === id).name}
             </Badge>
           ))}
         </div>
-        <div>
-          <span>{item.vote_average}</span>
-          <span>{item.adult ? "청불" : "Under 18"}</span>
+        <div className='card_info'>
+          <span className='card_vote'>
+            <FontAwesomeIcon icon={faStar} style={{marginRight: 5}}/>
+            {item.vote_average}
+          </span>
+          <span className='card_adult'>{item.adult ? "청불" : "All"}</span>
         </div>
       </div>
     </div>

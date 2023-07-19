@@ -5,11 +5,15 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const goMovies = () => {
+    navigate('/movies');
+  }
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar bg='dark' variant='dark' style={{height: 80}}>
       <Container fluid>
         <Navbar.Brand href="#"><img src='https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png' width={100}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -24,6 +28,7 @@ const Navigation = () => {
           </Nav>
           <Form className="d-flex">
             <Form.Control
+              onClick={goMovies}
               type="search"
               placeholder="Search"
               className="me-2"
