@@ -49,12 +49,8 @@ const Question = () => {
     //   const newObject = {id: "JP", score: addScore};
     //   totalScore.splice(3, 1, newObject);
     // }
-    console.log("QUESTIONnO", questionNo); // 0, 1, 2, 3...
-    // totalScore.map((it) => it.id === type && totalScore.splice((totalScore.indexOf(it.id), 1, {id: totalScore[questionNo].id, score: totalScore[totalScore.indexOf(it.id)].score + no})))
-    const addScore = totalScore[0].score + no;
-    const newObject = {id: type, addScore};
-    totalScore.splice(0, 1, newObject);
-    console.log("Map", totalScore.map((it) => it.id).indexOf('EI'));
+    const indexNum = totalScore.map((it) => it.id).indexOf(type);
+    totalScore.splice(indexNum, 1, {id: totalScore[indexNum].id, score: totalScore[indexNum].score + no});
     setQuestionNo(questionNo + 1);
   };
 
@@ -80,10 +76,8 @@ const Question = () => {
     //   const newObject = {id: "JP", score: addScore};
     //   totalScore.splice(3, 1, newObject);
     // }
-    // // const addscore = totalScore[questionNo].score + no;
-    // const newObject = {id: totalScore[questionNo].id, score: addscore}
-    // totalScore.map((it) => it.id === type && totalScore.splice(questionNo, 1, newObject));
-    totalScore.map((it) => it.id === type && totalScore.splice((totalScore.indexOf(it.id), 1, {id: totalScore[questionNo].id, score: totalScore[totalScore.indexOf(it.id)].score + no})));
+    const indexNum = totalScore.map((it) => it.id).indexOf(type);
+    totalScore.splice(indexNum, 1, {id: totalScore[indexNum].id, score: totalScore[indexNum].score + no});
     setQuestionNo(questionNo + 1);
   };
   console.log("totalscore", totalScore)
