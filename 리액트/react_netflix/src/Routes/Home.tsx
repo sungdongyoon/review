@@ -4,7 +4,7 @@ import { getMovies, IGetMovieResult } from '../api';
 import { useNavigate, useMatch, PathMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { makeImagePath } from '../utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
 
 const Wrapper = styled.div`
   background: #000;
@@ -89,6 +89,39 @@ const Overlay = styled(motion.div)`
   opacity: 0;
 `;
 
+const BigMovie = styled(motion.div)`
+  position: absolute;
+  width: 40vw;
+  height: 80vh;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.black.lighter};
+`;
+
+const BigCover = styled.div`
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+`;
+
+const BigTitle = styled.h3`
+  color: ${(props) => props.theme.white.lighter};
+  padding: 10px;
+  font-size: 28px;
+  position: relative;
+  top: -60px;
+`;
+
+const BigOverView = styled.p`
+  top: -60px;
+  position: relative;
+  padding: 20px;
+  color: ${(props) => props.theme.white.lighter};
+`;
 
 // 애니메이션 변수
 
@@ -160,14 +193,16 @@ const Home = () => {
 
   const history = useNavigate();
   const bigMovieMatch: PathMatch<string> | null = useMatch('/movies/:movieId');
-  console.log(bigMovieMatch);
+  const {scrollY} = useScroll();
   const onBoxClient = (movieId: number) => {
     history(`/movies/${movieId}`);
   }
-
   const onOverlayClick = () => {
     history('/');
   };
+  
+  const clickedMovie: any = bigMovieMatch?.params.movieId && data?.results.find((it) => String(it.id) === bigMovieMatch?.params.movieId);
+  console.log("clickedMovie", clickedMovie);
   return (
     <Wrapper>
       {isLoading ? (<Loader>Loading...</Loader>) : 
@@ -207,16 +242,17 @@ const Home = () => {
           {bigMovieMatch &&
             <>
               <Overlay onClick={onOverlayClick} animate={{opacity: 1}} exit={{opacity: 0}}/>
-              <motion.div layoutId={bigMovieMatch.params.movieId} style={{
-                position: "absolute",
-                width: "40vw",
-                height: "80vh",
-                backgroundColor: "red",
-                top: 50,
-                left: 0,
-                right: 0,
-                margin: "0 auto",
-              }}/>
+              <BigMovie layoutId={bigMovieMatch.params.movieId} style={{
+                top: scrollY.get() + 100,
+              }}>
+                {bigMovieMatch && (
+                  <>
+                  <BigCover style={{backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(clickedMovie.backdrop_path)})`}}/>
+                    <BigTitle>{clickedMovie.title}</BigTitle>
+                    <BigOverView>{clickedMovie.overview}</BigOverView>
+                  </>
+                )}
+              </BigMovie>
             </>
           }
         </AnimatePresence>
